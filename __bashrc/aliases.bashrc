@@ -6,9 +6,9 @@ alias  cd.....='cd ../../../..'
 alias cd......='cd ../../../../..'
 
 # df
-if which df > /dev/null 2>&1
+if   which df > /dev/null 2>&1
 then
-	if df --version | grep GNU > /dev/null
+	if   df --version | grep GNU > /dev/null
 	then
 		alias df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
 	else
@@ -18,7 +18,7 @@ then
 fi
 
 # exa
-if which exa > /dev/null 2>&1
+if   which exa > /dev/null 2>&1
 then
 	alias    exa='exa -bg'
 	alias  exa-x='exa -bg --sort=extension --group-directories-first'
@@ -26,7 +26,7 @@ then
 	alias lexa-x='exa -lbg --sort=extension --group-directories-first'
 	alias  exalt='exa -lbg -T'
 
-	for (( num = 2; num < 10; num += 1 ))
+	for (( num=2; num < 10; num+=1 ))
 	do
 		alias   "exa${num}"="exa -T -L ${num}"
 		alias "exalt${num}"="exa -lbg -T -L ${num}"
@@ -34,7 +34,7 @@ then
 fi
 
 # grep
-if which grep > /dev/null 2>&1
+if   which grep > /dev/null 2>&1
 then
 	alias        grep='grep --color=auto'
 	alias  grep-color='grep --color=always'
@@ -47,7 +47,7 @@ then
 fi
 
 # ip
-if which ip > /dev/null 2>&1
+if   which ip > /dev/null 2>&1
 then
 	alias           ip='ip --color=auto'
 	alias     ip-color='ip --color=always'
@@ -69,7 +69,7 @@ then
 fi
 
 # ls
-if which ls > /dev/null 2>&1
+if   which ls > /dev/null 2>&1
 then
 	alias          ls='ls --color=auto'
 	alias    ls-color='ls --color=always'
@@ -103,17 +103,17 @@ then
 fi
 
 # sed
-if which sed > /dev/null 2>&1
+if   which sed > /dev/null 2>&1
 then
 	alias Esed='sed -E'
 fi
 
 # tree
-if which tree > /dev/null 2>&1
+if   which tree > /dev/null 2>&1
 then
 	alias ltree='tree -pugshD'
 
-	for (( num = 2; num < 10; num += 1 ))
+	for (( num=2; num < 10; num+=1 ))
 	do
 		alias  "tree${num}"="tree -L ${num}"
 		alias "ltree${num}"="tree -L ${num} -pugshD"
