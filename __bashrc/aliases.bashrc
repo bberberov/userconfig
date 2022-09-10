@@ -26,10 +26,10 @@ then
 	alias lexa-x='exa -lbg --sort=extension --group-directories-first'
 	alias  exalt='exa -lbg -T'
 
-	for (( num=2; num < 10; num+=1 ))
+	for (( i=2 ; i < 10 ; i+=1 ))
 	do
-		alias   "exa${num}"="exa -T -L ${num}"
-		alias "exalt${num}"="exa -lbg -T -L ${num}"
+		alias   "exa${i}"="exa -T -L ${i}"
+		alias "exalt${i}"="exa -lbg -T -L ${i}"
 	done
 fi
 
@@ -113,9 +113,9 @@ if   which tree > /dev/null 2>&1
 then
 	alias ltree='tree -pugshD'
 
-	for (( num=2; num < 10; num+=1 ))
+	for (( i=2 ; i < 10 ; i+=1 ))
 	do
-		alias  "tree${num}"="tree -L ${num}"
-		alias "ltree${num}"="tree -L ${num} -pugshD"
+		alias  "tree${i}"="tree -L ${i}"
+		alias "ltree${i}"="tree -L ${i} -pugshD"
 	done
 fi
