@@ -10,10 +10,12 @@ if   which df > /dev/null 2>&1
 then
 	if   df --version | grep GNU > /dev/null
 	then
-		alias df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
+		alias   df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
+		alias  df-free='df -h --output=source,itotal,iavail,size,avail,target'
+		alias df-pcent='df -h --output=source,ipcent,pcent,target'
 	else
-		alias     df='df -Pk'
-		alias df-all='df -h'
+		alias       df='df -Pk'
+		alias   df-all='df -h'
 	fi
 fi
 
@@ -119,3 +121,7 @@ then
 		alias "ltree${i}"="tree -L ${i} -pugshD"
 	done
 fi
+
+# Custom
+alias list-path='echo $PATH | sed -e "s/:/\n/g"'
+alias separator='echo; for (( i=0 ; i < ${COLUMNS} ; i+=1 )); do echo -n "="; done; echo; echo'
