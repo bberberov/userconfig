@@ -88,11 +88,11 @@ then
 	alias          ll='ls --color=auto -l'
 	alias         lla='ls --color=auto -la'
 	alias         llx='ls --color=auto -lX --group-directories-first'
-	alias        llax='ls --color=auto -lX --group-directories-first'
+	alias        llax='ls --color=auto -laX --group-directories-first'
 	alias    ll-color='ls --color=always -l'
 	alias   lla-color='ls --color=always -la'
 	alias   llx-color='ls --color=always -lX --group-directories-first'
-	alias  llax-color='ls --color=always -lX --group-directories-first'
+	alias  llax-color='ls --color=always -laX --group-directories-first'
 
 	alias       llrth='ls --color=auto -lrth'
 	alias       llrsh='ls --color=auto -lrSh'
