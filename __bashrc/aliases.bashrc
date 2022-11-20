@@ -10,12 +10,15 @@ if   which df > /dev/null 2>&1
 then
 	if   df --version | grep GNU > /dev/null
 	then
-		alias   df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
-		alias  df-free='df -h --output=source,itotal,iavail,size,avail,target'
-		alias df-pcent='df -h --output=source,ipcent,pcent,target'
+		alias    df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
+		alias   df-full='df -h --output=source,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
+		alias df-blocks='df -h --output=source,target,size,used,pcent,avail'
+		alias df-inodes='df -h --output=source,target,itotal,iused,ipcent,iavail'
+		alias   df-free='df -h --output=source,target,iavail,avail'
+		alias   df-fill='df -h --output=source,target,ipcent,pcent'
 	else
-		alias       df='df -Pk'
-		alias   df-all='df -h'
+		alias        df='df -Pk'
+		alias    df-all='df -h'
 	fi
 fi
 
