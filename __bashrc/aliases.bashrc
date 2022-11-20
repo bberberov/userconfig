@@ -51,23 +51,20 @@ fi
 # ip
 if   which ip > /dev/null 2>&1
 then
-	alias           ip='ip --color=auto'
-	alias     ip-color='ip --color=always'
-
-	alias       ipaddr='ip --color=auto -brief addr'
-	alias       iplink='ip --color=auto -brief link'
-	alias ipaddr-color='ip --color=always -brief addr'
-	alias iplink-color='ip --color=always -brief link'
-
-	alias          ip4='ip --color=auto -4'
-	alias         ip4a='ip --color=auto -4 -brief addr'
-	alias    ip4-color='ip --color=always -4'
-	alias   ip4a-color='ip --color=always -4 -brief addr'
-
-	alias          ip6='ip --color=auto -6'
-	alias         ip6a='ip --color=auto -6 -brief addr'
-	alias    ip6-color='ip --color=always -6'
-	alias   ip6a-color='ip --color=always -6 -brief addr'
+	alias            ip='ip --color=auto'
+	alias           ip4='ip --color=auto -4'
+	alias           ip6='ip --color=auto -6'
+	alias        iplink='ip --color=auto -brief link'
+	alias        ipaddr='ip --color=auto -brief addr'
+	alias       ip4addr='ip --color=auto -4 -brief addr'
+	alias       ip6addr='ip --color=auto -6 -brief addr'
+	alias      ip-color='ip --color=always'
+	alias     ip4-color='ip --color=always -4'
+	alias     ip6-color='ip --color=always -6'
+	alias  iplink-color='ip --color=always -brief link'
+	alias  ipaddr-color='ip --color=always -brief addr'
+	alias ip4addr-color='ip --color=always -4 -brief addr'
+	alias ip6addr-color='ip --color=always -6 -brief addr'
 fi
 
 # ls
