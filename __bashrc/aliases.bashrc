@@ -22,16 +22,15 @@ fi
 # exa
 if   which exa > /dev/null 2>&1
 then
-	alias    exa='exa -bg'
-	alias  exa-x='exa -bg --sort=extension --group-directories-first'
-	alias   lexa='exa -lbg'
-	alias lexa-x='exa -lbg --sort=extension --group-directories-first'
-	alias  exalt='exa -lbg -T'
+	alias   exa='exa --group-directories-first'
+	alias  lexa='exa --group-directories-first -lbg'
+	alias  texa='exa --group-directories-first -T'
+	alias exalt='exa --group-directories-first -lbg -T'
 
 	for (( i=2 ; i < 10 ; i+=1 ))
 	do
-		alias   "exa${i}"="exa -T -L ${i}"
-		alias "exalt${i}"="exa -lbg -T -L ${i}"
+		alias  "texa${i}"="exa --group-directories-first -T -L ${i}"
+		alias "exalt${i}"="exa --group-directories-first -lbg -T -L ${i}"
 	done
 fi
 
