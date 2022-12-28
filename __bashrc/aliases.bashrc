@@ -76,87 +76,15 @@ then
 	alias           ls='ls --color=auto'
 	alias          lsx='ls --color=auto -X --group-directories-first'
 
-	alias          lss='ls --color=auto -sh'
-	alias         lssB='ls --color=auto -s'
-	alias         lssK='ls --color=auto -s --block-size=1K'
-	alias         lssM='ls --color=auto -s --block-size=1M'
-	alias         lssG='ls --color=auto -s --block-size=1G'
-
-	alias         lsss='ls --color=auto -shS'
-	alias        lsssB='ls --color=auto -sS'
-	alias        lsssK='ls --color=auto -sS --block-size=1K'
-	alias        lsssM='ls --color=auto -sS --block-size=1M'
-	alias        lsssG='ls --color=auto -sS --block-size=1G'
-
-	alias         lssx='ls --color=auto -shX --group-directories-first'
-	alias        lssxB='ls --color=auto -sX --group-directories-first'
-	alias        lssxK='ls --color=auto -sX --group-directories-first --block-size=1K'
-	alias        lssxM='ls --color=auto -sX --group-directories-first --block-size=1M'
-	alias        lssxG='ls --color=auto -sX --group-directories-first --block-size=1G'
-
 	alias     ls-color='ls --color=always'
 	alias    lsx-color='ls --color=always -X --group-directories-first'
-
-	alias    lss-color='ls --color=always -sh'
-	alias   lssB-color='ls --color=always -s'
-	alias   lssK-color='ls --color=always -s --block-size=1K'
-	alias   lssM-color='ls --color=always -s --block-size=1M'
-	alias   lssG-color='ls --color=always -s --block-size=1G'
-
-	alias   lsss-color='ls --color=always -shS'
-	alias  lsssB-color='ls --color=always -sS'
-	alias  lsssK-color='ls --color=always -sS --block-size=1K'
-	alias  lsssM-color='ls --color=always -sS --block-size=1M'
-	alias  lsssG-color='ls --color=always -sS --block-size=1G'
-
-	alias   lssx-color='ls --color=always -shX --group-directories-first'
-	alias  lssxB-color='ls --color=always -sX --group-directories-first'
-	alias  lssxK-color='ls --color=always -sX --group-directories-first --block-size=1K'
-	alias  lssxM-color='ls --color=always -sX --group-directories-first --block-size=1M'
-	alias  lssxG-color='ls --color=always -sX --group-directories-first --block-size=1G'
 
 	# la base
 	alias           la='ls --color=auto -a'
 	alias          lax='ls --color=auto -aX --group-directories-first'
 
-	alias          las='ls --color=auto -ash'
-	alias         lasB='ls --color=auto -as'
-	alias         lasK='ls --color=auto -as --block-size=1K'
-	alias         lasM='ls --color=auto -as --block-size=1M'
-	alias         lasG='ls --color=auto -as --block-size=1G'
-
-	alias         lass='ls --color=auto -ashS'
-	alias        lassB='ls --color=auto -asS'
-	alias        lassK='ls --color=auto -asS --block-size=1K'
-	alias        lassM='ls --color=auto -asS --block-size=1M'
-	alias        lassG='ls --color=auto -asS --block-size=1G'
-
-	alias         lasx='ls --color=auto -ashX'
-	alias        lasxB='ls --color=auto -asX'
-	alias        lasxK='ls --color=auto -asX --block-size=1K'
-	alias        lasxM='ls --color=auto -asX --block-size=1M'
-	alias        lasxG='ls --color=auto -asX --block-size=1G'
-
 	alias     la-color='ls --color=always -a'
 	alias    lax-color='ls --color=always -aX --group-directories-first'
-
-	alias    las-color='ls --color=always -ash'
-	alias   lasB-color='ls --color=always -as'
-	alias   lasK-color='ls --color=always -as --block-size-color=1K'
-	alias   lasM-color='ls --color=always -as --block-size-color=1M'
-	alias   lasG-color='ls --color=always -as --block-size-color=1G'
-
-	alias   lass-color='ls --color=always -ashS'
-	alias  lassB-color='ls --color=always -asS'
-	alias  lassK-color='ls --color=always -asS --block-size-color=1K'
-	alias  lassM-color='ls --color=always -asS --block-size-color=1M'
-	alias  lassG-color='ls --color=always -asS --block-size-color=1G'
-
-	alias   lasx-color='ls --color=always -ashX'
-	alias  lasxB-color='ls --color=always -asX'
-	alias  lasxK-color='ls --color=always -asX --block-size-color=1K'
-	alias  lasxM-color='ls --color=always -asX --block-size-color=1M'
-	alias  lasxG-color='ls --color=always -asX --block-size-color=1G'
 
 	# l1 base
 	alias           l1='ls --color=auto -1'
@@ -165,35 +93,11 @@ then
 	alias          l1a='ls --color=auto -1a'
 	alias         l1ax='ls --color=auto -1aX --group-directories-first'
 
-	alias          l1s='ls --color=auto -1sh'
-	alias         l1sB='ls --color=auto -1s'
-	alias         l1sK='ls --color=auto -1s --block-size=1K'
-	alias         l1sM='ls --color=auto -1s --block-size=1M'
-	alias         l1sG='ls --color=auto -1s --block-size=1G'
-
-	alias         l1ss='ls --color=auto -1shS'
-	alias        l1ssB='ls --color=auto -1sS'
-	alias        l1ssK='ls --color=auto -1sS --block-size=1K'
-	alias        l1ssM='ls --color=auto -1sS --block-size=1M'
-	alias        l1ssG='ls --color=auto -1sS --block-size=1G'
-
 	alias     l1-color='ls --color=always -1'
 	alias    l1x-color='ls --color=always -1X --group-directories-first'
 
 	alias    l1a-color='ls --color=always -1a'
 	alias   l1ax-color='ls --color=always -1aX --group-directories-first'
-
-	alias    l1s-color='ls --color=always -1sh'
-	alias   l1sB-color='ls --color=always -1s'
-	alias   l1sK-color='ls --color=always -1s --block-size=1K'
-	alias   l1sM-color='ls --color=always -1s --block-size=1M'
-	alias   l1sG-color='ls --color=always -1s --block-size=1G'
-
-	alias   l1ss-color='ls --color=always -1shS'
-	alias  l1ssB-color='ls --color=always -1sS'
-	alias  l1ssK-color='ls --color=always -1sS --block-size=1K'
-	alias  l1ssM-color='ls --color=always -1sS --block-size=1M'
-	alias  l1ssG-color='ls --color=always -1sS --block-size=1G'
 
 	# ll base
 	alias           ll='ls --color=auto -lh'
