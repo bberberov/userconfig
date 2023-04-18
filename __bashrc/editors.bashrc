@@ -7,7 +7,7 @@ then
 
 	if   [[ "${userconfig_os}" == 'Linux'  && ${userconfig_linux_x} \
 	     || "${userconfig_os}" == 'Darwin' && "${TERM_PROGRAM}" == 'Apple_Terminal' \
-	     || "${userconfig_os}" == 'Msys'
+	     || "${OS}" == 'Windows_NT' && "${MSYSTEM}" == 'MINGW64'
 	     ]]
 	then
 		if   which kwrite > /dev/null 2>&1
