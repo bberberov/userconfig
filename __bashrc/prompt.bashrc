@@ -36,4 +36,14 @@ else
 	fi
 fi
 
+if   which less > /dev/null 2>&1
+then
+	if ${userconfig_use_color}
+	then
+		export LESS='-MiR --use-color'
+	else
+		export LESS='-Mi'
+	fi
+fi
+
 unset userconfig_use_color

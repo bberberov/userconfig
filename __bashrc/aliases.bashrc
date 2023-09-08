@@ -69,6 +69,12 @@ then
 	alias ip6addr-color='ip --color=always -6 -brief addr'
 fi
 
+# less
+if   which less > /dev/null 2>&1
+then
+	alias less-wrap='less --wordwrap'
+fi
+
 # ls
 if   which ls > /dev/null 2>&1
 then
