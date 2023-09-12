@@ -37,6 +37,14 @@ then
 	done
 fi
 
+# git
+if   which git > /dev/null 2>&1
+then
+	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-common-dir`'
+	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-dir`'
+	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
+fi
+
 # grep
 if   which grep > /dev/null 2>&1
 then
@@ -255,6 +263,8 @@ fi
 if   which sed > /dev/null 2>&1
 then
 	alias Esed='sed -E'
+	# Custom
+	alias list-path='echo $PATH | sed -e "s/:/\n/g"'
 fi
 
 # tree
@@ -270,5 +280,4 @@ then
 fi
 
 # Custom
-alias list-path='echo $PATH | sed -e "s/:/\n/g"'
 alias separator='echo; for (( i=0 ; i < ${COLUMNS} ; i+=1 )); do echo -n "="; done; echo; echo'
