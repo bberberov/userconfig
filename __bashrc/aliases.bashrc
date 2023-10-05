@@ -43,6 +43,12 @@ then
 	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-common-dir`'
 	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-dir`'
 	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
+
+	alias      diff-git='git diff --no-index'
+	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'
+	alias  diffstat-git='git diff --no-index --stat'
+	alias   dirstat-git='git diff --no-index --dirstat'
+	alias  linestat-git='git diff --no-index --shortstat'
 fi
 
 # grep
