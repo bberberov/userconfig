@@ -62,6 +62,8 @@ then
 	alias Fgrep-color='grep --color=always -F'
 	alias       Sgrep='grep --color=auto -F'
 	alias Sgrep-color='grep --color=always -F'
+
+	alias cd.git='cd "$(grep -o \/\.\* .git)"'
 fi
 
 # ip
@@ -269,6 +271,9 @@ fi
 if   which sed > /dev/null 2>&1
 then
 	alias Esed='sed -E'
+
+	alias cd-gitdir='cd "$(sed -e s:\/\.git\$:: gitdir)"'
+
 	# Custom
 	alias list-path='echo $PATH | sed -e "s/:/\n/g"'
 fi
