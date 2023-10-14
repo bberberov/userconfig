@@ -104,9 +104,13 @@ then
 	# la base
 	alias           la='ls --color=auto -A'
 	alias          lax='ls --color=auto -AX --group-directories-first'
+	alias          laa='ls --color=auto -a'
+	alias         laax='ls --color=auto -aX --group-directories-first'
 
 	alias     la-color='ls --color=always -A'
 	alias    lax-color='ls --color=always -AX --group-directories-first'
+	alias    laa-color='ls --color=always -a'
+	alias   laax-color='ls --color=always -aX --group-directories-first'
 
 	# l1 base
 	alias           l1='ls --color=auto -1'
@@ -163,6 +167,12 @@ then
 	alias         llaK='ls --color=auto -lA --block-size=1K'
 	alias         llaM='ls --color=auto -lA --block-size=1M'
 	alias         llaG='ls --color=auto -lA --block-size=1G'
+
+	alias         llaa='ls --color=auto -lah'
+	alias        llaaB='ls --color=auto -la'
+	alias        llaaK='ls --color=auto -la --block-size=1K'
+	alias        llaaM='ls --color=auto -la --block-size=1M'
+	alias        llaaG='ls --color=auto -la --block-size=1G'
 
 	alias         llas='ls --color=auto -lAhS'
 	alias        llasB='ls --color=auto -lAS'
@@ -235,6 +245,12 @@ then
 	alias   llaK-color='ls --color=always -lA --block-size=1K'
 	alias   llaM-color='ls --color=always -lA --block-size=1M'
 	alias   llaG-color='ls --color=always -lA --block-size=1G'
+
+	alias   llaa-color='ls --color=always -lah'
+	alias  llaaB-color='ls --color=always -la'
+	alias  llaaK-color='ls --color=always -la --block-size=1K'
+	alias  llaaM-color='ls --color=always -la --block-size=1M'
+	alias  llaaG-color='ls --color=always -la --block-size=1G'
 
 	alias   llas-color='ls --color=always -lAhS'
 	alias  llasB-color='ls --color=always -lAS'
