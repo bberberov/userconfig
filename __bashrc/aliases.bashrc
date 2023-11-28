@@ -37,6 +37,21 @@ then
 	done
 fi
 
+# eza
+if   which eza > /dev/null 2>&1
+then
+	alias   eza='eza --group-directories-first'
+	alias  leza='eza --group-directories-first -lbg'
+	alias  teza='eza --group-directories-first -T'
+	alias ezalt='eza --group-directories-first -lbg -T'
+
+	for (( i=2 ; i < 10 ; i+=1 ))
+	do
+		alias  "teza${i}"="eza --group-directories-first -T -L ${i}"
+		alias "ezalt${i}"="eza --group-directories-first -lbg -T -L ${i}"
+	done
+fi
+
 # git
 if   which git > /dev/null 2>&1
 then
