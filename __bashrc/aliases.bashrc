@@ -109,6 +109,8 @@ fi
 # ls
 if   which ls > /dev/null 2>&1
 then
+	if   ls --version > /dev/null 2>&1
+	then
 	# ls base
 	alias           ls='ls --color=auto'
 	alias          lsx='ls --color=auto -X --group-directories-first'
@@ -296,6 +298,158 @@ then
 	alias  llaxK-color='ls --color=always -lAX --group-directories-first --block-size=1K'
 	alias  llaxM-color='ls --color=always -lAX --group-directories-first --block-size=1M'
 	alias  llaxG-color='ls --color=always -lAX --group-directories-first --block-size=1G'
+	else
+		# ls base
+		alias           ls='ls -G'
+		alias     ls-color='CLICOLOR_FORCE=1 ls -G'
+
+		# la base
+		alias           la='ls -G -A'
+		alias          laa='ls -G -a'
+
+		alias     la-color='CLICOLOR_FORCE=1 ls -A'
+		alias    laa-color='CLICOLOR_FORCE=1 ls -a'
+
+		# l1 base
+		alias           l1='ls -G -1'
+		alias          l1a='ls -G -1A'
+
+		alias     l1-color='CLICOLOR_FORCE=1 ls -1'
+		alias    l1a-color='CLICOLOR_FORCE=1 ls -1A'
+
+		# ll base
+		alias           ll='ls -G -lh'
+		alias          llB='ls -G -l'
+		alias          llK='BLOCKSIZE=1024 ls -G -l '
+		alias          llM='BLOCKSIZE=1048576 ls -G -l '
+		alias          llG='BLOCKSIZE=1073741824 ls -G -l '
+
+		alias          lls='ls -G -lhS'
+		alias         llsB='ls -G -lS'
+		alias         llsK='BLOCKSIZE=1024 ls -G -lS '
+		alias         llsM='BLOCKSIZE=1048576 ls -G -lS '
+		alias         llsG='BLOCKSIZE=1073741824 ls -G -lS '
+
+		alias          llt='ls -G -lht'
+		alias         lltB='ls -G -lt'
+		alias         lltK='BLOCKSIZE=1024 ls -G -lt '
+		alias         lltM='BLOCKSIZE=1048576 ls -G -lt '
+		alias         lltG='BLOCKSIZE=1073741824 ls -G -lt '
+
+		alias         llrs='ls -G -lhrS'
+		alias        llrsB='ls -G -lrS'
+		alias        llrsK='BLOCKSIZE=1024 ls -G -lrS '
+		alias        llrsM='BLOCKSIZE=1048576 ls -G -lrS '
+		alias        llrsG='BLOCKSIZE=1073741824 ls -G -lrS '
+
+		alias         llrt='ls -G -lhrt'
+		alias        llrtB='ls -G -lrt'
+		alias        llrtK='BLOCKSIZE=1024 ls -G -lrt '
+		alias        llrtM='BLOCKSIZE=1048576 ls -G -lrt '
+		alias        llrtG='BLOCKSIZE=1073741824 ls -G -lrt '
+
+		alias          lla='ls -G -lAh'
+		alias         llaB='ls -G -lA'
+		alias         llaK='BLOCKSIZE=1024 ls -G -lA '
+		alias         llaM='BLOCKSIZE=1048576 ls -G -lA '
+		alias         llaG='BLOCKSIZE=1073741824 ls -G -lA '
+
+		alias         llaa='ls -G -lah'
+		alias        llaaB='ls -G -la'
+		alias        llaaK='BLOCKSIZE=1024 ls -G -la '
+		alias        llaaM='BLOCKSIZE=1048576 ls -G -la '
+		alias        llaaG='BLOCKSIZE=1073741824 ls -G -la '
+
+		alias         llas='ls -G -lAhS'
+		alias        llasB='ls -G -lAS'
+		alias        llasK='BLOCKSIZE=1024 ls -G -lAS '
+		alias        llasM='BLOCKSIZE=1048576 ls -G -lAS '
+		alias        llasG='BLOCKSIZE=1073741824 ls -G -lAS '
+
+		alias         llat='ls -G -lAht'
+		alias        llatB='ls -G -lAt'
+		alias        llatK='BLOCKSIZE=1024 ls -G -lAt '
+		alias        llatM='BLOCKSIZE=1048576 ls -G -lAt '
+		alias        llatG='BLOCKSIZE=1073741824 ls -G -lAt '
+
+		alias        llars='ls -G -lAhrS'
+		alias       llarsB='ls -G -lArS'
+		alias       llarsK='BLOCKSIZE=1024 ls -G -lArS '
+		alias       llarsM='BLOCKSIZE=1048576 ls -G -lArS '
+		alias       llarsG='BLOCKSIZE=1073741824 ls -G -lArS '
+
+		alias        llart='ls -G -lAhrt'
+		alias       llartB='ls -G -lArt'
+		alias       llartK='BLOCKSIZE=1024 ls -G -lArt '
+		alias       llartM='BLOCKSIZE=1048576 ls -G -lArt '
+		alias       llartG='BLOCKSIZE=1073741824 ls -G -lArt '
+
+		alias     ll-color='CLICOLOR_FORCE=1 ls -lh'
+		alias    llB-color='CLICOLOR_FORCE=1 ls -l'
+		alias    llK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -l'
+		alias    llM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -l'
+		alias    llG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -l'
+
+		alias    lls-color='CLICOLOR_FORCE=1 ls -lhS'
+		alias   llsB-color='CLICOLOR_FORCE=1 ls -lS'
+		alias   llsK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lS'
+		alias   llsM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lS'
+		alias   llsG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lS'
+
+		alias    llt-color='CLICOLOR_FORCE=1 ls -lht'
+		alias   lltB-color='CLICOLOR_FORCE=1 ls -lt'
+		alias   lltK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lt'
+		alias   lltM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lt'
+		alias   lltG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lt'
+
+		alias   llrs-color='CLICOLOR_FORCE=1 ls -lhrS'
+		alias  llrsB-color='CLICOLOR_FORCE=1 ls -lrS'
+		alias  llrsK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lrS'
+		alias  llrsM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lrS'
+		alias  llrsG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lrS'
+
+		alias   llrt-color='CLICOLOR_FORCE=1 ls -lhrt'
+		alias  llrtB-color='CLICOLOR_FORCE=1 ls -lrt'
+		alias  llrtK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lrt'
+		alias  llrtM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lrt'
+		alias  llrtG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lrt'
+
+		alias    lla-color='CLICOLOR_FORCE=1 ls -lAh'
+		alias   llaB-color='CLICOLOR_FORCE=1 ls -lA'
+		alias   llaK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lA'
+		alias   llaM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lA'
+		alias   llaG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lA'
+
+		alias   llaa-color='CLICOLOR_FORCE=1 ls -lah'
+		alias  llaaB-color='CLICOLOR_FORCE=1 ls -la'
+		alias  llaaK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -la'
+		alias  llaaM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -la'
+		alias  llaaG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -la'
+
+		alias   llas-color='CLICOLOR_FORCE=1 ls -lAhS'
+		alias  llasB-color='CLICOLOR_FORCE=1 ls -lAS'
+		alias  llasK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lAS'
+		alias  llasM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lAS'
+		alias  llasG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lAS'
+
+		alias   llat-color='CLICOLOR_FORCE=1 ls -lAht'
+		alias  llatB-color='CLICOLOR_FORCE=1 ls -lAt'
+		alias  llatK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lAt'
+		alias  llatM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lAt'
+		alias  llatG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lAt'
+
+		alias  llars-color='CLICOLOR_FORCE=1 ls -lAhrS'
+		alias llarsB-color='CLICOLOR_FORCE=1 ls -lArS'
+		alias llarsK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lArS'
+		alias llarsM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lArS'
+		alias llarsG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lArS'
+
+		alias  llart-color='CLICOLOR_FORCE=1 ls -lAhrt'
+		alias llartB-color='CLICOLOR_FORCE=1 ls -lArt'
+		alias llartK-color='CLICOLOR_FORCE=1 BLOCKSIZE=1024 ls -lArt'
+		alias llartM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lArt'
+		alias llartG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lArt'
+	fi
 fi
 
 # sed
