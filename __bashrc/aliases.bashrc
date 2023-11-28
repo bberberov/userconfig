@@ -475,5 +475,24 @@ then
 	done
 fi
 
+# tune2fs
+if   which tune2fs > /dev/null 2>&1
+then
+	#                        mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
+	alias  tune2fs-boot='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec'
+	alias  tune2fs-home='tune2fs -E mount_opts=noatime,nodev,nosuid,commit=20'
+	alias  tune2fs-root='tune2fs -E mount_opts=noatime'
+	alias   tune2fs-srv='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,commit=20'
+	alias   tune2fs-usr='tune2fs -E mount_opts=noatime,nodev,commit=20'
+	alias   tune2fs-var='tune2fs -E mount_opts=noatime,nodev,nosuid,commit=20'
+
+	#                              mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
+	alias      tune2fs-storage='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,commit=60'
+	alias  tune2fs-cold-hdd-1M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
+	alias tune2fs-cold-hdd-32M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60,nodelalloc'
+	alias  tune2fs-cold-ssd-1M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
+	alias tune2fs-cold-ssd-32M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60,nodelalloc'
+fi
+
 # Custom
 alias separator='echo; for (( i=0 ; i < ${COLUMNS} ; i+=1 )); do echo -n "="; done; echo; echo'
