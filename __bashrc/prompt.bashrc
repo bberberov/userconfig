@@ -38,9 +38,22 @@ fi
 
 if   which less > /dev/null 2>&1
 then
+	if   which grep > /dev/null 2>&1
+	then
+		if   (( 487 < `less --version | grep -E '^less [0-9]+' | grep -Eo '[0-9]+'` ))
+		then
+			if ${userconfig_use_color}
+			then
+				export LESS='-MiR --use-color'
+			else
+				export LESS='-Mi'
+			fi
+		fi
+	fi
+else
 	if ${userconfig_use_color}
 	then
-		export LESS='-MiR --use-color'
+		export LESS='-MiR'
 	else
 		export LESS='-Mi'
 	fi
