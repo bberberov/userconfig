@@ -8,7 +8,7 @@ alias cd......='cd ../../../../..'
 # df
 if   which df > /dev/null 2>&1
 then
-	if   df --version | grep GNU > /dev/null
+	if   df --version > /dev/null 2>&1
 	then
 		alias    df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
 		alias   df-full='df -h --output=source,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
@@ -103,7 +103,13 @@ fi
 # less
 if   which less > /dev/null 2>&1
 then
-	alias less-wrap='less --wordwrap'
+	if   which grep > /dev/null 2>&1
+	then
+		if   (( 487 < `less --version | grep -E '^less [0-9]+' | grep -Eo '[0-9]+'` ))
+		then
+			alias less-wrap='less --wordwrap'
+		fi
+	fi
 fi
 
 # ls
