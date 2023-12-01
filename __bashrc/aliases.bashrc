@@ -485,12 +485,12 @@ fi
 if   which tune2fs > /dev/null 2>&1
 then
 	#                        mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
-	alias  tune2fs-boot='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec'
-	alias  tune2fs-home='tune2fs -E mount_opts=noatime,nodev,nosuid,commit=20'
-	alias  tune2fs-root='tune2fs -E mount_opts=noatime'
-	alias   tune2fs-srv='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,commit=20'
-	alias   tune2fs-usr='tune2fs -E mount_opts=noatime,nodev,commit=20'
-	alias   tune2fs-var='tune2fs -E mount_opts=noatime,nodev,nosuid,commit=20'
+	alias  tune2fs-boot='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,nosuid,noexec'
+	alias  tune2fs-home='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,nosuid,commit=20'
+	alias  tune2fs-root='tune2fs -E mount_opts=noatime,errors=remount-ro'
+	alias   tune2fs-srv='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,nosuid,noexec,commit=20'
+	alias   tune2fs-usr='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,commit=20'
+	alias   tune2fs-var='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,nosuid,commit=20'
 
 	#                              mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
 	alias      tune2fs-storage='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,commit=60'
