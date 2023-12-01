@@ -18,7 +18,7 @@ then
 		alias   df-fill='df -h --output=source,target,ipcent,pcent'
 	else
 		alias        df='df -Pk'
-		alias    df-all='df -h'
+		alias    df-all='df -hi'
 	fi
 fi
 
