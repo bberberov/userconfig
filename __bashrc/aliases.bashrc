@@ -105,7 +105,11 @@ if   which less > /dev/null 2>&1
 then
 	if   which grep > /dev/null 2>&1
 	then
-		if   (( 487 < `less --version | grep -E '^less [0-9]+' | grep -Eo '[0-9]+'` ))
+		if   which sed > /dev/null 2>&1 \
+		     && (( 487 < `less --version | sed -nEe '1{s/^less ([0-9]+).*/\1/;p}'` )) \
+		     || \
+		     which grep > /dev/null 2>&1 \
+		     && (( 487 < `less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'` ))
 		then
 			alias less-wrap='less --wordwrap'
 		fi
