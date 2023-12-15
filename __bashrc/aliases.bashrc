@@ -57,7 +57,7 @@ if   which git > /dev/null 2>&1
 then
 	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-common-dir`'
 	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-dir`'
-	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
+	alias cd-git-tree-top='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
 
 	alias      diff-git='git diff --no-index'
 	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'
@@ -469,6 +469,7 @@ then
 	alias Esed='sed -E'
 
 	alias cd-gitdir='cd "$(sed -e s:\/\.git\$:: gitdir)"'
+	alias cd-.git='cd "$(sed -e s@^gitdir:\ \/@/@ .git)"'
 
 	# Custom
 	alias list-path='echo $PATH | sed -e "s/:/\n/g"'
