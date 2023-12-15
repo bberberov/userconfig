@@ -106,11 +106,12 @@ then
 	if   which grep > /dev/null 2>&1
 	then
 		if   which sed > /dev/null 2>&1 \
-		     && (( 487 < `less --version | sed -nEe '1{s/^less ([0-9]+).*/\1/;p}'` )) \
+		     && (( 620 < `less --version | sed -nEe '1{s/^less ([0-9]+).*/\1/;p}'` )) \
 		     || \
 		     which grep > /dev/null 2>&1 \
-		     && (( 487 < `less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'` ))
+		     && (( 620 < `less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'` ))
 		then
+			# --wordwrap was introduced in 621
 			alias less-wrap='less --wordwrap'
 		fi
 	fi

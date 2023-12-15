@@ -39,11 +39,12 @@ fi
 if   which less > /dev/null 2>&1
 then
 	if   which sed > /dev/null 2>&1 \
-	     && (( 487 < `less --version | sed -nEe '1{s/^less ([0-9]+).*/\1/;p}'` )) \
+	     && (( 575 < `less --version | sed -nEe '1{s/^less ([0-9]+).*/\1/;p}'` )) \
 	     || \
 	     which grep > /dev/null 2>&1 \
-	     && (( 487 < `less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'` ))
+	     && (( 575 < `less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'` ))
 	then
+		# --use-color was introduced in 576
 		if ${userconfig_use_color}
 		then
 			export LESS='-MiR --use-color'
