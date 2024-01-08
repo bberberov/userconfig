@@ -58,6 +58,19 @@ then
 	done
 fi
 
+# findmnt
+if   which findmnt > /dev/null 2>&1
+then
+	alias         lsmount='findmnt -o SOURCE,TARGET,FSTYPE,OPTIONS'
+	alias     lsmount-opt='findmnt -o SOURCE,TARGET,VFS-OPTIONS,FS-OPTIONS'
+	alias     lsmount-vfs='findmnt --vfs-all -o SOURCE,TARGET,VFS-OPTIONS'
+	alias    lsmount-tree='findmnt -o SOURCE,FSTYPE,TARGET'
+	alias         lsfstab='findmnt --fstab -o SOURCE,TARGET,FSTYPE,OPTIONS,FREQ,PASSNO'
+	alias     lsfstab-opt='findmnt --fstab -o SOURCE,TARGET,FSTYPE,VFS-OPTIONS,FS-OPTIONS,FREQ,PASSNO'
+	alias     lsfstab-dev='findmnt --fstab -e -o SOURCE,TARGET,FSTYPE,OPTIONS,FREQ,PASSNO'
+	alias lsfstab-dev-opt='findmnt --fstab -e -o SOURCE,TARGET,FSTYPE,VFS-OPTIONS,FS-OPTIONS,FREQ,PASSNO'
+fi
+
 # git
 if   which git > /dev/null 2>&1
 then
@@ -467,6 +480,14 @@ then
 		alias llartM-color='CLICOLOR_FORCE=1 BLOCKSIZE=1048576 ls -lArt'
 		alias llartG-color='CLICOLOR_FORCE=1 BLOCKSIZE=1073741824 ls -lArt'
 	fi
+fi
+
+# lsblk
+if   which lsblk > /dev/null 2>&1
+then
+	alias lsblk-disk='lsblk -dp -o NAME,GROUP,TRAN,VENDOR,MODEL,REV,SERIAL,SIZE,PHY-SEC,LOG-SEC,ZONED,SCHED'
+	alias lsblk-part='lsblk  -p -o NAME,PTTYPE,TYPE,SIZE,PARTTYPE,PARTTYPENAME,PARTFLAGS,PARTLABEL,MOUNTPOINTS'
+	alias   lsblk-fs='lsblk  -p -o NAME,TYPE,FSTYPE,SIZE,FSSIZE,FSUSED,FSAVAIL,FSUSE%,LABEL,PARTLABEL,MOUNTPOINTS'
 fi
 
 # sed
