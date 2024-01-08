@@ -10,15 +10,21 @@ if   which df > /dev/null 2>&1
 then
 	if   df --version > /dev/null 2>&1
 	then
-		alias    df-all='df -h --output=source,fstype,size,used,avail,pcent,itotal,iused,iavail,ipcent,file,target'
-		alias   df-full='df -h --output=source,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
+		alias        df='df -h'
+		alias   df-long='df -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
 		alias df-blocks='df -h --output=source,target,size,used,pcent,avail'
 		alias df-inodes='df -h --output=source,target,itotal,iused,ipcent,iavail'
 		alias   df-free='df -h --output=source,target,iavail,avail'
-		alias   df-fill='df -h --output=source,target,ipcent,pcent'
+		alias   df-full='df -h --output=source,target,ipcent,pcent'
+
+		alias   df-long-disk='df -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail -x devtmpfs -x tmpfs'
+		alias df-blocks-disk='df -h --output=source,target,size,used,pcent,avail -x devtmpfs -x tmpfs'
+		alias df-inodes-disk='df -h --output=source,target,itotal,iused,ipcent,iavail -x devtmpfs -x tmpfs'
+		alias   df-free-disk='df -h --output=source,target,iavail,avail -x devtmpfs -x tmpfs'
+		alias   df-full-disk='df -h --output=source,target,ipcent,pcent -x devtmpfs -x tmpfs'
 	else
-		alias        df='df -Pk'
-		alias    df-all='df -hi'
+		alias        df='df -Ph'
+		alias   df-long='df -hi'
 	fi
 fi
 
