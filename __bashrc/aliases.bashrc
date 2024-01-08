@@ -76,7 +76,7 @@ if   which git > /dev/null 2>&1
 then
 	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-common-dir`'
 	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-dir`'
-	alias cd-git-tree-top='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
+	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
 
 	alias      diff-git='git diff --no-index'
 	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'
@@ -96,8 +96,6 @@ then
 	alias Fgrep-color='grep --color=always -F'
 	alias       Sgrep='grep --color=auto -F'
 	alias Sgrep-color='grep --color=always -F'
-
-	alias cd.git='cd "$(grep -o \/\.\* .git)"'
 fi
 
 # ip
