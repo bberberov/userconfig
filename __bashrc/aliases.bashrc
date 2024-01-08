@@ -490,6 +490,35 @@ then
 	alias   lsblk-fs='lsblk  -p -o NAME,TYPE,FSTYPE,SIZE,FSSIZE,FSUSED,FSAVAIL,FSUSE%,LABEL,PARTLABEL,MOUNTPOINTS'
 fi
 
+# npm
+if   which npm > /dev/null 2>&1
+then
+	alias npm-list='npm list --global'
+	alias npm-outdated='npm outdated --global'
+	alias npm-update='npm update --global'
+fi
+
+# pip
+if   which pip > /dev/null 2>&1
+then
+	alias pip-list='pip list --user'
+	alias pip-outdated='pip list --user --outdated'
+fi
+
+# pip2
+if   which pip3 > /dev/null 2>&1
+then
+	alias pip2-list='pip2 list --user'
+	alias pip2-outdated='pip2 list --user --outdated'
+fi
+
+# pip3
+if   which pip3 > /dev/null 2>&1
+then
+	alias pip3-list='pip3 list --user'
+	alias pip3-outdated='pip3 list --user --outdated'
+fi
+
 # sed
 if   which sed > /dev/null 2>&1
 then
