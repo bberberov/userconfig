@@ -491,29 +491,29 @@ fi
 # npm
 if   which npm > /dev/null 2>&1
 then
-	alias npm-list='npm list --global'
+	alias     npm-list='npm list --global'
 	alias npm-outdated='npm outdated --global'
-	alias npm-update='npm update --global'
+	alias   npm-update='npm update --global'
 fi
 
 # pip
 if   which pip > /dev/null 2>&1
 then
-	alias pip-list='pip list --user'
+	alias     pip-list='pip list --user'
 	alias pip-outdated='pip list --user --outdated'
 fi
 
 # pip2
 if   which pip3 > /dev/null 2>&1
 then
-	alias pip2-list='pip2 list --user'
+	alias     pip2-list='pip2 list --user'
 	alias pip2-outdated='pip2 list --user --outdated'
 fi
 
 # pip3
 if   which pip3 > /dev/null 2>&1
 then
-	alias pip3-list='pip3 list --user'
+	alias     pip3-list='pip3 list --user'
 	alias pip3-outdated='pip3 list --user --outdated'
 fi
 
@@ -552,7 +552,7 @@ then
 	alias   tune2fs-usr='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,commit=20'
 	alias   tune2fs-var='tune2fs -E mount_opts=noatime,errors=remount-ro,nodev,nosuid,commit=20'
 
-	#                              mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
+	#                               mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
 	alias      tune2fs-storage='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,commit=60'
 	alias  tune2fs-cold-hdd-1M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
 	alias tune2fs-cold-hdd-32M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60,nodelalloc'
