@@ -1,0 +1,4 @@
+kate-wildcard(ignore): syntax Git Ignore;
+kate-wildcard(*.config): syntax INI Files;
+kate-wildcard(__host/*.config): syntax INI Files;
+kate-wildcard(_app/*.config): syntax INI Files;
