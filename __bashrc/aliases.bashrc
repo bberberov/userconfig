@@ -10,6 +10,7 @@ if   which df > /dev/null 2>&1
 then
 	if   df --version > /dev/null 2>&1
 	then
+		# GNU df
 		alias        df='df -h'
 		alias   df-long='df -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
 		alias df-blocks='df -h --output=source,target,size,used,pcent,avail'
@@ -23,6 +24,7 @@ then
 		alias   df-free-disk='df -h --output=source,target,iavail,avail -x devtmpfs -x tmpfs'
 		alias   df-full-disk='df -h --output=source,target,ipcent,pcent -x devtmpfs -x tmpfs'
 	else
+		# non-GNU df
 		alias        df='df -Ph'
 		alias   df-long='df -hi'
 	fi
@@ -155,6 +157,8 @@ if   which ls > /dev/null 2>&1
 then
 	if   ls --version > /dev/null 2>&1
 	then
+		# GNU ls
+
 		# ls base
 		alias           ls='ls --color=auto'
 		alias          lsx='ls --color=auto -X --group-directories-first'
@@ -343,6 +347,8 @@ then
 		alias  llaxM-color='ls --color=always -lAX --group-directories-first --block-size=1M'
 		alias  llaxG-color='ls --color=always -lAX --group-directories-first --block-size=1G'
 	else
+		# non-GNU ls
+
 		# ls base
 		alias           ls='ls -G'
 		alias     ls-color='CLICOLOR_FORCE=1 ls -G'
