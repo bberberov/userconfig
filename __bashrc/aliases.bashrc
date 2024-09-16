@@ -36,10 +36,18 @@ then
 	alias  texa='exa --group-directories-first -T'
 	alias exalt='exa --group-directories-first -lbg -T'
 
+	alias   exa-color='exa --color=always --group-directories-first'
+	alias  lexa-color='exa --color=always --group-directories-first -lbg'
+	alias  texa-color='exa --color=always --group-directories-first -T'
+	alias exalt-color='exa --color=always --group-directories-first -lbg -T'
+
 	for (( i=2 ; i < 10 ; i+=1 ))
 	do
 		alias  "texa${i}"="exa --group-directories-first -T -L ${i}"
 		alias "exalt${i}"="exa --group-directories-first -lbg -T -L ${i}"
+
+		alias  "texa${i}-color"="exa --color=always --group-directories-first -T -L ${i}"
+		alias "exalt${i}-color"="exa --color=always --group-directories-first -lbg -T -L ${i}"
 	done
 fi
 
@@ -51,10 +59,18 @@ then
 	alias  teza='eza --group-directories-first -T'
 	alias ezalt='eza --group-directories-first -lbg -T'
 
+	alias   eza-color='eza --color=always --group-directories-first'
+	alias  leza-color='eza --color=always --group-directories-first -lbg'
+	alias  teza-color='eza --color=always --group-directories-first -T'
+	alias ezalt-color='eza --color=always --group-directories-first -lbg -T'
+
 	for (( i=2 ; i < 10 ; i+=1 ))
 	do
 		alias  "teza${i}"="eza --group-directories-first -T -L ${i}"
 		alias "ezalt${i}"="eza --group-directories-first -lbg -T -L ${i}"
+
+		alias  "teza${i}-color"="eza --color=always --group-directories-first -T -L ${i}"
+		alias "ezalt${i}-color"="eza --color=always --group-directories-first -lbg -T -L ${i}"
 	done
 fi
 
@@ -534,10 +550,16 @@ if   which tree > /dev/null 2>&1
 then
 	alias ltree='tree -pugshD'
 
+	alias  tree-color='tree -C'
+	alias ltree-color='tree -CpugshD'
+
 	for (( i=2 ; i < 10 ; i+=1 ))
 	do
 		alias  "tree${i}"="tree -L ${i}"
 		alias "ltree${i}"="tree -L ${i} -pugshD"
+
+		alias  "tree${i}-color"="tree -L ${i} -C"
+		alias "ltree${i}-color"="tree -L ${i} -CpugshD"
 	done
 fi
 
