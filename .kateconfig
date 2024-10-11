@@ -1,0 +1,9 @@
+kate-wildcard(HOME/.npmrc): syntax Bash;
+kate-wildcard(HOME/profile.d/*): syntax Bash;
+kate-wildcard(XDG_DATA_HOME/bash-completion/completions/*): syntax Bash;
+kate-wildcard(__bashrc/*.bashrc): syntax Bash;
+kate-wildcard(etc/mke2fs.conf): syntax TOML;
+kate-wildcard(git/*.config): syntax INI Files;
+kate-wildcard(git/__host/*.config): syntax INI Files;
+kate-wildcard(git/_app/*.config): syntax INI Files;
+kate-wildcard(git/ignore): syntax Git Ignore;
