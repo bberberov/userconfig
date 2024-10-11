@@ -2,7 +2,7 @@
 userconfig_use_color=false
 
 case "${TERM}" in
-	[aEkx]term*|rxvt*|gnome*|konsole*|screen|tmux|cons25|*color) userconfig_use_color=true;;
+	[aEkx]term*|rxvt*|gnome*|konsole*|linux|screen|tmux|cons25|*color) userconfig_use_color=true;;
 esac
 
 if   (( 4 == BASH_VERSINFO[0] && 2 <= BASH_VERSINFO[1] \
