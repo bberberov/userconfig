@@ -5,6 +5,12 @@ alias   cd....='cd ../../..'
 alias  cd.....='cd ../../../..'
 alias cd......='cd ../../../../..'
 
+# delta
+if   which delta > /dev/null 2>&1
+then
+	alias delta-y='delta --features=diffy'
+fi
+
 # df
 if   which df > /dev/null 2>&1
 then
