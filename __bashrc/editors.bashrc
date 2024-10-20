@@ -17,21 +17,16 @@ then
 		then
 			export VISUAL='kate -n'
 		fi
-	fi
-
-	unset userconfig_linux_x
-	unset userconfig_os
-fi
-
-if   [[ ! -v VISUAL ]]
-then
-	if   which mcedit > /dev/null 2>&1
+	elif which mcedit > /dev/null 2>&1
 	then
 		export VISUAL='mcedit'
 	elif which nano   > /dev/null 2>&1
 	then
 		export VISUAL='nano'
 	fi
+
+	unset userconfig_linux_x
+	unset userconfig_os
 fi
 
 if   [[ ! -v EDITOR ]]
