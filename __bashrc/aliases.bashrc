@@ -557,6 +557,33 @@ then
 	alias list-path='echo $PATH | sed -e "s/:/\n/g"'
 fi
 
+# stat
+if   which stat > /dev/null 2>&1
+then
+	alias stat-human='stat --printf="\
+  File: %n
+  Type: %F
+  Size: %s bytes, %b*%B bytes allocated  Block size: %o
+  Mode: %A %04a  Links: %h
+Owners: %U:%G  (%u:%g)
+ Birth: %w  (%W)
+Change: %z  (%Z)
+Modify: %y  (%Y)
+Access: %x  (%X)
+"'
+	alias stat-color='stat --printf="\
+\e[90m  File:\e[0m \e[4m%n\e[0m
+\e[90m  Type:\e[0m \e[96m%F\e[0m
+\e[90m  Size:\e[0m %s\e[0m \e[90mbytes,\e[0m \e[95m%bx%B\e[0m \e[90mbytes allocated\e[0m  \e[90mBlock size:\e[0m \e[95m%o\e[0m
+\e[90m  Mode:\e[0m \e[1;94m%A %04a\e[0m  \e[90mLinks:\e[0m %h
+\e[90mOwners:\e[0m \e[1;92m%U\e[0;90m:\e[92m%G\e[0m  \e[90m(\e[1;92m%u\e[0;90m:\e[92m%g\e[90m)\e[0m
+\e[90m Birth:\e[0m \e[91m%w\e[0m  \e[90m(\e[91m%W\e[90m)\e[0m
+\e[90mChange:\e[0m \e[93m%z\e[0m  \e[90m(\e[93m%Z\e[90m)\e[0m
+\e[90mModify:\e[0m \e[93m%y\e[0m  \e[90m(\e[93m%Y\e[90m)\e[0m
+\e[90mAccess:\e[0m \e[97m%x\e[0m  \e[90m(\e[97m%X\e[90m)\e[0m
+"'
+fi
+
 # tree
 if   which tree > /dev/null 2>&1
 then
