@@ -1,0 +1,4 @@
+--map-syntax "/etc/ssh/ssh_config.d/*:SSH Config"
+--map-syntax "/etc/ssh/sshd_config.d/*:SSHD Config"
+--map-syntax "/usr/share/bash-completion/bash_completion:Bourne Again Shell (bash)"
+--map-syntax "/usr/share/bash-completion/completions/*:Bourne Again Shell (bash)"
