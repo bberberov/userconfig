@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<language
+	name='GNU M4'
+	section='Sources'
+	version='10'
+	kateversion='5.0'
+	extensions='*.m4'
+	author='Boian Beberov'
+	license='EUPL-1.2'
+>
+	<highlighting>
+		<list name='Builtins List'>
+			<!-- 5.1 Defining a macro -->
+			<item>define</item>
+			<!-- 5.4 Deleting a macro -->
+			<item>undefine</item>
+			<!-- 5.5 Renaming macros -->
+			<item>defn</item>
+			<!-- 5.6 Temporarily redefining macros -->
+			<item>pushdef</item>
+			<item>popdef</item>
+			<!-- 5.7 Indirect call of macros -->
+			<item>indir</item>
+			<!-- 5.8 Indirect call of builtins -->
+			<item>builtin</item>
+			<!-- 6.1 Testing if a macro is defined -->
+			<item>ifdef</item>
+			<!-- 6.2 If-else construct, or multibranch -->
+			<item>ifelse</item>
+			<!-- 6.3 Recursion in m4 -->
+			<item>shift</item>
+			<item></item>
+			<item></item>
+			<item></item>
+			<item></item>
+			<item></item>
+		</list>
+		<list name='Composite List'>
+			<!-- 5.1 Defining a macro -->
+			<item>array</item>
+			<item>array_set</item>
+			<!-- 5.2 Arguments to macros -->
+			<item>exch</item>
+			<!-- 5.3 Special arguments to macros -->
+			<item>nargs</item>
+			<!-- 6.3 Recursion in m4 -->
+			<item>reverse</item>
+			<item>cond</item>
+			<item>join</item>
+			<item>joinall</item>
+			<item>quote</item>
+			<item>dquote</item>
+			<item>dquote_elt</item>
+			<item>argn</item>
+			<!-- 6.4 Iteration by counting -->
+			<item>forloop</item>
+			<!-- 6.5 Iteration by list contents -->
+			<item>foreach</item>
+			<item>foreachq</item>
+			<!-- 6.6 Working with definition stacks -->
+			<item>stack_foreach</item>
+			<item>stack_foreach_lifo</item>
+			<!-- 6.7 Building macros with macros -->
+			<item>define_blind</item>
+			<item>curry</item>
+			<item>copy</item>
+			<item>rename</item>
+		</list>
+		<contexts>
+			<context name='Normal Text' attribute='Normal Text' lineEndContext='#stay'>
+				<WordDetect String='dnl' attribute='Builtins' context='Comment'/>
+				<DetectChar char='#'     attribute='Comment'  context='Comment'/>
+				<keyword String='Builtins List' attribute='Builtins' context='m4 Macro pre-Opts'/>
+				<DetectChar char=',' attribute='Commas' context='#stay'/>
+			</context>
+			<context name='Normal' attribute='Normal Text' lineEndContext='#stay'>
+			</context>
+			<context name='m4 Macro pre-Opts' attribute='Normal Text' lineEndContext='#pop' fallthroughContext='#pop'>
+				<DetectChar char='(' attribute='Operators' context='m4 Macro Opts'/>
+			</context>
+			<context name='m4 Macro Opts' attribute='Normal Text' lineEndContext='#stay'>
+				<DetectSpaces/>
+				<IncludeRules context='Normal'/>
+				<DetectChar char=')' attribute='Operators' context='#pop#pop'/>
+			</context>
+			<context name='Comment' attribute='Comment' lineEndContext='#pop'>
+				<DetectSpaces/>
+				<IncludeRules context='##Comments'/>
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name='Normal Text' defStyleNum='dsNormal'/>
+			<itemData name='Builtins'    defStyleNum='dsKeyword'/>
+			<itemData name='Comment'     defStyleNum='dsComment'/>
+			<itemData name='Commas'      defStyleNum='dsKeyword'/>
+		</itemDatas>
+	</highlighting>
+	<general>
+		<comments>
+			<comment name='singleLine' start='#' position='afterwhitespace'/>
+		</comments>
+	</general>
+</language>

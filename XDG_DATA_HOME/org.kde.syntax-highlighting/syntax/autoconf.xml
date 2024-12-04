@@ -1,0 +1,659 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<language
+	name='Autoconf'
+	section='Sources'
+	version='1'
+	kateversion='5.0'
+	extensions='*.ac'
+	author='Boian Beberov'
+	license='EUPL-1.2'
+>
+	<!-- For Autoconf 2.72 -->
+	<highlighting>
+		<list name='AC Macros'>
+			<!--
+				Autoconf Macros
+				https://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.72/html_node/index.html
+			-->
+			<!-- 4.1 Initializing configure -->
+			<item>AC_INIT</item>
+			<!-- 4.2 Dealing with Autoconf versions -->
+			<item>AC_PREREQ</item>
+			<item>AC_AUTOCONF_VERSION</item>
+			<!-- 4.3 Notices in configure -->
+			<item>AC_COPYRIGHT</item>
+			<item>AC_REVISION</item>
+			<!-- 4.4 Configure Input: Source Code, Macros, and Auxiliary Files -->
+			<item>AC_CONFIG_SRCDIR</item>
+			<item>AC_CONFIG_MACRO_DIRS</item>
+			<item>AC_CONFIG_MACRO_DIR</item>
+			<item>AC_CONFIG_AUX_DIR</item>
+			<item>AC_REQUIRE_AUX_FILE</item>
+			<!-- 4.5 Outputting Files -->
+			<item>AC_OUTPUT</item>
+			<item>AC_PROG_MAKE_SET</item>
+			<!-- 4.7 Creating Configuration Files -->
+			<item>AC_CONFIG_FILES</item>
+			<!-- 4.9 Configuration Header Files -->
+			<item>AC_CONFIG_HEADERS</item>
+			<item>AH_HEADER</item>
+			<!-- 4.9.3 Autoheader Macros -->
+			<item>AH_TEMPLATE</item>
+			<item>AH_VERBATIM</item>
+			<item>AH_TOP</item>
+			<item>AH_BOTTOM</item>
+			<!-- 4.10 Running Arbitrary Configuration Commands -->
+			<item>AC_CONFIG_COMMANDS</item>
+			<item>AC_CONFIG_COMMANDS_PRE</item>
+			<item>AC_CONFIG_COMMANDS_POST</item>
+			<!-- 4.11 Creating Configuration Links -->
+			<item>AC_CONFIG_LINKS</item>
+			<!-- 4.12 Configuring Other Packages in Subdirectories -->
+			<item>AC_CONFIG_SUBDIRS</item>
+			<!-- 4.13 Default Prefix -->
+			<item>AC_PREFIX_DEFAULT</item>
+			<item>AC_PREFIX_PROGRAM</item>
+			<!-- 5.1.2 Default Includes -->
+			<item>AC_INCLUDES_DEFAULT</item>
+			<item>AC_CHECK_INCLUDES_DEFAULT</item>
+			<!-- 5.2.1 Particular Program Checks -->
+			<item>AC_PROG_AR</item>
+			<item>AC_PROG_AWK</item>
+			<item>AC_PROG_GREP</item>
+			<item>AC_PROG_EGREP</item>
+			<item>AC_PROG_FGREP</item>
+			<item>AC_PROG_INSTALL</item>
+			<item>AC_PROG_MKDIR_P</item>
+			<item>AC_PROG_LEX</item>
+			<item>AC_PROG_LN_S</item>
+			<item>AC_PROG_RANLIB</item>
+			<item>AC_PROG_SED</item>
+			<item>AC_PROG_YACC</item>
+			<!-- 5.2.2 Generic Program and File Checks -->
+			<item>AC_CHECK_PROG</item>
+			<item>AC_CHECK_PROGS</item>
+			<item>AC_CHECK_TARGET_TOOL</item>
+			<item>AC_CHECK_TOOL</item>
+			<item>AC_CHECK_TARGET_TOOLS</item>
+			<item>AC_CHECK_TOOLS</item>
+			<item>AC_PATH_PROG</item>
+			<item>AC_PATH_PROGS</item>
+			<item>AC_PATH_PROGS_FEATURE_CHECK</item>
+			<item>AC_PATH_TARGET_TOOL</item>
+			<item>AC_PATH_TOOL</item>
+			<!-- 5.3 Files -->
+			<item>AC_CHECK_FILE</item>
+			<item>AC_CHECK_FILES</item>
+			<!-- 5.4 Library Files -->
+			<item>AC_CHECK_LIB</item>
+			<item>AC_SEARCH_LIBS</item>
+			<!-- 5.5.2 Particular Function Checks -->
+			<item>AC_FUNC_ALLOCA</item>
+			<item>AC_FUNC_CHOWN</item>
+			<item>AC_FUNC_CLOSEDIR_VOID</item>
+			<item>AC_FUNC_ERROR_AT_LINE</item>
+			<item>AC_FUNC_FNMATCH</item>
+			<item>AC_FUNC_FNMATCH_GNU</item>
+			<item>AC_FUNC_FORK</item>
+			<item>AC_FUNC_FSEEKO</item>
+			<item>AC_FUNC_GETGROUPS</item>
+			<item>AC_FUNC_GETLOADAVG</item>
+			<item>AC_FUNC_GETMNTENT</item>
+			<item>AC_FUNC_GETPGRP</item>
+			<item>AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK</item>
+			<item>AC_FUNC_MALLOC</item>
+			<item>AC_FUNC_MBRTOWC</item>
+			<item>AC_FUNC_MEMCMP</item>
+			<item>AC_FUNC_MKTIME</item>
+			<item>AC_FUNC_MMAP</item>
+			<item>AC_FUNC_OBSTACK</item>
+			<item>AC_FUNC_REALLOC</item>
+			<item>AC_FUNC_SELECT_ARGTYPES</item>
+			<item>AC_FUNC_SETPGRP</item>
+			<item>AC_FUNC_STAT</item>
+			<item>AC_FUNC_LSTAT</item>
+			<item>AC_FUNC_STRCOLL</item>
+			<item>AC_FUNC_STRERROR_R</item>
+			<item>AC_FUNC_STRFTIME</item>
+			<item>AC_FUNC_STRTOD</item>
+			<item>AC_FUNC_STRTOLD</item>
+			<item>AC_FUNC_STRNLEN</item>
+			<item>AC_FUNC_UTIME_NULL</item>
+			<item>AC_FUNC_VPRINTF</item>
+			<item>AC_REPLACE_FNMATCH</item>
+			<!-- 5.5.3 Generic Function Checks -->
+			<item>AC_CHECK_FUNC</item>
+			<item>AC_CHECK_FUNCS</item>
+			<item>AC_CHECK_FUNCS_ONCE</item>
+			<item>AC_LIBOBJ</item>
+			<item>AC_LIBSOURCE</item>
+			<item>AC_LIBSOURCES</item>
+			<item>AC_CONFIG_LIBOBJ_DIR</item>
+			<item>AC_REPLACE_FUNCS</item>
+			<!-- 5.6.2 Particular Header Checks -->
+			<item>AC_CHECK_HEADER_STDBOOL</item>
+			<item>AC_HEADER_ASSERT</item>
+			<item>AC_HEADER_DIRENT</item>
+			<item>AC_HEADER_MAJOR</item>
+			<item>AC_HEADER_RESOLV</item>
+			<item>AC_HEADER_STAT</item>
+			<item>AC_HEADER_STDBOOL</item>
+			<item>AC_HEADER_STDC</item>
+			<item>AC_HEADER_SYS_WAIT</item>
+			<item>AC_HEADER_TIOCGWINSZ</item>
+			<!-- 5.6.3 Generic Header Checks -->
+			<item>AC_CHECK_HEADER</item>
+			<item>AC_CHECK_HEADERS</item>
+			<item>AC_CHECK_HEADERS_ONCE</item>
+			<!-- 5.7.2 Generic Declaration Checks -->
+			<item>AC_CHECK_DECL</item>
+			<item>AC_CHECK_DECLS</item>
+			<item>AC_CHECK_DECLS_ONCE</item>
+			<!-- 5.8.1 Particular Structure Checks -->
+			<item>AC_STRUCT_DIRENT_D_INO</item>
+			<item>AC_STRUCT_DIRENT_D_TYPE</item>
+			<item>AC_STRUCT_ST_BLOCKS</item>
+			<item>AC_STRUCT_TM</item>
+			<item>AC_STRUCT_TIMEZONE</item>
+			<!-- 5.8.2 Generic Structure Checks -->
+			<item>AC_CHECK_MEMBER</item>
+			<item>AC_CHECK_MEMBERS</item>
+			<!-- 5.9.1 Particular Type Checks -->
+			<item>AC_TYPE_GETGROUPS</item>
+			<item>AC_TYPE_INT8_T</item>
+			<item>AC_TYPE_INT16_T</item>
+			<item>AC_TYPE_INT32_T</item>
+			<item>AC_TYPE_INT64_T</item>
+			<item>AC_TYPE_INTMAX_T</item>
+			<item>AC_TYPE_INTPTR_T</item>
+			<item>AC_TYPE_LONG_DOUBLE</item>
+			<item>AC_TYPE_LONG_DOUBLE_WIDER</item>
+			<item>AC_TYPE_LONG_LONG_INT</item>
+			<item>AC_TYPE_MBSTATE_T</item>
+			<item>AC_TYPE_MODE_T</item>
+			<item>AC_TYPE_OFF_T</item>
+			<item>AC_TYPE_PID_T</item>
+			<item>AC_TYPE_SIZE_T</item>
+			<item>AC_TYPE_SSIZE_T</item>
+			<item>AC_TYPE_UID_T</item>
+			<item>AC_TYPE_UINT8_T</item>
+			<item>AC_TYPE_UINT16_T</item>
+			<item>AC_TYPE_UINT32_T</item>
+			<item>AC_TYPE_UINT64_T</item>
+			<item>AC_TYPE_UINTMAX_T</item>
+			<item>AC_TYPE_UINTPTR_T</item>
+			<item>AC_TYPE_UNSIGNED_LONG_LONG_INT</item>
+			<!-- 5.9.2 Generic Type Checks -->
+			<item>AC_CHECK_TYPE</item>
+			<item>AC_CHECK_TYPES</item>
+			<!-- 5.10.2 Generic Compiler Characteristics -->
+			<item>AC_CHECK_SIZEOF</item>
+			<item>AC_CHECK_ALIGNOF</item>
+			<item>AC_COMPUTE_INT</item>
+			<item>AC_LANG_WERROR</item>
+			<item>AC_OPENMP</item>
+			<!-- 5.10.3 C Compiler Characteristics -->
+			<item>AC_PROG_CC</item>
+			<item>AC_PROG_CC_C_O</item>
+			<item>AC_PROG_CPP</item>
+			<item>AC_PROG_CPP_WERROR</item>
+			<item>AC_C_BACKSLASH_A</item>
+			<item>AC_C_BIGENDIAN</item>
+			<item>AC_C_CONST</item>
+			<item>AC_C__GENERIC</item>
+			<item>AC_C_RESTRICT</item>
+			<item>AC_C_VOLATILE</item>
+			<item>AC_C_INLINE</item>
+			<item>AC_C_CHAR_UNSIGNED</item>
+			<item>AC_C_STRINGIZE</item>
+			<item>AC_C_FLEXIBLE_ARRAY_MEMBER</item>
+			<item>AC_C_VARARRAYS</item>
+			<item>AC_C_TYPEOF</item>
+			<item>AC_C_PROTOTYPES</item>
+			<!-- 5.10.4 C++ Compiler Characteristics -->
+			<item>AC_PROG_CXX</item>
+			<item>AC_PROG_CXXCPP</item>
+			<item>AC_PROG_CXX_C_O</item>
+			<!-- 5.10.5 Objective C Compiler Characteristics -->
+			<item>AC_PROG_OBJC</item>
+			<item>AC_PROG_OBJCPP</item>
+			<!-- 5.10.6 Objective C++ Compiler Characteristics -->
+			<item>AC_PROG_OBJCXX</item>
+			<item>AC_PROG_OBJCXXCPP</item>
+			<!-- 5.10.7 Erlang Compiler and Interpreter Characteristics -->
+			<item>AC_ERLANG_PATH_ERLC</item>
+			<item>AC_ERLANG_NEED_ERLC</item>
+			<item>AC_ERLANG_PATH_ERL</item>
+			<item>AC_ERLANG_NEED_ERL</item>
+			<!-- 5.10.8 Fortran Compiler Characteristics -->
+			<item>AC_PROG_F77</item>
+			<item>AC_PROG_FC</item>
+			<item>AC_PROG_F77_C_O</item>
+			<item>AC_PROG_FC_C_O</item>
+			<item>AC_F77_LIBRARY_LDFLAGS</item>
+			<item>AC_FC_LIBRARY_LDFLAGS</item>
+			<item>AC_F77_DUMMY_MAIN</item>
+			<item>AC_FC_DUMMY_MAIN</item>
+			<item>AC_F77_MAIN</item>
+			<item>AC_FC_MAIN</item>
+			<item>AC_F77_WRAPPERS</item>
+			<item>AC_FC_WRAPPERS</item>
+			<item>AC_F77_FUNC</item>
+			<item>AC_FC_FUNC</item>
+			<item>AC_FC_SRCEXT</item>
+			<item>AC_FC_PP_SRCEXT</item>
+			<item>AC_FC_PP_DEFINE</item>
+			<item>AC_FC_FREEFORM</item>
+			<item>AC_FC_FIXEDFORM</item>
+			<item>AC_FC_LINE_LENGTH</item>
+			<item>AC_FC_CHECK_BOUNDS</item>
+			<item>AC_F77_IMPLICIT_NONE</item>
+			<item>AC_FC_IMPLICIT_NONE</item>
+			<item>AC_FC_MODULE_EXTENSION</item>
+			<item>AC_FC_MODULE_FLAG</item>
+			<item>AC_FC_MODULE_OUTPUT_FLAG</item>
+			<item>AC_F77_CRAY_POINTERS</item>
+			<item>AC_FC_CRAY_POINTERS</item>
+			<!-- 5.10.9 Go Compiler Characteristics -->
+			<item>AC_PROG_GO</item>
+			<!-- 5.11 System Services -->
+			<item>AC_PATH_X</item>
+			<item>AC_PATH_XTRA</item>
+			<item>AC_SYS_INTERPRETER</item>
+			<item>AC_SYS_LARGEFILE</item>
+			<item>AC_SYS_LONG_FILE_NAMES</item>
+			<item>AC_SYS_POSIX_TERMIOS</item>
+			<item>AC_SYS_YEAR2038</item>
+			<item>AC_SYS_YEAR2038_RECOMMENDED</item>
+			<!-- 5.12 C and Posix Variants -->
+			<item>AC_USE_SYSTEM_EXTENSIONS</item>
+			<!-- 5.13 Erlang Libraries -->
+			<item>AC_ERLANG_SUBST_ERTS_VER</item>
+			<item>AC_ERLANG_SUBST_ROOT_DIR</item>
+			<item>AC_ERLANG_SUBST_LIB_DIR</item>
+			<item>AC_ERLANG_CHECK_LIB</item>
+			<item>AC_ERLANG_SUBST_INSTALL_LIB_DIR</item>
+			<item>AC_ERLANG_SUBST_INSTALL_LIB_SUBDIR</item>
+			<!-- 6.1 Language Choice -->
+			<item>AC_LANG</item>
+			<item>AC_LANG_PUSH</item>
+			<item>AC_LANG_POP</item>
+			<item>AC_LANG_ASSERT</item>
+			<item>AC_REQUIRE_CPP</item>
+			<!-- 6.2.3 Generating Sources -->
+			<item>AC_LANG_CONFTEST</item>
+			<item>AC_LANG_DEFINES_PROVIDED</item>
+			<item>AC_LANG_SOURCE</item>
+			<item>AC_LANG_PROGRAM</item>
+			<item>AC_LANG_CALL</item>
+			<item>AC_LANG_FUNC_LINK_TRY</item>
+			<!-- 6.3 Running the Preprocessor -->
+			<item>AC_PREPROC_IFELSE</item>
+			<item>AC_EGREP_HEADER</item>
+			<item>AC_EGREP_CPP</item>
+			<!-- 6.4 Running the Compiler -->
+			<item>AC_COMPILE_IFELSE</item>
+			<!-- 6.5 Running the Linker -->
+			<item>AC_LINK_IFELSE</item>
+			<!-- 6.6 Checking Runtime Behavior -->
+			<item>AC_RUN_IFELSE</item>
+			<!-- 7.1 Defining C Preprocessor Symbols -->
+			<item>AC_DEFINE</item>
+			<item>AC_DEFINE_UNQUOTED</item>
+			<!-- 7.2 Setting Output Variables -->
+			<item>AC_SUBST</item>
+			<item>AC_SUBST_FILE</item>
+			<item>AC_ARG_VAR</item>
+			<!-- 7.4 Caching Results -->
+			<item>AC_CACHE_VAL</item>
+			<item>AC_CACHE_CHECK</item>
+			<!-- 7.4.3 Cache Checkpointing -->
+			<item>AC_CACHE_LOAD</item>
+			<item>AC_CACHE_SAVE</item>
+			<!-- 7.5 Printing Messages -->
+			<item>AC_MSG_CHECKING</item>
+			<item>AC_MSG_RESULT</item>
+			<item>AC_MSG_NOTICE</item>
+			<item>AC_MSG_ERROR</item>
+			<item>AC_MSG_FAILURE</item>
+			<item>AC_MSG_WARN</item>
+			<!-- 14.2 Getting the Canonical System Type -->
+			<item>AC_CANONICAL_BUILD</item>
+			<item>AC_CANONICAL_HOST</item>
+			<item>AC_CANONICAL_TARGET</item>
+			<!-- 15.1 Controlling Help Output -->
+			<item>AC_PRESERVE_HELP_ORDER</item>
+			<!-- 15.2 Working With External Software -->
+			<item>AC_ARG_WITH</item>
+			<!-- 15.3 Choosing Package Options -->
+			<item>AC_ARG_ENABLE</item>
+			<!-- 15.4 Making Your Help Strings Look Pretty -->
+			<item>AS_HELP_STRING</item>
+			<!-- 15.5 Controlling Checking of configure Options -->
+			<item>AC_DISABLE_OPTION_CHECKING</item>
+			<!-- 15.7 Transforming Program Names When Installing -->
+			<item>AC_ARG_PROGRAM</item>
+			<!--
+				Automake Macros
+			-->
+			<!-- 6.4.1 Public Macros -->
+			<item>AM_INIT_AUTOMAKE</item>
+			<item>AM_PATH_LISPDIR</item>
+			<item>AM_PROG_AR</item>
+			<item>AM_PROG_AS</item>
+			<item>AM_PROG_CC_C_O</item>
+			<item>AM_PROG_LEX</item>
+			<item>AM_PROG_GCJ</item>
+			<item>AM_PROG_UPC</item>
+			<item>AM_MISSING_PROG</item>
+			<item>AM_SILENT_RULES</item>
+			<item>AM_WITH_DMALLOC</item>
+		</list>
+		<list name='AC Macros Obsolete'>
+			<!--
+				Autoconf Macros
+				https://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.72/html_node/index.html
+			-->
+			<!-- 18.4 Obsolete Macros -->
+			<item>AC_AIX</item>
+			<item>AC_ALLOCA</item>
+			<item>AC_ARG_ARRAY</item>
+			<item>AC_C_CROSS</item>
+			<item>AC_C_LONG_DOUBLE</item>
+			<item>AC_CANONICAL_SYSTEM</item>
+			<item>AC_CHAR_UNSIGNED</item>
+			<item>AC_CHECK_TYPE</item>
+			<item>AC_CHECKING</item>
+			<item>AC_COMPILE_CHECK</item>
+			<item>AC_CONST</item>
+			<item>AC_CROSS_CHECK</item>
+			<item>AC_CYGWIN</item>
+			<item>AC_DECL_SYS_SIGLIST</item>
+			<item>AC_DECL_YYTEXT</item>
+			<item>AC_DIAGNOSE</item>
+			<item>AC_DIR_HEADER</item>
+			<item>AC_DYNIX_SEQ</item>
+			<item>AC_EXEEXT</item>
+			<item>AC_EMXOS2</item>
+			<item>AC_ENABLE</item>
+			<item>AC_ERROR</item>
+			<item>AC_FATAL</item>
+			<item>AC_FIND_X</item>
+			<item>AC_FIND_XTRA</item>
+			<item>AC_FOREACH</item>
+			<item>AC_FUNC_CHECK</item>
+			<item>AC_FUNC_SETVBUF_REVERSED</item>
+			<item>AC_FUNC_WAIT3</item>
+			<item>AC_GCC_TRADITIONAL</item>
+			<item>AC_GETGROUPS_T</item>
+			<item>AC_GETLOADAVG</item>
+			<item>AC_GNU_SOURCE</item>
+			<item>AC_HAVE_FUNCS</item>
+			<item>AC_HAVE_HEADERS</item>
+			<item>AC_HAVE_LIBRARY</item>
+			<item>AC_HAVE_POUNDBANG</item>
+			<item>AC_HEADER_CHECK</item>
+			<item>AC_HEADER_EGREP</item>
+			<item>AC_HEADER_TIME</item>
+			<item>AC_HELP_STRING</item>
+<!-- 			<item>AC_INIT</item> -->
+			<item>AC_INLINE</item>
+			<item>AC_INT_16_BITS</item>
+			<item>AC_IRIX_SUN</item>
+			<item>AC_ISC_POSIX</item>
+			<item>AC_LANG_C</item>
+			<item>AC_LANG_CPLUSPLUS</item>
+			<item>AC_LANG_FORTRAN77</item>
+			<item>AC_LANG_RESTORE</item>
+			<item>AC_LANG_SAVE</item>
+			<item>AC_LINK_FILES</item>
+			<item>AC_LN_S</item>
+			<item>AC_LONG_64_BITS</item>
+			<item>AC_LONG_DOUBLE</item>
+			<item>AC_LONG_FILE_NAMES</item>
+			<item>AC_MAJOR_HEADER</item>
+			<item>AC_MEMORY_H</item>
+			<item>AC_MINGW32</item>
+			<item>AC_MINIX</item>
+			<item>AC_MINUS_C_MINUS_O</item>
+			<item>AC_MMAP</item>
+			<item>AC_MODE_T</item>
+			<item>AC_OBJEXT</item>
+			<item>AC_OBSOLETE</item>
+			<item>AC_OFF_T</item>
+<!-- 			<item>AC_OUTPUT</item> -->
+			<item>AC_OUTPUT_COMMANDS</item>
+			<item>AC_PID_T</item>
+			<item>AC_PREFIX</item>
+			<item>AC_PROG_CC_C89</item>
+			<item>AC_PROG_CC_C99</item>
+			<item>AC_PROG_CC_STDC</item>
+			<item>AC_PROG_GCC_TRADITIONAL</item>
+			<item>AC_PROGRAMS_CHECK</item>
+			<item>AC_PROGRAMS_PATH</item>
+			<item>AC_PROGRAM_CHECK</item>
+			<item>AC_PROGRAM_EGREP</item>
+			<item>AC_PROGRAM_PATH</item>
+			<item>AC_REMOTE_TAPE</item>
+			<item>AC_RESTARTABLE_SYSCALLS</item>
+			<item>AC_RETSIGTYPE</item>
+			<item>AC_RSH</item>
+			<item>AC_SCO_INTL</item>
+			<item>AC_SETVBUF_REVERSED</item>
+			<item>AC_SET_MAKE</item>
+			<item>AC_SIZEOF_TYPE</item>
+			<item>AC_SIZE_T</item>
+			<item>AC_STAT_MACROS_BROKEN</item>
+			<item>AC_STDC_HEADERS</item>
+			<item>AC_STRCOLL</item>
+			<item>AC_STRUCT_ST_BLKSIZE</item>
+			<item>AC_STRUCT_ST_RDEV</item>
+			<item>AC_ST_BLKSIZE</item>
+			<item>AC_ST_BLOCKS</item>
+			<item>AC_ST_RDEV</item>
+			<item>AC_SYS_RESTARTABLE_SYSCALLS</item>
+			<item>AC_SYS_SIGLIST_DECLARED</item>
+			<item>AC_TEST_CPP</item>
+			<item>AC_TEST_PROGRAM</item>
+			<item>AC_TIMEZONE</item>
+			<item>AC_TIME_WITH_SYS_TIME</item>
+			<item>AC_TRY_COMPILE</item>
+			<item>AC_TRY_CPP</item>
+			<item>AC_TRY_LINK</item>
+			<item>AC_TRY_LINK_FUNC</item>
+			<item>AC_TRY_RUN</item>
+			<item>AC_TYPE_SIGNAL</item>
+			<item>AC_UID_T</item>
+			<item>AC_UNISTD_H</item>
+			<item>AC_USG</item>
+			<item>AC_UTIME_NULL</item>
+			<item>AC_VALIDATE_CACHED_SYSTEM_TUPLE</item>
+			<item>AC_VERBOSE</item>
+			<item>AC_VFORK</item>
+			<item>AC_VPRINTF</item>
+			<item>AC_WAIT3</item>
+			<item>AC_WARN</item>
+			<item>AC_WARNING</item>
+			<item>AC_WITH</item>
+			<item>AC_WORDS_BIGENDIAN</item>
+			<item>AC_XENIX_DIR</item>
+			<item>AC_YYTEXT_POINTER</item>
+			<!--
+				Automake Macros
+				https://www.gnu.org/software/automake/manual/html_node/index.html
+			-->
+			<!-- 6.4.2 Obsolete Macros -->
+			<item>AM_PROG_MKDIR_P</item>
+		</list>
+		<list name='AC m4 Macros'>
+			<!--
+				Autoconf Macros
+				https://www.gnu.org/savannah-checkouts/gnu/autoconf/manual/autoconf-2.72/html_node/index.html
+			-->
+			<!-- 8.3.1 Redefined M4 Macros -->
+			<item>m4_builtin</item>
+			<item>m4_changecom</item>
+			<item>m4_changequote</item>
+			<item>m4_debugfile</item>
+			<item>m4_debugmode</item>
+			<item>m4_decr</item>
+			<item>m4_define</item>
+			<item>m4_divnum</item>
+			<item>m4_errprint</item>
+			<item>m4_esyscmd</item>
+			<item>m4_eval</item>
+			<item>m4_format</item>
+			<item>m4_ifdef</item>
+			<item>m4_incr</item>
+			<item>m4_index</item>
+			<item>m4_indir</item>
+			<item>m4_len</item>
+			<item>m4_pushdef</item>
+			<item>m4_shift</item>
+			<item>m4_substr</item>
+			<item>m4_syscmd</item>
+			<item>m4_sysval</item>
+			<item>m4_traceoff</item>
+			<item>m4_traceon</item>
+			<item>m4_translit</item>
+
+			<item>m4_bpatsubst</item>
+			<item>m4_bregexp</item>
+			<item>m4_copy</item>
+			<item>m4_copy_force</item>
+			<item>m4_rename</item>
+			<item>m4_rename_force</item>
+			<item>m4_defn</item>
+			<item>m4_divert</item>
+			<item>m4_dumpdef</item>
+			<item>m4_dumpdefs</item>
+			<item>m4_esyscmd_s</item>
+			<item>m4_exit</item>
+			<item>m4_if</item>
+			<item>m4_include</item>
+			<item>m4_sinclude</item>
+			<item>m4_mkstemp</item>
+			<item>m4_maketemp</item>
+			<item>m4_popdef</item>
+			<item>m4_undefine</item>
+			<item>m4_undivert</item>
+			<item>m4_wrap</item>
+			<item>m4_wrap_lifo</item>
+			<!-- 8.3.2 Diagnostic messages from M4sugar -->
+			<!-- 8.3.3 Diversion support -->
+			<!-- 8.3.4 Conditional constructs -->
+			<item>m4_ifndef</item>
+			<!-- 8.3.5 Looping constructs -->
+			<!-- 8.3.6 Evaluation Macros -->
+			<!-- 8.3.7 String manipulation in M4 -->
+			<!-- 8.3.8 Arithmetic computation in M4 -->
+			<!-- 8.3.9 Set manipulation in M4 -->
+			<!-- 8.3.10 Forbidden Patterns -->
+		</list>
+		<list name='AC 3rd Macros'>
+			<!--
+				pkg-config Macros
+				https://gitlab.freedesktop.org/pkg-config/pkg-config/-/blob/master/pkg.m4.in
+			-->
+			<item>PKG_PROG_PKG_CONFIG</item>
+			<item>PKG_CHECK_EXISTS</item>
+			<item>PKG_CHECK_MODULES</item>
+			<item>PKG_CHECK_MODULES_STATIC</item>
+			<item>PKG_INSTALLDIR</item>
+			<item>PKG_NOARCH_INSTALLDIR</item>
+			<item>PKG_CHECK_VAR</item>
+			<!--
+				SDL-1.2 Macros
+				https://github.com/libsdl-org/SDL-1.2/blob/main/sdl.m4
+			-->
+			<item>AM_PATH_SDL</item>
+			<!--
+				wxWidgets Macros
+				https://gitlab.freedesktop.org/freetype/freetype/-/blob/master/builds/unix/freetype2.m4
+			-->
+			<item>AC_CHECK_FT2</item>
+			<!--
+				xiph theora Macros
+				https://gitlab.xiph.org/xiph/theora/-/tree/master/m4
+			-->
+			<item>XIPH_PATH_OGG</item>
+			<item>XIPH_PATH_VORBIS</item>
+			<!--
+				wxWidgets Macros
+				https://github.com/wxWidgets/wxWidgets/blob/master/wxwin.m4
+			-->
+			<item>WX_CONFIG_OPTIONS</item>
+			<item>WX_CONFIG_CHECK</item>
+			<item>WXRC_CHECK</item>
+			<item>WX_LIKE_LIBNAME</item>
+			<item>WX_ARG_ENABLE_YESNOAUTO</item>
+			<item>WX_ARG_WITH_YESNOAUTO</item>
+			<item>WX_STANDARD_OPTIONS</item>
+			<item>WX_CONVERT_STANDARD_OPTIONS_TO_WXCONFIG_FLAGS</item>
+			<item>WX_DETECT_STANDARD_OPTION_VALUES</item>
+			<item>WX_BOOLOPT_SUMMARY</item>
+			<item>WX_STANDARD_OPTIONS_SUMMARY_MSG</item>
+			<item>WX_STANDARD_OPTIONS_SUMMARY_MSG_BEGIN</item>
+			<item>WX_STANDARD_OPTIONS_SUMMARY_MSG_END</item>
+		</list>
+		<list name='AC 3rd Macros Obsolete'>
+			<!--
+				wxWidgets Macros
+				https://github.com/wxWidgets/wxWidgets/blob/master/wxwin.m4
+			-->
+			<item>AM_OPTIONS_WXCONFIG</item>
+			<item>AM_PATH_WXCONFIG</item>
+			<item>AM_PATH_WXRC</item>
+		</list>
+		<contexts>
+			<context name='Normal Text' attribute='Normal Text' lineEndContext='#stay'>
+				<WordDetect String='dnl' attribute='Builtins' context='Comment'/>
+				<DetectChar char='#'     attribute='Comment'  context='Comment'/>
+				<IncludeRules context='Normal'/>
+				<IncludeRules context='##GNU M4'/>
+				<IncludeRules context='##Bash'/>
+			</context>
+			<context name='Normal' attribute='Normal Text' lineEndContext='#stay'>
+				<keyword String='AC Macros'              attribute='Macros'     context='AC Macro pre-Opts'/>
+				<keyword String='AC m4 Macros'           attribute='Macros'     context='AC Macro pre-Opts'/>
+				<keyword String='AC Macros Obsolete'     attribute='Old Macros' context='AC Macro pre-Opts'/>
+				<keyword String='AC 3rd Macros'          attribute='3rd Macros' context='AC Macro pre-Opts'/>
+				<keyword String='AC 3rd Macros Obsolete' attribute='Old 3rd Macros'     context='AC Macro pre-Opts'/>
+				<DetectChar char='[' attribute='Operators' context='AC String'/>
+			</context>
+			<context name='AC Macro pre-Opts' attribute='Normal Text' lineEndContext='#pop' fallthroughContext='#pop'>
+				<DetectChar char='(' attribute='Operators' context='AC Macro Opts'/>
+			</context>
+			<context name='AC Macro Opts' attribute='Normal Text' lineEndContext='#stay'>
+				<DetectSpaces/>
+				<IncludeRules context='Normal'/>
+				<DetectChar char=')' attribute='Operators' context='#pop#pop'/>
+			</context>
+			<context name='AC String' attribute='String' lineEndContext='#stay'>
+				<DetectSpaces/>
+				<IncludeRules context='Normal'/>
+				<DetectChar char=']' attribute='Operators' context='#pop'/>
+			</context>
+			<context name='Comment' attribute='Comment' lineEndContext='#pop'>
+				<DetectSpaces/>
+				<IncludeRules context='##Comments'/>
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name='Normal Text'     defStyleNum='dsNormal'/>
+			<itemData name='Builtins'        defStyleNum='dsKeyword'/>
+			<itemData name='Operators'       defStyleNum='dsOperator'/>
+			<itemData name='Comment'         defStyleNum='dsComment'/>
+			<itemData name='String'          defStyleNum='dsString'/>
+			<itemData name='Macros'          defStyleNum='dsFunction'/>
+			<itemData name='3rd Macros'      defStyleNum='dsExtension'/>
+			<itemData name='Old Macros'      defStyleNum='dsFunction'   backgroundColor='#451e1a'/>
+			<itemData name='Old 3rd Macros'  defStyleNum='dsExtension' backgroundColor='#451e1a'/>
+		</itemDatas>
+	</highlighting>
+	<general>
+		<comments>
+			<comment name='singleLine' start='#'/>
+		</comments>
+	</general>
+</language>
