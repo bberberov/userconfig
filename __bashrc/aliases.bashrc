@@ -545,6 +545,23 @@ then
 	alias pip3-outdated='pip3 list --user --outdated'
 fi
 
+# rpm
+if   which rpm > /dev/null 2>&1
+then
+	alias rpm-show='rpm --eval="\
+%%{build_cflags}    = %{?build_cflags}
+%%{build_cppflags}  = %{?build_cppflags}
+%%{build_cxxflags}  = %{?build_cxxflags}
+%%{build_fflags}    = %{?build_fflags}
+%%{build_fcflags}   = %{?build_fcflags}
+%%{build_ldflags}   = %{?build_ldflags}
+%%{build_rustflags} = %{?build_rustflags}
+
+%%make_build        = %{?make_build}
+%%make_install      = %{?make_install}
+"'
+fi
+
 # sed
 if   which sed > /dev/null 2>&1
 then
