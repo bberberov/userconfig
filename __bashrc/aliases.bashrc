@@ -144,18 +144,28 @@ fi
 # less
 if   which less > /dev/null 2>&1
 then
-	if   which grep > /dev/null 2>&1
+	#
+	# NOTE: Probably not going to look for exceptions before version 340
+	# NOTE: ( the introduction of the -F and -R options, and UTF-8 support)
+	# NOTE: `--version` was added earlier
+	#
+	if   which sed > /dev/null 2>&1
 	then
-		if   which sed > /dev/null 2>&1 \
-		     && (( 620 < `less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }'` )) \
-		     || \
-		     which grep > /dev/null 2>&1 \
-		     && (( 620 < `less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'` ))
-		then
-			# --wordwrap was introduced in 621
-			alias less-wrap='less --wordwrap'
-		fi
+		less_version="`less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }'`"
+	elif which grep > /dev/null 2>&1
+	then
+		less_version="`less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'`"
+	else
+		less_version="340"
 	fi
+
+	if   (( 620 < ${less_version} ))
+	then
+		# --wordwrap was introduced in 621
+		alias less-wrap='less --wordwrap'
+	fi
+
+	unset less_version
 fi
 
 # ls
