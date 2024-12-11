@@ -2,6 +2,7 @@ kate-wildcard(HOME/.npmrc): syntax Bash;
 kate-wildcard(HOME/profile.d/*): syntax Bash;
 kate-wildcard(XDG_CONFIG_HOME/bat/syntaxes/**): syntax YAML;
 kate-wildcard(XDG_DATA_HOME/bash-completion/completions/*): syntax Bash;
+kate-wildcard(XDG_DATA_HOME/konsole/*): syntax INI Files;
 kate-wildcard(__bashrc/*.bashrc): syntax Bash;
 kate-wildcard(etc/mke2fs.conf): syntax TOML;
 kate-wildcard(git/*.config): syntax INI Files;

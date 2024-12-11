@@ -1,3 +1,5 @@
+--map-syntax "**/bash-completion/completions/*:Bourne Again Shell (bash)"
+--map-syntax "**/konsole/*.{colorscheme,profile}:INI"
 --map-syntax "/etc/bash.bashrc.local:Bourne Again Shell (bash)"
 --map-syntax "/etc/bash.bashrc:Bourne Again Shell (bash)"
 --map-syntax "/etc/ssh/ssh_config.d/*:SSH Config"
@@ -8,4 +10,3 @@
 --map-syntax "/etc/zshenv:Bourne Again Shell (bash)"
 --map-syntax "/etc/zshrc:Bourne Again Shell (bash)"
 --map-syntax "/usr/share/bash-completion/bash_completion:Bourne Again Shell (bash)"
---map-syntax "/usr/share/bash-completion/completions/*:Bourne Again Shell (bash)"
