@@ -6,13 +6,22 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-complete -W '
-	DESKTOP
-	DOCUMENTS
-	DOWNLOAD
-	MUSIC
-	PICTURES
-	PUBLICSHARE
-	TEMPLATES
-	VIDEOS
-' xdg-user-dir
+_git_count()
+{
+	case "$cur" in
+		--*)
+			__gitcomp '
+				--after=
+				--all
+				--author=
+				--before=
+				--committer=
+				--since=
+				--until=
+			'
+			return
+		;;
+	esac
+
+	__git_complete_refs
+}

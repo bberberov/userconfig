@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+# Copyright © 2024 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_git_var()
+{
+	__gitcomp '
+		-l
+		GIT_ATTR_GLOBAL
+		GIT_ATTR_SYSTEM
+		GIT_AUTHOR_IDENT
+		GIT_COMMITTER_IDENT
+		GIT_CONFIG_GLOBAL
+		GIT_CONFIG_SYSTEM
+		GIT_DEFAULT_BRANCH
+		GIT_EDITOR
+		GIT_PAGER
+		GIT_SEQUENCE_EDITOR
+		GIT_SHELL_PATH
+	'
+}
