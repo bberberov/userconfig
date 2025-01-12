@@ -1,0 +1,11 @@
+remove_extra
+tables
+sane_lists
+pymdownx.mark
+pymdownx.tilde
+pymdownx.magiclink
+pymdownx.highlight
+pymdownx.superfences
+pymdownx.progressbar
+pymdownx.details
+pymdownx.tasklist
