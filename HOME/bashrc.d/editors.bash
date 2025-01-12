@@ -1,6 +1,6 @@
 if   [[ ! -v VISUAL ]]
 then
-	userconfig_os="`uname -s`"
+	userconfig_os="$(uname -s)"
 
 	which 'xhost' > /dev/null 2>&1 && xhost > /dev/null 2>&1
 	userconfig_linux_x=$?

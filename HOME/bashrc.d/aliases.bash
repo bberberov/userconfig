@@ -1,3 +1,5 @@
+# shellcheck disable=SC2139
+
 # cd
 alias     cd..='cd ..'
 alias    cd...='cd ../..'
@@ -98,9 +100,9 @@ fi
 # git
 if   which git > /dev/null 2>&1
 then
-	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-common-dir`'
-	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --git-dir`'
-	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd `git rev-parse --show-toplevel`'
+	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd "$(git rev-parse --git-common-dir)"'
+	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd "$(git rev-parse --git-dir)"'
+	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd "$(git rev-parse --show-toplevel)"'
 
 	alias      diff-git='git diff --no-index'
 	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'
@@ -151,15 +153,15 @@ then
 	#
 	if   which sed > /dev/null 2>&1
 	then
-		less_version="`less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }'`"
+		less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
 	elif which grep > /dev/null 2>&1
 	then
-		less_version="`less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'`"
+		less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
 	else
-		less_version="340"
+		less_version='340'
 	fi
 
-	if   (( 620 < ${less_version} ))
+	if   (( 620 < less_version ))
 	then
 		# --wordwrap was introduced in 621
 		alias less-wrap='less --wordwrap'

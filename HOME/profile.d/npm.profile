@@ -1,4 +1,4 @@
-npm_prefix=`npm config get prefix`
+npm_prefix="$(npm config get prefix)"
 
 if 	echo "${npm_prefix}" | grep "^${HOME}" > /dev/null
 then

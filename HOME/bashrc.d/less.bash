@@ -14,25 +14,25 @@ then
 	#
 	if   which sed > /dev/null 2>&1
 	then
-		less_version="`less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }'`"
+		less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
 	elif which grep > /dev/null 2>&1
 	then
-		less_version="`less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+'`"
+		less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
 	else
-		less_version="340"
+		less_version='340'
 	fi
 
 	LESS='-MiR'
 
-	if   (( 358 < ${less_version} ))
+	if   (( 358 < less_version ))
 	then
 		# Major changes between "less" versions 354 and 358
 		# --shift option was introduced
-		if   (( 436 < ${less_version} ))
+		if   (( 436 < less_version ))
 		then
 			# Major changes between "less" versions 429 and 436
 			# Fractions introduced to --shift option
-			if   (( 661 <= ${less_version} && ${less_version} <= 668 ))
+			if   (( 661 <= less_version && less_version <= 668 ))
 			then
 				# Major changes between "less" versions 661 and 668
 				# BUG (github #554)
@@ -45,7 +45,7 @@ then
 		fi
 	fi
 
-	if   (( 575 < ${less_version} ))
+	if   (( 575 < less_version ))
 	then
 		# --use-color was introduced in 576
 		if ${userconfig_use_color}
