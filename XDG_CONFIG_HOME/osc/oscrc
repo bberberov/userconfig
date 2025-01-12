@@ -1,0 +1,11 @@
+# see oscrc(5) man page for the full list of available options
+
+[general]
+apiurl=https://api.opensuse.org
+checkout_no_colon=1
+checkout_rooted=1
+
+[https://api.opensuse.org]
+# Install python3-keyring
+user=bberberov
+credentials_mgr_class=osc.credentials.KeyringCredentialsManager:keyring.backends.kwallet.DBusKeyring
