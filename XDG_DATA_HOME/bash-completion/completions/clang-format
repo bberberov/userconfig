@@ -1,0 +1,99 @@
+#! /usr/bin/env bash
+
+# Copyright © 2025 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_clang_format()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	local short_opts='
+		-i
+		-n
+	'
+	local long_opts='
+		--Werror
+		--Wno-error=
+		--assume-filename=
+		--cursor=
+		--dry-run
+		--dump-config
+		--fail-on-incomplete-format
+		--fallback-style=
+		--ferror-limit=
+		--files=
+		--help
+		--help-hidden
+		--help-list
+		--help-list-hidden
+		--length=
+		--lines=
+		--offset=
+		--output-replacements-xml
+		--qualifier-alignment=
+		--sort-includes
+		--style=
+		--verbose
+		--version
+	'
+	local assume_filename='
+		.cs
+		.java
+		.mjs .js .ts
+		.json
+		.m .mm
+		.proto .protodevel
+		.td
+		.txtpb .textpb .pb.txt .textproto .asciipb
+		.sv .svh .v .vh
+	'
+	local style='LLVM GNU Google Chromium Microsoft Mozilla WebKit'
+
+	case "${prev}" in
+		--help | --help-hidden | --help-list | --help-list-hidden | --version)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--assume-filename=*)
+			_comp_compgen -c "${cur#*=}" -- -W "${assume_filename}"
+			return
+		;;
+		--cursor=* | --ferror-limit=* | --length=* | --offset=*)
+			_comp_compgen -c "${cur#*=}" -- -W '1 2 3 4 5 6 7 8 9'
+			return
+		;;
+		--fallback-style=*)
+			_comp_compgen -c "${cur#*=}" -- -W "${style}"
+			return
+		;;
+		--files=* | --style=file:*)
+			cur=${cur#*=}
+			_comp_compgen_filedir
+			return
+		;;
+		--style=*)
+			_comp_compgen -c "${cur#*=}" -- -W "file file: ${style}"
+			return
+		;;
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_clang_format clang-format

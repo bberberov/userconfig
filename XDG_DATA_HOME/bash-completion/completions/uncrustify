@@ -1,0 +1,101 @@
+#! /usr/bin/env bash
+
+# Copyright © 2025 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_uncrustify()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n : -- "$@" || return
+
+	local short_opts='
+		-c
+		-f
+		-o
+		-F
+		-l
+		-t
+		-q
+		-h
+		-?
+		-p
+		-ds
+		-L
+		-s
+	'
+	local long_opts='
+		--check
+		--suffix
+		--prefix
+		--replace
+		--no-backup
+		--if-changed
+		--mtime
+		--frag
+		--assume
+		--help
+		--usage
+		--version
+		--count-options
+		--show-config
+		--update-config
+		--update-config-with-doc
+		--universalindent
+		--detect
+		--set
+		--dump-steps
+		--decode
+		--tracking
+		--find_deprecated
+	'
+
+	case "${prev}" in
+		-h | -\? | --help | --usage | --version | --count-options | --show-config)
+			return
+		;;
+		-c | -f | -o | -F | -p | --assume | -ds | --dump-steps)
+			_comp_compgen_filedir
+			return
+		;;
+		-l)
+			_comp_compgen -- -W 'C CPP D CS JAVA PAWN OC OC+ VALA'
+			return
+		;;
+		-L)
+			_comp_compgen -- -W 'A all'
+			return
+		;;
+		--tracking)
+			case "${cur}" in
+				space:* | nl:* | start:* )
+					cur=${cur#*:}
+					_comp_compgen_filedir
+					return
+				;;
+				*)
+					_comp_compgen -- -W 'space: nl: start:'
+					[[ ${COMPREPLY-} == *: ]] && compopt -o nospace
+					return
+				;;
+			esac
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_uncrustify uncrustify
