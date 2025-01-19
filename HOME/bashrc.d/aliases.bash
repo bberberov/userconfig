@@ -143,6 +143,22 @@ then
 	alias ip6addr-color='ip --color=always -6 -brief addr'
 fi
 
+#
+# KDE
+#
+if   which kstart > /dev/null 2>&1
+then
+	if   which dolphin > /dev/null 2>&1
+	then
+		alias dolphin-here='kstart -- dolphin "$(pwd)"'
+	fi
+
+	if   which konsole > /dev/null 2>&1
+	then
+		alias konsole-here='kstart -- konsole --workdir "$(pwd)"'
+	fi
+fi
+
 # less
 if   which less > /dev/null 2>&1
 then
@@ -651,6 +667,25 @@ then
 	alias tune2fs-cold-hdd-32M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
 	alias  tune2fs-cold-ssd-1M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
 	alias tune2fs-cold-ssd-32M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
+fi
+
+# xdg-user-dir
+if   which xdg-user-dir > /dev/null 2>&1
+then
+	alias      cd-xdg-config='cd "${XDG_CONFIG_HOME:-${HOME}/.config}"'
+	alias       cd-xdg-cache='cd "${XDG_CACHE_HOME:-${HOME}/.cache}"'
+	alias        cd-xdg-data='cd "${XDG_DATA_HOME:-${HOME}/.local/share}"'
+	alias       cd-xdg-state='cd "${XDG_STATE_HOME:-${HOME}/.local/state}"'
+	alias     cd-xdg-runtime='test -d "${XDG_RUNTIME_DIR}" && cd "${XDG_RUNTIME_DIR}"'
+
+	alias     cd-xdg-desktop='cd `xdg-user-dir DESKTOP`'
+	alias   cd-xdg-documents='cd `xdg-user-dir DOCUMENTS`'
+	alias    cd-xdg-download='cd `xdg-user-dir DOWNLOAD`'
+	alias       cd-xdg-music='cd `xdg-user-dir MUSIC`'
+	alias    cd-xdg-pictures='cd `xdg-user-dir PICTURES`'
+	alias cd-xdg-publicshare='cd `xdg-user-dir PUBLICSHARE`'
+	alias   cd-xdg-templates='cd `xdg-user-dir TEMPLATES`'
+	alias      cd-xdg-videos='cd `xdg-user-dir VIDEOS`'
 fi
 
 # Custom
