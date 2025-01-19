@@ -1,42 +1,181 @@
 #! /usr/bin/env bash
 
-# Copyright © 2024 Boian Berberov
+# Copyright © 2024, 2025 Boian Berberov
 #
 # Licensed under the EUPL-1.2 only.
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-complete -W '
-	-m
-	--color-mode
-	-f
-	--force-color
-	--color-picker
-	-h
-	--help
-	-V
-	--version
-	color
-	list
-	random
-	distinct
-	sort-by
-	pick
-	format
-	paint
-	gradient
-	mix
-	colorblind
-	set
-	saturate
-	desaturate
-	lighten
-	darken
-	rotate
-	complement
-	gray
-	to-gray
-	textcolor
-	colorcheck
-	help
-' pastel
+_comp_cmd_pastel()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-m
+		-f
+		-h
+		-V
+	'
+	local long_opts='
+		--color-mode
+		--force-color
+		--color-picker
+		--help
+		--version
+	'
+	local subcommands='
+		color
+		colorblind
+		colorcheck
+		complement
+		darken
+		desaturate
+		distinct
+		format
+		gradient
+		gray
+		help
+		lighten
+		list
+		mix
+		paint
+		pick
+		random
+		rotate
+		saturate
+		set
+		sort-by
+		textcolor
+		to-gray
+	'
+	color_pickers='
+		chameleon
+		colorpicker
+		gdbus
+		gpick
+		grabc
+		hyprpicker
+		kcolorchooser
+		wcolor
+		xcolor
+		yad
+		zenity
+	'
+
+	case "${prev}" in
+		-m | --color-mode)
+			_comp_compgen -- -W '24bit 8bit off auto'
+			return
+		;;
+		-f | --force-color)
+		;;
+		--color-picker)
+			_comp_compgen -- -W "$(basename -a $(which ${color_pickers} 2>/dev/null))"
+			return
+		;;
+		--help | --version)
+			return
+		;;
+		color)
+			case "${cur}" in
+				gray\()
+					return
+				;;
+				hsl\()
+					return
+				;;
+				rgb\()
+					return
+				;;
+				*)
+					_comp_compgen -- -W "rgb( hsl( gray( $(pastel list)"
+					[[ ${COMPREPLY-} == *\( ]] && compopt -o nospace
+					return
+				;;
+			esac
+		;;
+		colorblind)
+			return
+		;;
+		colorcheck)
+			return
+		;;
+		complement)
+			return
+		;;
+		darken)
+			return
+		;;
+		desaturate)
+			return
+		;;
+		distinct)
+			return
+		;;
+		format)
+			return
+		;;
+		gradient)
+			return
+		;;
+		gray)
+			return
+		;;
+		help)
+			_comp_compgen -- -W "${subcommands}"
+			return
+		;;
+		lighten)
+			return
+		;;
+		list)
+			return
+		;;
+		mix)
+			return
+		;;
+		paint)
+			return
+		;;
+		pick)
+			return
+		;;
+		random)
+			return
+		;;
+		rotate)
+			return
+		;;
+		saturate)
+			return
+		;;
+		set)
+			return
+		;;
+		sort-by)
+			return
+		;;
+		textcolor)
+			return
+		;;
+		to-gray)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen -- -W "${short_opts} ${long_opts} ${subcommands}"
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_pastel pastel
