@@ -317,6 +317,37 @@
 			<item>AC_MSG_ERROR</item>
 			<item>AC_MSG_FAILURE</item>
 			<item>AC_MSG_WARN</item>
+			<!-- 9.1 Common Shell Constructs -->
+			<item>AS_BOX</item>
+			<item>AS_CASE</item>
+			<item>AS_DIRNAME</item>
+			<item>AS_ECHO</item>
+			<item>AS_ECHO_N</item>
+			<item>AS_ESCAPE</item>
+			<item>AS_EXECUTABLE_P</item>
+			<item>AS_EXIT</item>
+			<item>AS_IF</item>
+			<item>AS_MKDIR_P</item>
+			<item>AS_SET_STATUS</item>
+			<item>AS_TR_CPP</item>
+			<item>AS_TR_SH</item>
+			<item>AS_SET_CATFILE</item>
+			<item>AS_UNSET</item>
+			<item>AS_VERSION_COMPARE</item>
+			<!-- 9.2 Support for indirect variable names -->
+			<!-- 9.3 Initialization Macros -->
+			<!-- 9.4 File Descriptor Macros -->
+			<!-- 10.1 Macro Definitions -->
+			<item>AC_DEFUN</item>
+			<!-- 10.3.1 Prerequisite Macros -->
+			<item>AC_REQUIRE</item>
+			<!-- 10.3.2 Suggested Ordering -->
+			<item>AC_BEFORE</item>
+			<!-- 10.3.3 One-Shot Macros -->
+			<item>AC_DEFUN_ONCE</item>
+			<!-- 10.4 Obsoleting Macros -->
+			<item>AU_DEFUN</item>
+			<item>AU_ALIAS</item>
 			<!-- 14.2 Getting the Canonical System Type -->
 			<item>AC_CANONICAL_BUILD</item>
 			<item>AC_CANONICAL_HOST</item>
@@ -336,6 +367,7 @@
 			<!--
 				Automake Macros
 			-->
+			<!-- 6.2 Other things Automake recognizes -->
 			<!-- 6.4.1 Public Macros -->
 			<item>AM_INIT_AUTOMAKE</item>
 			<item>AM_PATH_LISPDIR</item>
