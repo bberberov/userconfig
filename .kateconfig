@@ -1,3 +1,4 @@
+kate-wildcard(*.atom): syntax XML;
 kate-wildcard(*.sublime-color-scheme): syntax YAML;
 kate-wildcard(*.sublime-syntax): syntax YAML;
 kate-wildcard(*.tmTheme): syntax XML;
