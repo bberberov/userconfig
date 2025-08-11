@@ -84,6 +84,12 @@ then
 	done
 fi
 
+# fd
+if   which fd > /dev/null 2>&1
+then
+	alias  fd-color='fd --color=always'
+fi
+
 # findmnt
 if   which findmnt > /dev/null 2>&1
 then
@@ -571,6 +577,12 @@ if   which pip3 > /dev/null 2>&1
 then
 	alias     pip3-list='pip3 list --user'
 	alias pip3-outdated='pip3 list --user --outdated'
+fi
+
+# rg
+if   which rg > /dev/null 2>&1
+then
+	alias  rg-color='rg --color=always'
 fi
 
 # rpm
