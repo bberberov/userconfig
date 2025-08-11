@@ -2,6 +2,7 @@ kate-wildcard(*.atom): syntax XML;
 kate-wildcard(*.sublime-color-scheme): syntax YAML;
 kate-wildcard(*.sublime-syntax): syntax YAML;
 kate-wildcard(*.tmTheme): syntax XML;
+kate-wildcard(*.jsonc): syntax JSON;
 kate-wildcard(HOME/.npmrc): syntax Bash;
 kate-wildcard(HOME/profile.d/*): syntax Bash;
 kate-wildcard(XDG_DATA_HOME/bash-completion/completions/*): syntax Bash;
