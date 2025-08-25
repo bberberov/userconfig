@@ -1,7 +1,10 @@
-export PYTHONUSERBASE="${HOME}/pip"
+if   which pip3 > /dev/null 2>&1 || which pip > /dev/null 2>&1
+then
+	export PYTHONUSERBASE="${HOME}/pip"
 
-echo ":${PATH}:" | grep -E ":${PYTHONUSERBASE}/bin/?:" > /dev/null \
-|| export PATH="${PYTHONUSERBASE}/bin:${PATH}"
+	echo ":${PATH}:" | grep -E ":${PYTHONUSERBASE}/bin/?:" > /dev/null \
+	|| export PATH="${PYTHONUSERBASE}/bin:${PATH}"
 
-echo ":${MANPATH}:" | grep -E ":${PYTHONUSERBASE}/share/man/?:" > /dev/null \
-|| export MANPATH="${PYTHONUSERBASE}/share/man:${MANPATH}"
+	echo ":${MANPATH}:" | grep -E ":${PYTHONUSERBASE}/share/man/?:" > /dev/null \
+	|| export MANPATH="${PYTHONUSERBASE}/share/man:${MANPATH}"
+fi
