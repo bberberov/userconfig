@@ -566,7 +566,7 @@ then
 fi
 
 # pip2
-if   which pip3 > /dev/null 2>&1
+if   which pip2 > /dev/null 2>&1
 then
 	alias     pip2-list='pip2 list --user'
 	alias pip2-outdated='pip2 list --user --outdated'
