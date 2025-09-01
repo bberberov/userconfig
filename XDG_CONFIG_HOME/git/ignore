@@ -1,3 +1,13 @@
-/.directory
-.DS_Store
+# General
 .*.kate-swp
+
+# Linux
+/.directory
+
+# macOS
+.DS_Store
+
+# Windows
+Desktop.ini
+Thumbs.db
+ehthumbs.db
