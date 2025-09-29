@@ -1,11 +1,11 @@
 kate-wildcard(*.atom): syntax XML;
-kate-wildcard(*.json): indent-width 2; tab-width 2;
-kate-wildcard(*.jsonc): syntax JSON; indent-width 2; tab-width 2;
-kate-wildcard(*.sublime-color-scheme): syntax YAML; indent-width 2; tab-width 2;
-kate-wildcard(*.sublime-syntax): syntax YAML; indent-width 2; tab-width 2;
+kate-wildcard(*.json): replace-tabs on; indent-width 2; tab-width 2;
+kate-wildcard(*.jsonc): syntax JSON; replace-tabs on; indent-width 2; tab-width 2;
+kate-wildcard(*.sublime-color-scheme): syntax YAML; replace-tabs on; indent-width 2; tab-width 2;
+kate-wildcard(*.sublime-syntax): syntax YAML; replace-tabs on; indent-width 2; tab-width 2;
 kate-wildcard(*.tmTheme): syntax XML;
-kate-wildcard(*.yaml): indent-width 2; tab-width 2;
-kate-wildcard(.clang-format): syntax YAML; indent-width 2; tab-width 2;
+kate-wildcard(*.yaml): replace-tabs on; indent-width 2; tab-width 2;
+kate-wildcard(.clang-format): syntax YAML; replace-tabs on; indent-width 2; tab-width 2;
 kate-wildcard(.npmrc): syntax INI Files;
 kate-wildcard(.uncrustify.cfg): syntax INI Files;
 kate-wildcard(HOME/bashrc.d/*): syntax Bash;
