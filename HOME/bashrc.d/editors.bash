@@ -1,4 +1,4 @@
-if   [[ ! -v VISUAL ]]
+if   [[ -z "${VISUAL}" ]]
 then
 	userconfig_os="$(uname -s)"
 
@@ -29,7 +29,7 @@ then
 	unset userconfig_os
 fi
 
-if   [[ ! -v EDITOR ]]
+if   [[ -z "${EDITOR}" ]]
 then
 	if   which mcedit > /dev/null 2>&1
 	then
