@@ -93,7 +93,7 @@ fi
 # fd
 if   which fd > /dev/null 2>&1
 then
-	alias  fd-color='fd --color=always'
+	alias fd-color='fd --color=always'
 fi
 
 # findmnt
@@ -698,7 +698,7 @@ fi
 # rg
 if   which rg > /dev/null 2>&1
 then
-	alias  rg-color='rg --color=always'
+	alias rg-color='rg --color=always'
 
 	for (( i=1 ; i < 10 ; i+=1 ))
 	do
