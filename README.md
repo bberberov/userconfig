@@ -8,9 +8,11 @@ The structure of this repository is designed to mimic `$XDG_CONFIG_HOME` ( by de
 
 The scripts here assume that the `which` command is always available!  The availability of other commands it tested with it.
 
+The minimum supported Bash version is 2.02, from 1998-04-18.
+
 ## Goals
 
-- Cross-platform: Windows, Linux, macOS, BSD, ...
+- Cross-platform: BSD, Linux, macOS, Windows, ...
 
 ## See Also
 
