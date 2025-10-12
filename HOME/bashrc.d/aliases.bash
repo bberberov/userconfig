@@ -1,11 +1,17 @@
 # shellcheck disable=SC2139
 
 # cd
-alias     cd..='cd ..'
-alias    cd...='cd ../..'
-alias   cd....='cd ../../..'
-alias  cd.....='cd ../../../..'
-alias cd......='cd ../../../../..'
+alias     cd.='cd ..'
+alias    cd..='cd ../..'
+alias   cd...='cd ../../..'
+alias  cd....='cd ../../../..'
+alias cd.....='cd ../../../../..'
+
+alias  cd-xdg-config='cd "${XDG_CONFIG_HOME:-${HOME}/.config}"'
+alias   cd-xdg-cache='cd "${XDG_CACHE_HOME:-${HOME}/.cache}"'
+alias    cd-xdg-data='cd "${XDG_DATA_HOME:-${HOME}/.local/share}"'
+alias   cd-xdg-state='cd "${XDG_STATE_HOME:-${HOME}/.local/state}"'
+alias cd-xdg-runtime='test -d "${XDG_RUNTIME_DIR}" && cd "${XDG_RUNTIME_DIR}"'
 
 # delta
 if   which delta > /dev/null 2>&1
@@ -106,9 +112,22 @@ fi
 # git
 if   which git > /dev/null 2>&1
 then
-	alias cd-git-repo-dir='git rev-parse --git-dir > /dev/null && cd "$(git rev-parse --git-common-dir)"'
-	alias  cd-git-git-dir='git rev-parse --git-dir > /dev/null && cd "$(git rev-parse --git-dir)"'
-	alias cd-git-tree-dir='git rev-parse --git-dir > /dev/null && cd "$(git rev-parse --show-toplevel)"'
+	alias cd-git-repo='declare r="$(git rev-parse --git-common-dir 2> /dev/null)"; [[ -n "${r}" ]] && cd "${r}/"'
+	alias cd-git-tree='
+		if   [[ -f "gitdir" ]]
+		then
+			cd-file-gitdir
+		else
+			declare t="$(git rev-parse --show-toplevel 2> /dev/null)"
+			if   [[ -n "${t}" ]]
+			then
+				cd "${t}"
+			else
+				echo "fatal: this operation must be run in a worktree or a worktree configuration directory"
+				false
+			fi
+		fi
+	'
 
 	alias      diff-git='git diff --no-index'
 	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'
@@ -714,8 +733,8 @@ if   which sed > /dev/null 2>&1
 then
 	alias Esed='sed -E'
 
-	alias cd-gitdir='cd "$(sed -e s:\/\.git\$:: gitdir)"'
-	alias cd-.git='cd "$(sed -e s@^gitdir:\ \/@/@ .git)"'
+	alias cd-file-gitdir='cd "$(sed -e s:\/\.git\$:: gitdir)"'
+	alias cd-file-.git='cd "$(sed -e s@^gitdir:\ \/@/@ .git)"'
 
 	# Custom
 	alias list-path='echo $PATH | sed -e "s/:/\n/g"'
@@ -791,20 +810,14 @@ fi
 # xdg-user-dir
 if   which xdg-user-dir > /dev/null 2>&1
 then
-	alias      cd-xdg-config='cd "${XDG_CONFIG_HOME:-${HOME}/.config}"'
-	alias       cd-xdg-cache='cd "${XDG_CACHE_HOME:-${HOME}/.cache}"'
-	alias        cd-xdg-data='cd "${XDG_DATA_HOME:-${HOME}/.local/share}"'
-	alias       cd-xdg-state='cd "${XDG_STATE_HOME:-${HOME}/.local/state}"'
-	alias     cd-xdg-runtime='test -d "${XDG_RUNTIME_DIR}" && cd "${XDG_RUNTIME_DIR}"'
-
-	alias     cd-xdg-desktop='cd `xdg-user-dir DESKTOP`'
-	alias   cd-xdg-documents='cd `xdg-user-dir DOCUMENTS`'
-	alias    cd-xdg-download='cd `xdg-user-dir DOWNLOAD`'
-	alias       cd-xdg-music='cd `xdg-user-dir MUSIC`'
-	alias    cd-xdg-pictures='cd `xdg-user-dir PICTURES`'
-	alias cd-xdg-publicshare='cd `xdg-user-dir PUBLICSHARE`'
-	alias   cd-xdg-templates='cd `xdg-user-dir TEMPLATES`'
-	alias      cd-xdg-videos='cd `xdg-user-dir VIDEOS`'
+	alias     cd-xdg-desktop='cd "$(xdg-user-dir DESKTOP)"'
+	alias   cd-xdg-documents='cd "$(xdg-user-dir DOCUMENTS)"'
+	alias    cd-xdg-download='cd "$(xdg-user-dir DOWNLOAD)"'
+	alias       cd-xdg-music='cd "$(xdg-user-dir MUSIC)"'
+	alias    cd-xdg-pictures='cd "$(xdg-user-dir PICTURES)"'
+	alias cd-xdg-publicshare='cd "$(xdg-user-dir PUBLICSHARE)"'
+	alias   cd-xdg-templates='cd "$(xdg-user-dir TEMPLATES)"'
+	alias      cd-xdg-videos='cd "$(xdg-user-dir VIDEOS)"'
 fi
 
 # Custom
