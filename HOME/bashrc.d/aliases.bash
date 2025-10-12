@@ -31,16 +31,28 @@ then
 		alias df-inodes='df -h --output=source,target,itotal,iused,ipcent,iavail'
 		alias   df-free='df -h --output=source,target,iavail,avail'
 		alias   df-full='df -h --output=source,target,ipcent,pcent'
+		alias   df-long-color='df-color -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
+		alias df-blocks-color='df-color -h --output=source,target,size,used,pcent,avail'
+		alias df-inodes-color='df-color -h --output=source,target,itotal,iused,ipcent,iavail'
+		alias   df-free-color='df-color -h --output=source,target,iavail,avail'
+		alias   df-full-color='df-color -h --output=source,target,ipcent,pcent'
 
-		alias   df-long-disk='df -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail -x devtmpfs -x tmpfs'
-		alias df-blocks-disk='df -h --output=source,target,size,used,pcent,avail -x devtmpfs -x tmpfs'
-		alias df-inodes-disk='df -h --output=source,target,itotal,iused,ipcent,iavail -x devtmpfs -x tmpfs'
-		alias   df-free-disk='df -h --output=source,target,iavail,avail -x devtmpfs -x tmpfs'
-		alias   df-full-disk='df -h --output=source,target,ipcent,pcent -x devtmpfs -x tmpfs'
+		alias   df-long-disk='df -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail             -l -x devtmpfs -x tmpfs'
+		alias df-blocks-disk='df -h --output=source,target,size,used,pcent,avail                                               -l -x devtmpfs -x tmpfs'
+		alias df-inodes-disk='df -h --output=source,target,itotal,iused,ipcent,iavail                                          -l -x devtmpfs -x tmpfs'
+		alias   df-free-disk='df -h --output=source,target,iavail,avail                                                        -l -x devtmpfs -x tmpfs'
+		alias   df-full-disk='df -h --output=source,target,ipcent,pcent                                                        -l -x devtmpfs -x tmpfs'
+		alias   df-long-disk-color='df-color -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail -l -x devtmpfs -x tmpfs'
+		alias df-blocks-disk-color='df-color -h --output=source,target,size,used,pcent,avail                                   -l -x devtmpfs -x tmpfs'
+		alias df-inodes-disk-color='df-color -h --output=source,target,itotal,iused,ipcent,iavail                              -l -x devtmpfs -x tmpfs'
+		alias   df-free-disk-color='df-color -h --output=source,target,iavail,avail                                            -l -x devtmpfs -x tmpfs'
+		alias   df-full-disk-color='df-color -h --output=source,target,ipcent,pcent                                            -l -x devtmpfs -x tmpfs'
 	else
 		# non-GNU df
 		alias        df='df -Ph'
 		alias   df-long='df -hi'
+		alias        df-color='df-color -Ph'
+		alias   df-long-color='df-color -hi'
 	fi
 fi
 
