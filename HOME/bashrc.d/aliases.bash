@@ -747,25 +747,11 @@ then
 
 	alias cd-file-gitdir='cd "$(sed -e s:\/\.git\$:: gitdir)"'
 	alias cd-file-.git='cd "$(sed -e s@^gitdir:\ \/@/@ .git)"'
-
-	# Custom
-	alias list-path='echo $PATH | sed -e "s/:/\n/g"'
 fi
 
 # stat
 if   which stat > /dev/null 2>&1
 then
-	alias stat-human='stat --printf="\
-  File: %n
-  Type: %F
-  Size: %s bytes, %b*%B bytes allocated  Block size: %o
-  Mode: %A %04a  Links: %h
-Owners: %U:%G  (%u:%g)
- Birth: %w  (%W)
-Change: %z  (%Z)
-Modify: %y  (%Y)
-Access: %x  (%X)
-"'
 	alias stat-color='stat --printf="\
 \e[90m  File:\e[0m \e[4m%n\e[0m
 \e[90m  Type:\e[0m \e[96m%F\e[0m
