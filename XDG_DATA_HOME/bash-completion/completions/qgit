@@ -1,20 +1,21 @@
 #! /usr/bin/env bash
 
-# Copyright © 2024 Boian Berberov
+# Copyright © 2024, 2025 Boian Berberov
 #
 # Licensed under the EUPL-1.2 only.
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-if [[ \
+if   [[ \
 	-f /usr/share/bash-completion/completions/git \
 	&& "$(head -1 /usr/share/bash-completion/completions/git)" \
 	== '# bash/zsh completion support for core Git.' \
 ]]
 then
-source /usr/share/bash-completion/completions/git
+	source /usr/share/bash-completion/completions/git
 
-complete -W "
-	$__git_log_common_options
-" qgit
+	complete -W "
+		$__git_log_common_options
+		--follow
+	" qgit
 fi
