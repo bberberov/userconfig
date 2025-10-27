@@ -1,9 +1,4 @@
-# From https://gitweb.gentoo.org/repo/gentoo.git/tree/app-shells/bash/files/bashrc
-userconfig_use_color=false
-
-case "${TERM}" in
-	[aEkx]term*|rxvt*|gnome*|konsole*|linux|screen|tmux|cons25|*color) userconfig_use_color=true;;
-esac
+# NOTE: makes use of the USER_COLORTERM environment variable
 
 if   which less > /dev/null 2>&1
 then
@@ -48,7 +43,7 @@ then
 	if   (( 575 < less_version ))
 	then
 		# --use-color was introduced in 576
-		if ${userconfig_use_color}
+		if   (( 4 <= USER_COLORTERM ))
 		then
 			LESS="${LESS} --use-color"
 		fi
@@ -58,5 +53,3 @@ then
 
 	unset less_version
 fi
-
-unset userconfig_use_color

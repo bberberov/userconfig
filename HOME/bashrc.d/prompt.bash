@@ -1,27 +1,23 @@
-# From https://gitweb.gentoo.org/repo/gentoo.git/tree/app-shells/bash/files/bashrc
-userconfig_use_color=false
+# NOTE: makes use of the USER_COLORTERM environment variable
 
-case "${TERM}" in
-	[aEkx]term*|rxvt*|gnome*|konsole*|linux|screen|tmux|cons25|*color)
-		userconfig_use_color=true
-
-		if   (( ${EUID} < 1000 ))
-		then
-			userconfig_user_color='\[\e[01;31m\]'
-			userconfig_prompt_color='\[\e[01;31m\]'
-		else
-			userconfig_user_color='\[\e[01;32m\]'
-			userconfig_prompt_color='\[\e[01;34m\]'
-		fi
-	;;
-esac
+if   (( 4 <= USER_COLORTERM ))
+then
+	if   (( EUID < 1000 ))
+	then
+		userconfig_user_color='\[\e[01;31m\]'
+		userconfig_prompt_color='\[\e[01;31m\]'
+	else
+		userconfig_user_color='\[\e[01;32m\]'
+		userconfig_prompt_color='\[\e[01;34m\]'
+	fi
+fi
 
 if   (( 4 == BASH_VERSINFO[0] && 2 <= BASH_VERSINFO[1] \
      || 4  < BASH_VERSINFO[0] \
      ))
 then
-	# Unicode, '+=' operator in 3.1, String expansion $'xxx' in 2.1
-	if   ${userconfig_use_color}
+	# Unicode in 4.2, [[ -v ]] check in 4.2, '+=' operator in 3.1, String expansion $'xxx' in 2.1
+	if   (( 4 <= USER_COLORTERM ))
 	then
 		PS0=$'\[\e[01;33m\]\u25b6 \\t \u25b6\[\e[0m\]\n'
 		PS1=$'\[\e[01;33m\]\u2500 \\t \u25c0\[\e[01;35m\] $? \[\e[0m\]'
@@ -45,7 +41,7 @@ then
 	fi
 else
 	# Bash should support '\n' for PS? variables in all versions?
-	if   ${userconfig_use_color}
+	if   (( 4 <= USER_COLORTERM ))
 	then
 		PS0='\[\e[01;33m\]> \\t >\[\e[0m\]\n'
 		if   [[ -n "${NO_PII}" ]]
