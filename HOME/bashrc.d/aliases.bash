@@ -13,6 +13,8 @@ alias    cd-xdg-data='cd "${XDG_DATA_HOME:-${HOME}/.local/share}"'
 alias   cd-xdg-state='cd "${XDG_STATE_HOME:-${HOME}/.local/state}"'
 alias cd-xdg-runtime='test -d "${XDG_RUNTIME_DIR}" && cd "${XDG_RUNTIME_DIR}"'
 
+alias cd-sudo-home='cd "${SUDO_HOME:-${HOME}}"'
+
 # delta
 if   which delta > /dev/null 2>&1
 then
