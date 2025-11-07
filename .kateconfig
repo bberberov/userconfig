@@ -10,6 +10,7 @@ kate-wildcard(.npmrc): syntax INI Files;
 kate-wildcard(.uncrustify.cfg): syntax INI Files;
 kate-wildcard(HOME/bashrc.d/*): syntax Bash;
 kate-wildcard(HOME/profile.d/*): syntax Bash;
+kate-wildcard(XDG_CONFIG_HOME/bash_completion): syntax Bash;
 kate-wildcard(XDG_CONFIG_HOME/git/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/app/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/host/*): syntax INI Files;
