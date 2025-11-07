@@ -6,14 +6,15 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-if   [[ \
-	-f /usr/share/bash-completion/completions/git \
+if
+	[[ -r /usr/share/bash-completion/completions/git \
 	&& "$(head -1 /usr/share/bash-completion/completions/git)" \
 	== '# bash/zsh completion support for core Git.' \
-]]
+	]]
 then
 	source /usr/share/bash-completion/completions/git
 
+	# shellcheck disable=SC2154
 	complete -W "
 		$__git_log_common_options
 		--follow

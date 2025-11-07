@@ -8,7 +8,8 @@
 
 _git_rev_list()
 {
-	case "$cur" in
+	# shellcheck disable=SC2154
+	case "${cur}" in
 		--*)
 			__gitcomp '
 				--after=

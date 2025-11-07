@@ -8,6 +8,7 @@
 
 _comp_cmd_pastel()
 {
+	# shellcheck disable=SC2034
 	local cur prev words cword comp_args
 	_comp_initialize -- "$@" || return
 
@@ -71,7 +72,7 @@ _comp_cmd_pastel()
 		-f | --force-color)
 		;;
 		--color-picker)
-			_comp_compgen -- -W "$(basename -a $(which ${color_pickers} 2>/dev/null))"
+			_comp_compgen -- -W "$(basename -a "$(which "${color_pickers}" 2>/dev/null)" )"
 			return
 		;;
 		--help | --version)

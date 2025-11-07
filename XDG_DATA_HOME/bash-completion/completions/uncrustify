@@ -8,6 +8,7 @@
 
 _comp_cmd_uncrustify()
 {
+	# shellcheck disable=SC2034
 	local cur prev words cword comp_args
 	_comp_initialize -n : -- "$@" || return
 

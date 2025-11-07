@@ -1,4 +1,6 @@
-if   [[ -f /etc/os-release ]] && grep 'https://www.opensuse.org' /etc/os-release > /dev/null 2>&1
+if
+	[[ -f /etc/os-release ]] \
+	&& grep 'https://www.opensuse.org' /etc/os-release > /dev/null 2>&1
 then
 	# BUG: https://bugzilla.suse.com/show_bug.cgi?id=1203617
 	#

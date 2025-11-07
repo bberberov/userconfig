@@ -5,10 +5,11 @@ then
 	which 'xhost' > /dev/null 2>&1 && xhost > /dev/null 2>&1
 	userconfig_linux_x=$?
 
-	if   [[ "${userconfig_os}" == 'Linux'  && ${userconfig_linux_x} \
-	     || "${userconfig_os}" == 'Darwin' && "${TERM_PROGRAM}" == 'Apple_Terminal' \
-	     || "${OS}" == 'Windows_NT' && "${MSYSTEM}" == 'MINGW64'
-	     ]]
+	if
+		[[ "${userconfig_os}" == 'Linux'  && ${userconfig_linux_x} \
+		|| "${userconfig_os}" == 'Darwin' && "${TERM_PROGRAM}" == 'Apple_Terminal' \
+		|| "${OS}" == 'Windows_NT' && "${MSYSTEM}" == 'MINGW64' \
+		]]
 	then
 		if   which kwrite > /dev/null 2>&1
 		then
