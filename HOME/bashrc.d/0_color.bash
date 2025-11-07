@@ -1,7 +1,11 @@
 # Based on (2025-10-15):
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/app-shells/bash/files/bashrc.d/10-gentoo-color-r2.bash
 
-if   [[ -n "${NO_COLOR}" ]]
+if   [[ -n "${USER_COLORTERM}" ]]
+then
+	# Respect existing setting
+	true
+elif [[ -n "${NO_COLOR}" ]]
 then
 	# Respect the user's wish not to use color. See https://no-color.org/.
 	# 1 = wanted no color
