@@ -1,6 +1,16 @@
 # NOTE: makes use of the USER_COLORTERM environment variable
 
-if   (( 4 <= USER_COLORTERM ))
+if   (( 5 <= USER_COLORTERM ))
+then
+	if   (( EUID < 1000 ))
+	then
+		userconfig_user_color='\[\e[91m\]'
+		userconfig_prompt_color='\[\e[91m\]'
+	else
+		userconfig_user_color='\[\e[92m\]'
+		userconfig_prompt_color='\[\e[94m\]'
+	fi
+elif (( 4 <= USER_COLORTERM ))
 then
 	if   (( EUID < 1000 ))
 	then
@@ -12,12 +22,24 @@ then
 	fi
 fi
 
-if   (( 4 == BASH_VERSINFO[0] && 2 <= BASH_VERSINFO[1] \
-     || 4  < BASH_VERSINFO[0] \
-     ))
+if
+	(( 4 == BASH_VERSINFO[0] && 2 <= BASH_VERSINFO[1] \
+	|| 4  < BASH_VERSINFO[0] \
+	))
 then
 	# Unicode in 4.2, [[ -v ]] check in 4.2, '+=' operator in 3.1, String expansion $'xxx' in 2.1
-	if   (( 4 <= USER_COLORTERM ))
+	if   (( 5 <= USER_COLORTERM ))
+	then
+		PS0=$'\[\e[93m\]\u25b6 \\t \u25b6\[\e[0m\]\n'
+		PS1=$'\[\e[93m\]\u2500 \\t \u25c0\[\e[95m\] $? \[\e[0m\]'
+		if [[ -v NO_PII ]]
+		then
+		PS1+="${userconfig_user_color}"$'\u\[\e[90m\]@\[\e[96m\]test.test\[\e[90m\]:\[\e[94m\]\W\[\e[0m\]\n'
+		else
+		PS1+="${userconfig_user_color}"$'\u\[\e[90m\]@\[\e[96m\]\h\[\e[90m\]:\[\e[94m\]\w\[\e[0m\]\n'
+		fi
+		PS1+="${userconfig_prompt_color}"$'\u25b6\[\e[0m\] '
+	elif (( 4 <= USER_COLORTERM ))
 	then
 		PS0=$'\[\e[01;33m\]\u25b6 \\t \u25b6\[\e[0m\]\n'
 		PS1=$'\[\e[01;33m\]\u2500 \\t \u25c0\[\e[01;35m\] $? \[\e[0m\]'
@@ -41,7 +63,16 @@ then
 	fi
 else
 	# Bash should support '\n' for PS? variables in all versions?
-	if   (( 4 <= USER_COLORTERM ))
+	if   (( 5 <= USER_COLORTERM ))
+	then
+		PS0='\[\e[93m\]> \\t >\[\e[0m\]\n'
+		if   [[ -n "${NO_PII}" ]]
+		then
+		PS1='\[\e[93m\]- \\t <\[\e[95m\] $? \[\e[0m\]'"${userconfig_user_color}"'\u\[\e[90m\]@\[\e[96m\]test.test\[\e[90m\]:\[\e[94m\]\W\[\e[0m\]\n'"${userconfig_prompt_color}"'>\[\e[0m\] '
+		else
+		PS1='\[\e[01;33m\]- \\t <\[\e[95m\] $? \[\e[0m\]'"${userconfig_user_color}"'\u\[\e[90m\]@\[\e[96m\]\h\[\e[90m\]:\[\e[94m\]\w\[\e[0m\]\n'"${userconfig_prompt_color}"'>\[\e[0m\] '
+		fi
+	elif (( 4 <= USER_COLORTERM ))
 	then
 		PS0='\[\e[01;33m\]> \\t >\[\e[0m\]\n'
 		if   [[ -n "${NO_PII}" ]]
