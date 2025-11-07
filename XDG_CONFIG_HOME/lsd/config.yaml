@@ -1,0 +1,14 @@
+blocks:
+  - permission
+  - links
+  - user
+  - group
+  - size
+  - date
+  - name
+date: '+%b %d %Y %H:%M'
+icons:
+  when: never
+sorting:
+  dir-grouping: first
+symlink-arrow: ⮕
