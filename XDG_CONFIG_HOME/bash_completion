@@ -1,0 +1,119 @@
+# shellcheck shell=bash disable=SC1091
+
+# ls aliases
+if   ls --version > /dev/null 2>&1
+then
+	# GNU ls
+
+	complete -W '
+		--all
+		--almost-all
+		--block-size=1
+		--block-size=1G
+		--block-size=1K
+		--block-size=1M
+		--group-directories-first
+		--reverse
+		--sort=extension
+		--sort=size
+		--sort=time
+	' -o bashdefault -o default -o filenames \
+		ll \
+		lla \
+		ll-color \
+		lla-color
+
+	complete -W '
+		--block-size=1
+		--block-size=1K
+		--block-size=1M
+		--block-size=1G
+	' -o bashdefault -o default -o filenames \
+		llrs \
+		llrt \
+		llg \
+		llrsg \
+		llrtg \
+		llx \
+		\
+		llars \
+		llart \
+		llag \
+		llarsg \
+		llartg \
+		llax \
+		\
+		llrs-color \
+		llrt-color \
+		llg-color \
+		llrsg-color \
+		llrtg-color \
+		llx-color \
+		\
+		llars-color \
+		llart-color \
+		llag-color \
+		llarsg-color \
+		llartg-color \
+		llax-color
+fi
+
+# lsd aliases
+if   lsd --version > /dev/null 2>&1
+then
+	complete -W '
+		--git
+		--timesort
+		--sizesort
+		--extensionsort
+		--reverse
+	' -o bashdefault -o default -o filenames \
+		lsd-color \
+		\
+		lsdl \
+		lsdlrs \
+		lsdlrt \
+		lsdlx \
+		lsdla \
+		lsdlars \
+		lsdlart \
+		lsdlax \
+		\
+		lsdl-color \
+		lsdlrs-color \
+		lsdlrt-color \
+		lsdlx-color \
+		lsdla-color \
+		lsdlars-color \
+		lsdlart-color \
+		lsdlax-color
+
+	complete -W '
+		--git
+	' -o bashdefault -o default -o filenames \
+		lsdt \
+		lsdta \
+		lsdlt \
+		lsdlta \
+		\
+		lsdt-color \
+		lsdta-color \
+		lsdlt-color \
+		lsdlta-color
+
+	for (( i=2 ; i < 9 ; i+=1 ))
+	do
+		complete -W '
+			--git
+		' -o bashdefault -o default -o filenames \
+			"lsdt${i}" \
+			"lsdta${i}" \
+			"lsdlt${i}" \
+			"lsdlta${i}" \
+			\
+			"lsdt${i}-color" \
+			"lsdta${i}-color" \
+			"lsdlt${i}-color" \
+			"lsdlta${i}-color"
+	done
+fi
