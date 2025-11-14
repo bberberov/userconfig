@@ -1,5 +1,11 @@
 # shellcheck disable=SC2139
 
+# bat
+if   which bat > /dev/null 2>&1
+then
+	alias bat-color='bat --color always --terminal-width ${COLUMNS}'
+fi
+
 # cd
 alias     cd.='cd ..'
 alias    cd..='cd ../..'
@@ -58,6 +64,13 @@ then
 	fi
 fi
 
+# difft
+if   which difft > /dev/null 2>&1
+then
+	alias difft-y='difft --display side-by-side'
+	alias   difft-color='difft --color always --width ${COLUMNS}'
+	alias difft-y-color='difft --color always --width ${COLUMNS} --display side-by-side'
+fi
 
 # eza
 if   which eza > /dev/null 2>&1
@@ -158,6 +171,12 @@ then
 	alias  ipaddr-color='ip --color=always -brief addr'
 	alias ip4addr-color='ip --color=always -4 -brief addr'
 	alias ip6addr-color='ip --color=always -6 -brief addr'
+fi
+
+# jq
+if   which jq > /dev/null 2>&1
+then
+	alias jq-color='jq --color-output'
 fi
 
 #
@@ -658,6 +677,56 @@ then
 	alias   lsblk-fs='lsblk  -p -o NAME,TYPE,FSTYPE,SIZE,FSSIZE,FSUSED,FSAVAIL,FSUSE%,LABEL,PARTLABEL,MOUNTPOINTS'
 fi
 
+# lsd
+if   which lsd > /dev/null 2>&1
+then
+	alias    lsda='lsd -A'
+
+	alias    lsdl='lsd -l'
+	alias  lsdlrs='lsd -lrS'
+	alias  lsdlrt='lsd -lrt'
+	alias   lsdlx='lsd -lX'
+	alias   lsdla='lsd -l'
+	alias lsdlars='lsd -lArS'
+	alias lsdlart='lsd -lArt'
+	alias  lsdlax='lsd -lAX'
+
+	alias   lsdt='lsd     -tree'
+	alias  lsdta='lsd -A  -tree'
+	alias  lsdlt='lsd -l  -tree'
+	alias lsdlta='lsd -lA -tree'
+
+	alias     lsd-color='lsd --color=always'
+	alias    lsda-color='lsd --color=always -A'
+
+	alias    lsdl-color='lsd --color=always -l'
+	alias  lsdlrs-color='lsd --color=always -lrS'
+	alias  lsdlrt-color='lsd --color=always -lrt'
+	alias   lsdlx-color='lsd --color=always -lX'
+	alias   lsdla-color='lsd --color=always -lA'
+	alias lsdlars-color='lsd --color=always -lArS'
+	alias lsdlart-color='lsd --color=always -lArt'
+	alias  lsdlax-color='lsd --color=always -lAX'
+
+	alias   lsdt-color='lsd --color=always     -tree'
+	alias  lsdta-color='lsd --color=always -A  -tree'
+	alias  lsdlt-color='lsd --color=always -l  -tree'
+	alias lsdlta-color='lsd --color=always -lA -tree'
+
+	for (( i=2; i < 9; i+=1 ))
+	do
+		alias   "lsdt${i}"="lsd     --tree --depth ${i}"
+		alias  "lsdta${i}"="lsd -A  --tree --depth ${i}"
+		alias  "lsdlt${i}"="lsd -l  --tree --depth ${i}"
+		alias "lsdlta${i}"="lsd -lA --tree --depth ${i}"
+
+		alias   "lsdt${i}-color"="lsd --color=always     --tree --depth ${i}"
+		alias  "lsdta${i}-color"="lsd --color=always -A  --tree --depth ${i}"
+		alias  "lsdlt${i}-color"="lsd --color=always -l  --tree --depth ${i}"
+		alias "lsdlta${i}-color"="lsd --color=always -lA --tree --depth ${i}"
+	done
+fi
+
 # mkfs.btrfs
 if   which mkfs.btrfs > /dev/null 2>&1
 then
@@ -822,7 +891,7 @@ then
 	alias  tree-color='tree -C'
 	alias ltree-color='tree -CpugshD'
 
-	for (( i=2 ; i < 10 ; i+=1 ))
+	for (( i=2 ; i < 9 ; i+=1 ))
 	do
 		alias  "tree${i}"="tree -L ${i}"
 		alias "ltree${i}"="tree -L ${i} -pugshD"
