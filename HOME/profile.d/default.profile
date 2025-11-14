@@ -1,1 +1,1 @@
-export HISTSIZE=2000
+export HISTSIZE=3000
