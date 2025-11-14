@@ -58,28 +58,6 @@ then
 	fi
 fi
 
-# exa
-if   which exa > /dev/null 2>&1
-then
-	alias   exa='exa --group-directories-first'
-	alias  lexa='exa --group-directories-first -lbg'
-	alias  texa='exa --group-directories-first -T'
-	alias exalt='exa --group-directories-first -lbg -T'
-
-	alias   exa-color='exa --color=always --group-directories-first'
-	alias  lexa-color='exa --color=always --group-directories-first -lbg'
-	alias  texa-color='exa --color=always --group-directories-first -T'
-	alias exalt-color='exa --color=always --group-directories-first -lbg -T'
-
-	for (( i=2 ; i < 10 ; i+=1 ))
-	do
-		alias  "texa${i}"="exa --group-directories-first -T -L ${i}"
-		alias "exalt${i}"="exa --group-directories-first -lbg -T -L ${i}"
-
-		alias  "texa${i}-color"="exa --color=always --group-directories-first -T -L ${i}"
-		alias "exalt${i}-color"="exa --color=always --group-directories-first -lbg -T -L ${i}"
-	done
-fi
 
 # eza
 if   which eza > /dev/null 2>&1
