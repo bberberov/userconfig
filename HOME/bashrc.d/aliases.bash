@@ -64,6 +64,15 @@ then
 	fi
 fi
 
+# diff
+if   which diff > /dev/null 2>&1
+then
+	alias         diff='diff --color=auto'
+	alias       diff-y='diff --color=auto -y'
+	alias   diff-color='diff --color=always'
+	alias diff-y-color='diff --color=always -y'
+fi
+
 # difft
 if   which difft > /dev/null 2>&1
 then
