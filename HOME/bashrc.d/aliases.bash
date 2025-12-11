@@ -672,6 +672,15 @@ then
 	alias      cd-xdg-videos='cd "$(xdg-user-dir VIDEOS)"'
 fi
 
+# xmllint
+if   which xmllint > /dev/null 2>&1
+then
+	if   [[ -f '/usr/share/YaST2/schema/autoyast/rng/profile.rng' ]]
+	then
+		alias validate-autoyast='xmllint --noout --relaxng /usr/share/YaST2/schema/autoyast/rng/profile.rng'
+	fi
+fi
+
 # Custom
 alias separator='echo; for (( i=0 ; i < ${COLUMNS} ; i+=1 )); do echo -n "="; done; echo; echo'
 
