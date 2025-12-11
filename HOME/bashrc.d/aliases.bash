@@ -568,6 +568,13 @@ then
 		alias "rg${i}a-color"="rg --color=always --after-context=${i}"
 		alias "rg${i}b-color"="rg --color=always --before-context=${i}"
 	done
+
+	alias  rg-autoconf="rg -g '*.ac'"
+	alias  rg-automake="rg -g '*.am'"
+	alias rg-autotools="rg -g '*.ac' -g '*.am' -g '*.m4'"
+	alias     rg-cmake="rg -g 'CMakeLists.txt' -g '*.cmake'"
+	alias      rg-make="rg -g 'GNUmakefile' -g 'makefile' -g 'Makefile'"
+	alias      rg-spec="rg -g '*.spec'"
 fi
 
 # rpm
