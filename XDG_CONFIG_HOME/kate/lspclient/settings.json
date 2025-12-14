@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "cmake": {
+      "command": ["neocmakelsp", "--stdio"],
+      "root": ".",
+      "url": "https://github.com/neocmakelsp/neocmakelsp",
+      "highlightingModeRegex": "^CMake$"
+    }
+  }
+}
