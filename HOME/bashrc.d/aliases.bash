@@ -659,6 +659,12 @@ then
 	alias tune2fs-cold-ssd-32M='tune2fs -E mount_opts=noatime,nodev,nosuid,noexec,nobarrier,commit=60'
 fi
 
+# usbimager
+if   which usbimager > /dev/null 2>&1
+then
+	alias usbimager='usbimager -m1024 -7'
+fi
+
 # xdg-user-dir
 if   which xdg-user-dir > /dev/null 2>&1
 then
