@@ -73,6 +73,11 @@
 --map-syntax "katemetainfos:INI"
 --map-syntax "kwritemetainfos:INI"
 
+# openSUSE
+--map-syntax "${HOME}/.zypper.conf:INI"
+--map-syntax "/etc/zypp/*.conf:INI"
+--map-syntax "/etc/zypp/repos.d/*.repo:INI"
+
 # In source, pre-release
 --map-syntax "*.bash_login:Bourne Again Shell (bash)"
 --map-syntax "*.bash_logout:Bourne Again Shell (bash)"
