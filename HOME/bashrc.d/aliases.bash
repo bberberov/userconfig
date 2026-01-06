@@ -38,23 +38,23 @@ then
 		alias df-blocks='df -h --output=source,target,size,used,pcent,avail'
 		alias df-inodes='df -h --output=source,target,itotal,iused,ipcent,iavail'
 		alias   df-free='df -h --output=source,target,iavail,avail'
-		alias   df-full='df -h --output=source,target,ipcent,pcent'
+		alias   df-used='df -h --output=source,target,ipcent,pcent'
 		alias   df-long-color='df-color -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail'
 		alias df-blocks-color='df-color -h --output=source,target,size,used,pcent,avail'
 		alias df-inodes-color='df-color -h --output=source,target,itotal,iused,ipcent,iavail'
 		alias   df-free-color='df-color -h --output=source,target,iavail,avail'
-		alias   df-full-color='df-color -h --output=source,target,ipcent,pcent'
+		alias   df-used-color='df-color -h --output=source,target,ipcent,pcent'
 
 		alias   df-long-disk='df -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail             -l -x devtmpfs -x tmpfs'
 		alias df-blocks-disk='df -h --output=source,target,size,used,pcent,avail                                               -l -x devtmpfs -x tmpfs'
 		alias df-inodes-disk='df -h --output=source,target,itotal,iused,ipcent,iavail                                          -l -x devtmpfs -x tmpfs'
 		alias   df-free-disk='df -h --output=source,target,iavail,avail                                                        -l -x devtmpfs -x tmpfs'
-		alias   df-full-disk='df -h --output=source,target,ipcent,pcent                                                        -l -x devtmpfs -x tmpfs'
+		alias   df-used-disk='df -h --output=source,target,ipcent,pcent                                                        -l -x devtmpfs -x tmpfs'
 		alias   df-long-disk-color='df-color -h --output=source,fstype,itotal,iused,ipcent,iavail,target,size,used,pcent,avail -l -x devtmpfs -x tmpfs'
 		alias df-blocks-disk-color='df-color -h --output=source,target,size,used,pcent,avail                                   -l -x devtmpfs -x tmpfs'
 		alias df-inodes-disk-color='df-color -h --output=source,target,itotal,iused,ipcent,iavail                              -l -x devtmpfs -x tmpfs'
 		alias   df-free-disk-color='df-color -h --output=source,target,iavail,avail                                            -l -x devtmpfs -x tmpfs'
-		alias   df-full-disk-color='df-color -h --output=source,target,ipcent,pcent                                            -l -x devtmpfs -x tmpfs'
+		alias   df-used-disk-color='df-color -h --output=source,target,ipcent,pcent                                            -l -x devtmpfs -x tmpfs'
 	else
 		# non-GNU df
 		alias        df='df -Ph'
@@ -117,6 +117,12 @@ then
 	alias     lsmount-opt='findmnt -o SOURCE,TARGET,VFS-OPTIONS,FS-OPTIONS'
 	alias     lsmount-vfs='findmnt --vfs-all -o SOURCE,TARGET,VFS-OPTIONS'
 	alias    lsmount-tree='findmnt -o SOURCE,FSTYPE,TARGET'
+
+	alias          lsdisk='findmnt -o SOURCE,TARGET,FSTYPE,OPTIONS --real'
+	alias      lsdisk-opt='findmnt -o SOURCE,TARGET,VFS-OPTIONS,FS-OPTIONS --real'
+	alias      lsdisk-vfs='findmnt --vfs-all -o SOURCE,TARGET,VFS-OPTIONS --real'
+	alias     lsdisk-tree='findmnt -o SOURCE,FSTYPE,TARGET --real'
+
 	alias         lsfstab='findmnt --fstab -o SOURCE,TARGET,FSTYPE,OPTIONS,FREQ,PASSNO'
 	alias     lsfstab-opt='findmnt --fstab -o SOURCE,TARGET,FSTYPE,VFS-OPTIONS,FS-OPTIONS,FREQ,PASSNO'
 	alias     lsfstab-dev='findmnt --fstab -e -o SOURCE,TARGET,FSTYPE,OPTIONS,FREQ,PASSNO'
@@ -519,6 +525,8 @@ then
 %%{build_fcflags}   = %{?build_fcflags}
 %%{build_ldflags}   = %{?build_ldflags}
 %%{build_rustflags} = %{?build_rustflags}
+
+%%{_lto_cflags}     = %{?_lto_cflags}
 
 %%make_build        = %{?make_build}
 %%make_install      = %{?make_install}
