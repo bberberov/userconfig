@@ -73,6 +73,11 @@
 --map-syntax "katemetainfos:INI"
 --map-syntax "kwritemetainfos:INI"
 
+--map-syntax "plasma-localerc:INI"
+--map-syntax "plasma-nm:INI"
+--map-syntax "plasma-org.kde.plasma.desktop-appletsrc:INI"
+--map-syntax "plasmashellrc:INI"
+
 # openSUSE
 --map-syntax "${HOME}/.zypper.conf:INI"
 --map-syntax "/etc/zypp/*.conf:INI"
