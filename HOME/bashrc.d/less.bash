@@ -21,31 +21,37 @@ then
 
 	if   (( 358 < less_version ))
 	then
-		# Major changes between "less" versions 354 and 358
-		# --shift option was introduced
 		if   (( 436 < less_version ))
 		then
-			# Major changes between "less" versions 429 and 436
-			# Fractions introduced to --shift option
 			if   (( 661 <= less_version && less_version <= 668 ))
 			then
 				# Major changes between "less" versions 661 and 668
-				# BUG (github #554)
+				# BUG (github #554), don't use fractions
 				LESS="${LESS} --shift=16"
 			else
+				# Major changes between "less" versions 429 and 436
+				# Fractions introduced to --shift option
 				LESS="${LESS} --shift=.25"
 			fi
-		else
-			LESS="${LESS} --shift=16"
-		fi
-	fi
 
-	if   (( 575 < less_version ))
-	then
-		# --use-color was introduced in 576
-		if   (( 4 <= USER_COLORTERM ))
-		then
-			LESS="${LESS} --use-color"
+			if   (( 575 < less_version ))
+			then
+				# --use-color was introduced in 576
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					LESS="${LESS} --use-color"
+				fi
+
+				if   (( 677 < less_version ))
+				then
+					# variable LESS_SHELL_LINES was introduced in 678
+					export LESS_SHELL_LINES=3
+				fi
+			fi
+		else
+			# Major changes between "less" versions 354 and 358
+			# --shift option was introduced
+			LESS="${LESS} --shift=16"
 		fi
 	fi
 
