@@ -14,10 +14,20 @@ _comp_cmd_firefox()
             return
             ;;
         -P)
-            _comp_compgen_split -l -- "$(
-                sed -ne "/^Name=/{s/^Name=/'/; s/\$/'/; p}" \
-                    ~/.mozilla/firefox/profiles.ini 2>/dev/null
-            )"
+            # Based on:
+            # https://unix.stackexchange.com/questions/771875/bash-completion-adding-a-quoted-suggestion-with-a-space
+            local IFS=$'\n'
+            local profile_config profiles
+
+            profile_config="${XDG_CONFIG_HOME:-${HOME}/.config}/mozilla/firefox/profiles.ini"
+            if   [[ ! -f "${profile_config}" ]]
+            then
+                profile_config="${HOME}/.mozilla/firefox/profiles.ini"
+            fi
+
+            profiles="$(sed -ne "/^Name=/{ s/^Name=/'/; s/\$/'/; p; }" "${profile_config}" 2>/dev/null)"
+
+            readarray -t COMPREPLY < <( printf "%q\n" $(compgen -W "${profiles[*]}" -- "$cur") )
             return
             ;;
         --profile | --screenshot)
