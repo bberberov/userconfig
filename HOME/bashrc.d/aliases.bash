@@ -470,6 +470,12 @@ then
 	alias   npm-update='npm update --global'
 fi
 
+# onefetch
+if   which onefetch > /dev/null 2>&1
+then
+	alias onefetch='onefetch --number-of-languages 8'
+fi
+
 # pip
 if   which pip > /dev/null 2>&1
 then
@@ -496,7 +502,7 @@ if   which rg > /dev/null 2>&1
 then
 	alias rg-color='rg --color=always'
 
-	for (( i=1 ; i < 10 ; i+=1 ))
+	for (( i=1 ; i < 9 ; i+=1 ))
 	do
 		alias "rg${i}"="rg --context=${i}"
 		alias "rg${i}a"="rg --after-context=${i}"
@@ -508,10 +514,15 @@ then
 
 	alias  rg-autoconf="rg -g '*.ac'"
 	alias  rg-automake="rg -g '*.am'"
-	alias rg-autotools="rg -g '*.ac' -g '*.am' -g '*.m4'"
+	alias rg-autotools="rg -g '*.{ac,am,m4}'"
 	alias     rg-cmake="rg -g 'CMakeLists.txt' -g '*.cmake'"
-	alias      rg-make="rg -g 'GNUmakefile' -g 'makefile' -g 'Makefile'"
+	alias      rg-make="rg -g '{GNUmakefile,makefile,Makefile}'"
+	alias     rg-meson="rg -g '{meson.build,meson.options,meson_options.txt}'"
 	alias      rg-spec="rg -g '*.spec'"
+
+	alias         rg-c="rg -g '*.{c,h}'"
+	alias       rg-cpp="rg -g '*.{cpp,hpp}'"
+	alias       rg-cxx="rg -g '*.{c,h,cpp,hpp}'"
 fi
 
 # rpm
