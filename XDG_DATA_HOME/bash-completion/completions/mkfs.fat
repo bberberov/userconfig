@@ -1,0 +1,137 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_mkfs_fat()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	local short_opts='
+		-a
+		-A
+		-b
+		-c
+		-C
+		-D
+		-f
+		-F
+		-g
+		-h
+		-i
+		-I
+		-l
+		-m
+		-M
+		-n
+		-r
+		-R
+		-s
+		-S
+		-v
+	'
+	local long_opts='
+		--mbr=
+		--codepage=
+		--offset
+		--variant
+		--help
+	'
+
+	case "${prev}" in
+		-f)
+			if (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Number of FATs:"
+			fi
+
+			compopt -o nosort
+			_comp_compgen -- -W "2 1"
+			return
+		;;
+		-F)
+			if (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "FAT type:"
+			fi
+
+			compopt -o nosort
+			_comp_compgen -- -W "32 16 12"
+			return
+		;;
+		-l|-m)
+			_comp_compgen_filedir
+			return
+		;;
+		-M)
+			compopt -o nosort
+			_comp_compgen -- -W "0xF8 0xF0 0xF9 0xFA 0xFB 0xFC 0xFD 0xFE 0xFF"
+			return
+		;;
+		-r)
+			compopt -o nosort
+			_comp_compgen -- -W "512 112 224"
+			return
+		;;
+		-s)
+			if (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Sectors per cluster:"
+			fi
+
+			compopt -o nosort
+			_comp_compgen -- -W "1 2 4 8 16 32 64 128"
+			return
+		;;
+		-S)
+			if (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Logical sector size:"
+			fi
+
+			compopt -o nosort
+			_comp_compgen -- -W "512 1024 2048 4096"
+			return
+		;;
+		-b|-D|-g|-h|-i|-n|-R|--help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--mbr=*)
+			compopt -o nosort
+			_comp_compgen -c "${cur#*=}" -- -W "auto yes no"
+			return
+		;;
+		--variant)
+			compopt -o nosort
+			_comp_compgen -c "${cur#*=}" -- -W "standard atari"
+			return
+		;;
+		--codepage=*|--offset|--help)
+			return
+		;;
+		--*)
+			compopt -o nospace
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_mkfs_fat mkfs.fat

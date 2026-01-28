@@ -1,0 +1,166 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_mkfs_f2fs()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	case "${prev}" in
+		-a)
+			_comp_compgen -- -W '0 1'
+			return
+		;;
+		-d)
+			# TODO: Check actual levels, not in man page
+			_comp_compgen -- -W '0 1'
+			return
+		;;
+		-e)
+			realcur="${cur##*,}"
+			prefix="${cur%$realcur}"
+
+			local f2fs_cold='
+				jp mp og wm
+				avi m4p m4v mkv mov webm
+				3gp flac m4a opus wav
+				gif png svg webp
+				7z bz2 deb gz iso jar rar rpm tar xz zst
+				pdf pyc ttc ttf exe
+				apk cnt exo odex vdex so
+			'
+
+			for cur_opt in ${f2fs_cold}
+			do
+				if   ! [[ ${prefix} == *"${cur_opt}"* ]]
+				then
+					avail_opts="${cur_opt} ${avail_opts:-""}"
+				fi
+			done
+
+			compopt -o nospace
+			_comp_compgen -c "${realcur}" -- -P "${prefix}" -W "${avail_opts}"
+			return
+		;;
+		-E)
+			realcur="${cur##*,}"
+			prefix="${cur%$realcur}"
+
+			local f2fs_hot='
+				db sqlite
+				qcow2 vdi vmdk
+			'
+
+			for cur_opt in ${f2fs_hot}
+			do
+				if   ! [[ ${prefix} == *"${cur_opt}"* ]]
+				then
+					avail_opts="${cur_opt} ${avail_opts:-""}"
+				fi
+			done
+
+			compopt -o nospace
+			_comp_compgen -c "${realcur}" -- -P "${prefix}" -W "${avail_opts}"
+			return
+		;;
+		-g)
+			_comp_compgen -- -W 'android'
+			return
+		;;
+		-O)
+			realcur="${cur##*,}"
+			prefix="${cur%$realcur}"
+
+			local f2fs_opts='
+				encrypt
+				extra_attr
+				project_quota
+				inode_checksum
+				flexible_inline_xattr
+				quota
+				inode_crtime
+				lost_found
+				verity
+				sb_checksum
+				casefold
+				compression
+			'
+
+			for cur_opt in ${f2fs_opts}
+			do
+				if   ! [[ ${prefix} == *"${cur_opt}"* ]]
+				then
+					avail_opts="${cur_opt} ${avail_opts:-""}"
+				fi
+			done
+
+			compopt -o nospace
+			_comp_compgen -c "${realcur}" -- -P "${prefix}" -W "${avail_opts}"
+			return
+		;;
+		-t)
+			_comp_compgen -- -W '0 1'
+			return
+		;;
+		-w)
+			compopt -o nosort
+			_comp_compgen -- -W '512 1024 2048 4096'
+			return
+		;;
+		-c|-l|-o|-C|-R|-s|-T|-z)
+			# TODO: expand completion for some of these
+			return
+		;;
+		-h|--help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		-h|--help)
+			return
+		;;
+		--*)
+			_comp_compgen -- -W '--help'
+			return
+		;;
+		-*)
+			_comp_compgen -- -W '
+				-a
+				-c
+				-d
+				-e
+				-E
+				-f
+				-g
+				-i
+				-l
+				-m
+				-o
+				-O
+				-C
+				-q
+				-r
+				-R
+				-s
+				-S
+				-t
+				-T
+				-w
+				-z
+				-V
+				--help
+			'
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_mkfs_f2fs mkfs.f2fs

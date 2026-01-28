@@ -1,0 +1,251 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_mkfs_ext4()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	local prefix realcur realprefix cur_opt avail_opts
+
+	case "${prev}" in
+		-b)
+			_comp_compgen -- -W '1024 2048 4096 8192 16384 32768 65536'
+			return
+		;;
+		-C)
+			# TODO: list based on block-size
+			_comp_compgen -- -W '2048 4096 8192 16384 32768 65536 131072 262144 524288 1048576 2097152 4194304 8388608 16777216 33554432 67108864 134217728 268435456 536870912 1073741824 2147483648'
+			return
+		;;
+		-d)
+			_comp_compgen_filedir
+			return
+		;;
+		-e)
+			_comp_compgen -- -W 'continue remount-ro panic'
+			return
+		;;
+		-E)
+			realcur="${cur##*,}"
+			prefix="${cur%${realcur}}"
+			realprefix="${prefix##*=}"
+
+			local ext4_ext_opts='
+				assume_storage_prezeroed
+				assume_storage_prezeroed=
+				discard
+				encoding=
+				encoding_flags=
+				hash_seed=
+				lazy_itable_init
+				lazy_itable_init=
+				lazy_journal_init
+				lazy_journal_init=
+				mmp_update_interval=
+				no_copy_xattrs
+				num_backup_sb=
+				offset=
+				orphan_file_size=
+				packed_meta_blocks
+				packed_meta_blocks=
+				quotatype=
+				resize=
+				root_owner
+				root_owner=
+				root_perms
+				root_perms=
+				stride=
+				stripe_width=
+			'
+			local avail_opts
+
+			for cur_opt in ${ext4_ext_opts}
+			do
+				# Remove options with and without "=" if either was used
+				if   ! [[ ${prefix} == *"${cur_opt%=}"* ]]
+				then
+					avail_opts="${cur_opt} ${avail_opts:-""}"
+				fi
+			done
+
+			case "${realcur}" in
+				'')
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo "Extended Options:"
+					fi
+
+					compopt -o nospace
+					_comp_compgen -R -- -W "${avail_opts}"
+					return
+				;;
+				assume_storage_prezeroed=*|lazy_itable_init=*|lazy_journal_init=*|packed_meta_blocks=*)
+					compopt -o nospace
+# 					_comp_compgen -c "${realcur##*=}" -- -P "${realprefix}" -W '0 1'
+					_comp_compgen -c "${realcur##*=}" -- -W '0 1'
+					return
+				;;
+				encoding_flags=*)
+					compopt -o nospace
+					_comp_compgen -c "${realcur##*=}" -- -W 'strict'
+					return
+				;;
+				num_backup_sb=*)
+					compopt -o nospace
+					_comp_compgen -c "${realcur##*=}" -- -W '0 1 2'
+					return
+				;;
+				quotatype=*)
+					compopt -o nospace
+					_comp_compgen -c "${realcur##*=}" -- -W 'usrquota grpquota prjquota usrquota:grpquota usrquota:prjquota grpquota:prjquota usrquota:grpquota:prjquota'
+					return
+				;;
+				assume_storage_prezeroed|discard|encoding=*|hash_seed=*|lazy_itable_init|lazy_journal_init|mmp_update_interval=|no_copy_xattrs|offset=*|orphan_file_size=*|packed_meta_blocks|resize=*|root_owner*|root_perms*|stride=*|stripe_width=*)
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -c "${realcur}" -- -P "${realprefix}" -W "${avail_opts}"
+					return
+				;;
+			esac
+		;;
+		-I)
+			# TODO: list based on block-size
+			_comp_compgen -- -W '256 512 1024 2048 4096 8192 16384 32768 65536'
+			return
+		;;
+		-J)
+			compopt -o nospace
+			_comp_compgen -- -W '
+				device=
+				fast_commit_size=
+				location=
+				size=
+			'
+			return
+		;;
+		-l)
+			_comp_compgen_filedir
+			return
+		;;
+		-O)
+			realcur="${cur##*,}"
+			prefix="${cur%$realcur}"
+
+			local ext4_opts='
+				64bit
+				bigalloc
+				casefold
+				dir_index
+				dir_nlink
+				ea_inode
+				encrypt
+				ext_attr
+				extent
+				extra_isize
+				filetype
+				flex_bg
+				has_journal
+				huge_file
+				inline_data
+				journal_dev
+				large_dir
+				large_file
+				metadata_csum
+				metadata_csum_seed
+				meta_bg
+				mmp
+				orphan_file
+				project
+				quota
+				resize_inode
+				sparse_super
+				sparse_super2
+				stable_inodes
+				uninit_bg
+				verity
+			'
+
+			for cur_opt in ${ext4_opts}
+			do
+				if   ! [[ ${prefix} == *"${cur_opt}"* ]]
+				then
+					avail_opts="${cur_opt} ^${cur_opt} ${avail_opts:-""}"
+				fi
+			done
+
+			compopt -o nospace
+			_comp_compgen -c "${realcur}" -- -P "${prefix}" -W "${avail_opts}"
+			return
+		;;
+		-t)
+			_comp_compgen -- -W 'ext2 ext3 ext4'
+			return
+		;;
+		-T)
+			_comp_compgen -- -W "$(sed -n -e '/^\[fs_types\]/,${ / = {$/{ s/^[[:space:]]//; s/ = {$//; /ext[234]/d; p; } }' ${MKE2FS_CONFIG:-/etc/mke2fs.conf})"
+			return
+		;;
+		-U)
+			_comp_compgen -- -W "clear random time"
+			return
+		;;
+		-c|-D|-F|-G|-i|-j|-L|-m|-M|-n|-N|-o|-q|-v|-V)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		-V)
+			return
+		;;
+		-*)
+			_comp_compgen -- -W '
+				-b
+				-c
+				-C
+				-d
+				-D
+				-e
+				-E
+				-f
+				-G
+				-i
+				-I
+				-j
+				-J
+				-l
+				-L
+				-m
+				-M
+				-o
+				-O
+				-q
+				-t
+				-T
+				-U
+				-v
+				-V
+				-z
+			'
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_mkfs_ext4 mke2fs mkfs.ext2 mkfs.ext3 mkfs.ext4
+
+if   which mkfs.ext4-color > /dev/null 2>&1
+then
+	complete -F _comp_cmd_mkfs_ext4 mkfs.ext2-config mkfs.ext3-config mkfs.ext4-config
+fi

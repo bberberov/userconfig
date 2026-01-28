@@ -1,0 +1,384 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_mkfs_xfs()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	case "${prev}" in
+		-b)
+			case "${cur}" in
+				size=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W '512 1k 2k 4k 8k 16k 32k 64k'
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W 'size='
+					return
+				;;
+			esac
+		;;
+		-c)
+			case "${cur}" in
+				options=*)
+					_comp_compgen_filedir -c "${cur#*=}"
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W 'options='
+					return
+				;;
+			esac
+		;;
+		-d)
+			if (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Data Options:"
+			fi
+
+			case "${cur}" in
+				agcount=*|agsize=*|cowextsize=*|name=*|size=*|sunit=*|su=*|swidth=*|sw=*|noalign|projinherit=*|extszinherit=*|concurrency=*)
+					return
+				;;
+				file=*|rtinherit=*|daxinherit=*)
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W '
+						agcount=
+						agsize=
+						cowextsize=
+						name=
+						file
+						file=
+						size=
+						sunit=
+						su=
+						swidth=
+						sw=
+						noalign
+						rtinherit=
+						projinherit=
+						extszinherit=
+						daxinherit=
+						concurrency=
+					'
+					return
+				;;
+			esac
+		;;
+		-i)
+			if   (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Inode Options:"
+			fi
+
+			case "${cur}" in
+				size=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W '512 1k 2k'
+					return
+				;;
+				perblock=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W '2 4 8'
+					return
+				;;
+				attr=*)
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo "This option is only tunable on the deprecated V4 format."
+					fi
+
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W '2 1'
+					return
+				;;
+				align=*|projid32bit=*)
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo "This option is only tunable on the deprecated V4 format."
+					fi
+
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				align|projid32bit)
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo "This option is only tunable on the deprecated V4 format."
+					fi
+
+					return
+				;;
+				sparse=*|nrext64=*)
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				maxpct=*|nrext64)
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W '
+						size=
+						perblock=
+						maxpct=
+						align
+						align=
+						attr=
+						projid32bit
+						projid32bit=
+						sparse
+						sparse=
+						nrext64
+						nrext64=
+						exchange
+						exchange=
+					'
+					return
+				;;
+			esac
+		;;
+		-l)
+			if   (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Log Options:"
+			fi
+
+			case "${cur}" in
+				agnum=*|internal|logdev=*|size=*|sunit=*|su=*)
+					return
+				;;
+				internal=*)
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				version=*|lazy-count=*)
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo "This option is only tunable on the deprecated V4 format."
+					fi
+
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				concurrency=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W 'nr_cpus 1 2 3 4 5 6 7 8 9'
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W '
+						agnum=
+						internal
+						internal=
+						logdev=
+						size=
+						version=
+						sunit=
+						su=
+						lazy-count=
+						concurrency=
+					'
+					return
+				;;
+			esac
+		;;
+		-m)
+			if   (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Metadata Options:"
+			fi
+
+			case "${cur}" in
+				uquota|gquota|pquota|uqnoenforce|gqnoenforce|pqnoenforc)
+					return
+				;;
+				bigtime=*|finobt=*|inobtcount=*|metadir=*|rmapbt=*|reflink=*)
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				crc=*)
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo 'Formatting a filesystem without CRCs selects the V4 format, which'
+						echo 'is deprecated and will be removed from upstream in September 2030'
+					fi
+
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				autofsck=*)
+					_comp_compgen -c "${cur#*=}" -- -W 'none check optimize repair'
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W '
+						bigtime=
+						crc=
+						finobt=
+						inobtcount=
+						metadir=
+						'"uuid=$(uuidgen -r)"'
+						rmapbt=
+						reflink=
+						autofsck=
+						uquota
+						gquota
+						pquota
+						uqnoenforce
+						gqnoenforce
+						pqnoenforce
+					'
+					return
+				;;
+			esac
+		;;
+		-n)
+			if   (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Directory Options:"
+			fi
+
+			case "${cur}" in
+				size=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W '512 1k 2k 4k 8k 16k 32k 64k'
+					return
+				;;
+				version=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W '2 ci'
+					return
+				;;
+				fstype=*)
+					if   (( 63 == COMP_TYPE ))
+					then
+						echo
+						echo "This option is only tunable on the deprecated V4 format."
+					fi
+
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				parent=*)
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W '
+						size=
+						version=
+						ftype=
+						parent=
+					'
+					return
+				;;
+			esac
+		;;
+		-p)
+			if   (( 63 == COMP_TYPE ))
+			then
+				echo
+				echo "Protofile Options:"
+			fi
+
+			case "${cur}" in
+				file=*)
+					_comp_compgen_filedir -c "${cur#*=}"
+					return
+				;;
+				slashes_are_spaces=*)
+					_comp_compgen -c "${cur#*=}" -- -W '0 1'
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W '
+						file=
+						slashes_are_spaces=
+					'
+					return
+				;;
+			esac
+		;;
+		-s)
+			case "${cur}" in
+				size=*)
+					compopt -o nosort
+					_comp_compgen -c "${cur#*=}" -- -W "512 1k 2k 4k 8k 16k 32k"
+					return
+				;;
+				*)
+					compopt -o nospace
+					_comp_compgen -- -W 'size='
+					return
+				;;
+			esac
+		;;
+		-V)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		-V)
+			return
+		;;
+		-*)
+			_comp_compgen -- -W '
+				-b
+				-c
+				-d
+				-f
+				-i
+				-l
+				-m
+				-n
+				-p
+				-q
+				-r
+				-s
+				-K
+				-L
+				-N
+				-V
+			'
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_mkfs_xfs mkfs.xfs
+
+if   which mkfs.xfs-color > /dev/null 2>&1
+then
+	complete -F _comp_cmd_mkfs_xfs mkfs.xfs-color
+fi

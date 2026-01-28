@@ -1,0 +1,155 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_mkfs_btrfs()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	local short_opts='
+		-b
+		-d
+		-m
+		-M
+		-n
+		-s
+		-L
+		-K
+		-u
+		-O
+		-f
+		-q
+		-U
+		-v
+		-V
+	'
+	local long_opts='
+		--byte-count
+		--checksum
+		--data
+		--metadata
+		--mixed
+		--nodesize
+		--sectorsize
+		--label
+		--nodiscard
+		--compress
+		--subvol
+		--inode-flags
+		--reflink
+		--shrink
+		--features
+		--force
+		--quiet
+		--uuid
+		--device-uuid
+		--verbose
+		--version
+		--help
+	'
+
+	case "${prev}" in
+		--checksum)
+			compopt -o nosort
+			_comp_compgen -- -W 'crc32c xxhash sha256 blake2'
+			return
+		;;
+		-d|--data|-m|--metadata)
+			compopt -o nosort
+			_comp_compgen -- -W 'single dup raid0 raid1 raid1c3 raid1c4 raid5 raid6 raid10'
+			return
+		;;
+		-n|--nodesize)
+			compopt -o nosort
+			_comp_compgen -- -W '16K 4K 8K 32K 64K'
+			return
+		;;
+		-s|--sectorsize)
+			compopt -o nosort
+			_comp_compgen -- -W '4K'
+			return
+		;;
+		-r|--rootdir)
+			_comp_compgen_filedir
+			return
+		;;
+		--compress)
+			# TODO: colon compression options
+			case "${cur}" in
+				*)
+					compopt -o nosort
+					# compopt -o nospace
+					_comp_compgen -- -W 'no zstd lzo zlib'
+					return
+				;;
+			esac
+
+
+		;;
+		-O|--features)
+			realcur="${cur##*,}"
+			prefix="${cur%$realcur}"
+
+			local btrfs_opts='
+				mixed-bg
+				quota
+				extref
+				raid56
+				skinny-metadata
+				no-holes
+				fst
+				free-space-tree
+				raid1c34
+				zoned
+				bgt
+				block-group-tree
+				squota
+			'
+
+			for cur_opt in ${btrfs_opts}
+			do
+				if   ! [[ ${prefix} == *"${cur_opt}"* ]]
+				then
+					avail_opts="${cur_opt} ^${cur_opt} ${avail_opts:-""}"
+				fi
+			done
+
+			compopt -o nospace
+			_comp_compgen -c "${realcur}" -- -P "${prefix}" -W "${avail_opts}"
+			return
+		;;
+		-U|--uuid|--device-uuid)
+			_comp_compgen -- -W "$(uuidgen -r)"
+			return
+		;;
+		-b|--byte-count|-L|--label|-u|--subvol|--inode-flags|--reflink|--shrink)
+			return
+		;;
+		-h|-V|--help|--version)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		-h|-V|--help|--version)
+			return
+		;;
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_mkfs_btrfs mkfs.btrfs

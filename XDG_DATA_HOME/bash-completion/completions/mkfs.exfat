@@ -1,0 +1,97 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_mkfs_exfat()
+{
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	local short_opts='
+		-b
+		-s
+		-c
+		-f
+		-h
+		-L
+		-U
+		-q
+		-v
+		-V
+	'
+	local long_opts='
+		--boundary-align=
+		--sector-size=
+		--cluster-size=
+		--full-format
+		--help
+		--volume-label=
+		--volume-guid=
+		--pack-bitmap
+		--quiet
+		--verbose
+		--version
+	'
+	local boundary_aligns='8K 16K 32K 64K 128K 256K 512K 1M 2M 4M 8M 16M 32M 64M'
+	local sector_sizes='512 1K 2K 4K'
+	local cluster_sizes='4K 8K 16K 32K 64K 128K 256K 512K 1M 2M 4M 8M 16M 32M'
+
+	case "${prev}" in
+		-b)
+			compopt -o nosort
+			_comp_compgen -- -W "${boundary_aligns}"
+			return
+		;;
+		-s)
+			compopt -o nosort
+			_comp_compgen -- -W "${sector_sizes}"
+			return
+		;;
+		-c)
+			compopt -o nosort
+			_comp_compgen -- -W "${cluster_sizes}"
+			return
+		;;
+		-h|-V|--help|--version)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--boundary-align=*)
+			compopt -o nosort
+			_comp_compgen -c "${cur#*=}" -- -W "${boundary_aligns}"
+			return
+		;;
+		--sector-size=*)
+			compopt -o nosort
+			_comp_compgen -c "${cur#*=}" -- -W "${sector_sizes}"
+			return
+		;;
+		--cluster-size=*)
+			compopt -o nosort
+			_comp_compgen -c "${cur#*=}" -- -W "${cluster_sizes}"
+			return
+		;;
+		-h|-V|--help|--version)
+			return
+		;;
+		--*)
+			compopt -o nospace
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_mkfs_exfat mkfs.exfat
