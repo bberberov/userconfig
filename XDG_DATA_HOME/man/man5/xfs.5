@@ -192,7 +192,7 @@ as of kernel v5.10; The \fBnoikeep\fR option will be removed no
 earlier than in September 2025 and \fBikeep\fR option will be
 immutable default.
 .sp
-When ikeep is specified, XFS does not delete empty inode
+When \fBikeep\fR is specified, XFS does not delete empty inode
 clusters and keeps them around on disk.  When \fBnoikeep\fR is
 specified, empty inode clusters are returned to the free
 space pool.  \fBnoikeep\fR is the default.
@@ -335,16 +335,18 @@ failover event.
 The following mount options have been removed from the kernel, and will
 yield mount failures if specified.  Mount options are deprecated for
 a significant period time prior to removal.
+.sp
 .TS
 tab(@);
-lbl.
+l l
+lb l.
 Name@Removed
-----@-------
-delaylog/nodelaylog@v4.0
+_
+delaylog\fR|\fBnodelaylog@v4.0
 ihashsize@v4.0
 irixsgid@v4.0
-osyncisdsync/osyncisosync@v4.0
-barrier/nobarrier@v4.19
+osyncisdsync\fR|\fBosyncisosync@v4.0
+barrier\fR|\fBnobarrier@v4.19
 .TE
 .SH FILE ATTRIBUTES
 The XFS filesystem supports setting the following file
