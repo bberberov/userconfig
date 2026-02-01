@@ -1,0 +1,302 @@
+# zypper bash completion script
+#
+# A hackweek gift from Marek Stopka <mstopka@opensuse.org>
+# Major rewrite by Josef Reidinger <jreidinger@suse.cz>
+# 2009-02-19 Allow empty spaces in repos names, Werner Fink <werner@suse.de>
+# 2015-04-26 add completion for install+remove+update commands, Bernhard M. Wiedemann <bwiedemann@suse.de>
+# 2026-01-30 speed up invocation with hard-coded lists, Boian Berberov
+
+_strip()
+{
+	local s c o
+	if   (( 0 < ${#COMPREPLY[@]} ))
+	then
+		s="${COMP_WORDBREAKS// }"
+		s="${s//	}"
+		s="${s//[\{\}()\[\]]}"
+		s="${s} 	(){}[]"
+		o=${#s}
+		while (( 0 < o-- ))
+		do
+			c="${s:${o}:1}"
+			COMPREPLY=(${COMPREPLY[*]//${c}/\\${c}})
+		done
+	fi
+}
+
+_installed_packages() {
+	! [[ $cur =~ / ]] || return
+	command grep -s --no-filename "^$cur" "/var/cache/zypp/solv/@System/solv.idx" | cut -f1
+}
+
+_available_solvables2() {
+	local lcur=$1
+	! [[ $cur =~ / ]] || return # for installing local packages
+	set +o noglob
+	command grep -s --no-filename "^$lcur" /var/cache/zypp/solv/*/solv.idx |\
+		cut -f1 | sort --unique
+	set -o noglob
+}
+_available_solvables() {
+	_available_solvables2 "$1:$cur" | sed -e "s/^$1://"
+}
+_available_packages() {
+	[[ $cur ]] || return # this case is too slow with tenthousands of completions
+	_available_solvables2 $cur
+}
+
+_zypper() {
+	ZYPPER="$(type -P zypper)"
+
+	local noglob=$(shopt -po noglob)
+	local comp cur prev command
+	local -a opts=()
+	local -i ITER=0
+	local IFS=$'\n'
+
+	# Do not expand `?' for help
+	set -o noglob
+
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}(.*)[ ]*  .*/\1/p' | tr -d ',' |  sort --unique
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/{ /^ {6}/{ s/^ {6}//; s/ {2}.*$//; s/, /\n/g; p } }' | sort --unique
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([^, ]+).*/\1/p' | sort --unique
+	local -a ZYPPER_CMDLIST=(
+		addlocale
+		addlock
+		addrepo
+		addservice
+		clean
+		cleanlocks
+		dist-upgrade
+		download
+		help
+		info
+		install
+		install-new-recommends
+		licenses
+		list-patches
+		list-updates
+		locales
+		locks
+		modifyrepo
+		modifyservice
+		needs-rebooting
+		packages
+		patch
+		patch-check
+		patches
+		patch-info
+		pattern-info
+		patterns
+		product-info
+		products
+		ps
+		purge-kernels
+		refresh
+		refresh-services
+		remove
+		removelocale
+		removelock
+		removeptf
+		removerepo
+		removeservice
+		renamerepo
+		repos
+		search
+		services
+		shell
+		source-download
+		source-install
+		system-architecture
+		targetos
+		update
+		verify
+		versioncmp
+		what-provides
+		$($ZYPPER -q subcommand | tr -d ',')
+		subcommand
+	)
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^<]*).*  .*/\1/p' | tr -d ',' |  sort --unique
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/{ /^ {4}/{ s/^ {4}//; s/ {2}.*$//; s/, /\n/g; p' |  sort --unique
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^ ,]*).*/\1/p' | sort --unique
+	local -a ZYPPER_OPTLIST=(
+		--cache-dir
+		--color
+		--config
+		--disable-repositories
+		--disable-system-resolvables
+		--gpg-auto-import-keys
+		--help
+		--ignore-unknown
+		--installroot
+		--no-abbrev
+		--no-cd
+		--no-color
+		--no-color.
+		--no-gpg-checks
+		--non-interactive
+		--non-interactive-include-reboot-patches
+		--no-refresh
+		--no-remote
+		--pkg-cache-dir
+		--plus-content
+		--plus-repo
+		--promptids
+		--quiet
+		--raw-cache-dir
+		--releasever
+		--reposd-dir
+		--root
+		--solv-cache-dir
+		--table-style
+		--terse
+		--userdata
+		--verbose
+		--version
+		--xmlout
+	)
+
+	if   (( COMP_CWORD < 1 ))
+	then
+		let COMP_CWORD=${#COMP_WORDS[@]}
+	fi
+	prev=${COMP_WORDS[COMP_CWORD-1]}
+	cur=${COMP_WORDS[COMP_CWORD]}
+
+	ITER=$((COMP_CWORD))
+	while (( 0 < ITER-- ))
+	do
+		comp="${COMP_WORDS[ITER]}"
+		# bsc#1049826 - surrounding ' 's are important to get a word-match of ${comp}:
+		if   [[ " ${ZYPPER_CMDLIST[@]} " =~ " ${comp} " ]]
+		then
+			command=${COMP_WORDS[ITER]}
+			break;
+		fi
+		if   [[ "${comp}" =~ "zypper" ]]
+		then
+			command="zypper"
+			break;
+		fi
+	done
+
+	case "$prev" in
+		--type | -t)
+			opts=(package patch pattern product srcpackage)
+			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
+			_strip
+			eval $noglob
+			return 0;
+		;;
+		--repo | -r | --from)
+			opts=(${opts[@]}$(echo; LC_ALL=POSIX $ZYPPER -q lr | \
+				sed -rn '/^[0-9]/{
+					s/^[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
+					s/[[:blank:]]*$//
+					p
+				}'))
+			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
+			_strip
+			eval $noglob
+			return 0;
+		;;
+	esac
+	unset prev
+	
+	if   [[ "$command" =~ "zypper" ]]
+	then
+		opts=(${ZYPPER_CMDLIST[*]} ${ZYPPER_OPTLIST[*]})
+		COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
+		_strip
+		eval $noglob
+		return 0;
+	fi
+
+	if   [[ -n "$command" ]]
+	then
+		if   ! [[ $cur =~ ^[^-] ]]
+		then
+			opts=$(LC_ALL=POSIX $ZYPPER -q help $command 2>&1 | sed -n '1,/[Oo]ptions:$/d; s/^.\{,6\}\(--[^[:blank:][]*\).*/\1/p')
+		fi
+
+		#handling individual commands if they need more then we can dig from help
+		if   ! [[ $cur =~ ^- ]]
+		then
+			case "$command" in
+				help | '?')
+					opts=(${ZYPPER_CMDLIST[@]})
+				;;
+				removerepo | rr | modifyrepo | mr | renamerepo | nr | refresh | ref)
+					opts=(
+						${opts[@]}
+						$(LC_ALL=POSIX $ZYPPER -q lr | \
+							sed -rn '/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
+								s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
+								s/[[:blank:]]*$//
+								/^$/d
+								p
+							}'
+						)
+					)
+				;;
+				addservice | as | modifyservice | ms | removeservice | rs)
+					opts=(
+						${opts[@]}
+						$(LC_ALL=POSIX $ZYPPER -q ls | \
+						sed -rn '/^[[:blank:]]*[0-9]/{
+							s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
+							s/[[:blank:]]*$//
+							/^$/d
+							p
+						}'))
+				;;
+				removelock | rl)
+					opts=(
+						${opts[@]}
+						$(LC_ALL=POSIX $ZYPPER -q ll | \
+						sed -rn '/^[[:blank:]]*[0-9]/{
+							s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/p
+							s/[[:blank:]]*$//
+							/^$/d
+							p
+						}'))
+				;;
+				product-info)
+					opts=(
+						${opts[@]}
+						$(_available_solvables product)
+					)
+				;;
+				pattern-info)
+					opts=(
+						${opts[@]}
+						$(_available_solvables pattern)
+					)
+				;;
+				patch-info )
+					opts=(
+						${opts[@]}
+						$(_available_solvables patch)
+					)
+				;;
+				remove | rm | update | up)
+					opts=(
+						${opts[@]}
+						$(_installed_packages)
+					)
+				;;
+				install | in | source-install | si | download | info | if | addlock | al)
+					opts=(
+						${opts[@]}
+						$(_available_packages)
+					)
+				;;
+			esac
+		fi
+		COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
+		_strip
+	fi
+	eval $noglob
+}
+
+complete -F _zypper -o default zypper
