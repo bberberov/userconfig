@@ -113,7 +113,7 @@ _zypper() {
 		verify
 		versioncmp
 		what-provides
-		$($ZYPPER -q subcommand | tr -d ',')
+		$($ZYPPER -q subcommand | sed -e 's/, */\n/g')
 		subcommand
 	)
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^<]*).*  .*/\1/p' | tr -d ',' |  sort --unique
@@ -201,7 +201,6 @@ _zypper() {
 			return 0;
 		;;
 	esac
-	unset prev
 	
 	if   [[ "$command" =~ "zypper" ]]
 	then
