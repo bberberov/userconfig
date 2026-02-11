@@ -26,23 +26,39 @@ _strip()
 
 _installed_packages() {
 	! [[ $cur =~ / ]] || return
-	command grep -s --no-filename "^$cur" "/var/cache/zypp/solv/@System/solv.idx" | cut -f1
+	command grep --no-messages --no-filename "^$cur"  \
+		'/var/cache/zypp/solv/@System/solv.idx' \
+		| cut -f1 \
+		| sort --unique
 }
 
 _available_solvables2() {
 	local lcur=$1
 	! [[ $cur =~ / ]] || return # for installing local packages
 	set +o noglob
-	command grep -s --no-filename "^$lcur" /var/cache/zypp/solv/*/solv.idx |\
-		cut -f1 | sort --unique
+	command grep --no-messages --no-filename "^$lcur" \
+		/var/cache/zypp/solv/*/solv.idx \
+		| cut -f1 \
+		| sort --unique
 	set -o noglob
 }
 _available_solvables() {
 	_available_solvables2 "$1:$cur" | sed -e "s/^$1://"
 }
 _available_packages() {
-	[[ $cur ]] || return # this case is too slow with tenthousands of completions
+	[[ $cur ]] || return # this case is too slow with many thousands of completions
 	_available_solvables2 $cur
+}
+_repositories() {
+	LC_ALL=POSIX "$(type -P zypper)" -q lr --alias --sort-by-alias \
+	| sed -rn '
+		/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
+			s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
+			s/[[:blank:]]*$//
+			/^$/d
+			p
+		}
+	'
 }
 
 _zypper() {
@@ -57,10 +73,71 @@ _zypper() {
 	# Do not expand `?' for help
 	set -o noglob
 
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}(.*)[ ]*  .*/\1/p' | tr -d ',' |  sort --unique
+	local -a ZYPPER_SUBCOMM=(
+		$($ZYPPER -q subcommand | sed -e 's/, */\n/g')
+		subcommand
+	)
+# 	Complete
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([a-z-]+, [a-z-]+|[a-z-]+).*/\1/p' | tr -d ',' |  sort --unique
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/{ /^ {6}/{ s/^ {6}//; s/ {2}.*$//; s/, /\n/g; p } }' | sort --unique
+# 	Long only
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([^, ]+).*/\1/p' | sort --unique
 	local -a ZYPPER_CMDLIST=(
+		addlocale aloc
+		addlock al
+		addrepo ar
+		addservice as
+		clean cc
+		cleanlocks cl
+		dist-upgrade dup
+		download
+		help
+		info if
+		install in
+		install-new-recommends inr
+		licenses
+		list-patches lp
+		list-updates lu
+		locales lloc
+		locks ll
+		modifyrepo mr
+		modifyservice ms
+		needs-rebooting
+		packages pa
+		patch
+		patch-check pchk
+		patches pch
+		patch-info
+		pattern-info
+		patterns pt
+		product-info
+		products pd
+		ps
+		purge-kernels
+		refresh ref
+		refresh-services refs
+		removelocale rloc
+		removelock rl
+		removeptf rmptf
+		removerepo rr
+		remove rm
+		removeservice rs
+		renamerepo nr
+		repos lr
+		search se
+		services ls
+		shell sh
+		source-download
+		source-install si
+		system-architecture
+		targetos tos
+		update up
+		verify ve
+		versioncmp vcmp
+		what-provides wp
+		${ZYPPER_SUBCOMM[@]}
+	)
+	local -a ZYPPER_CMDLONG=(
 		addlocale
 		addlock
 		addrepo
@@ -113,13 +190,49 @@ _zypper() {
 		verify
 		versioncmp
 		what-provides
-		$($ZYPPER -q subcommand | sed -e 's/, */\n/g')
-		subcommand
+		${ZYPPER_SUBCOMM[@]}
 	)
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^<]*).*  .*/\1/p' | tr -d ',' |  sort --unique
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/{ /^ {4}/{ s/^ {4}//; s/ {2}.*$//; s/, /\n/g; p' |  sort --unique
+# 	Complete
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^<,]+, -.|--[^<, ]+).*/\1/p' | tr -d ',' |  sort --unique
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/{ /^ {4}/{ s/^ {4}//; s/ {2}.*$//; s/, /\n/g; s/ .*$//; p; } }' |  sort --unique
+# 	Long only
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^ ,]*).*/\1/p' | sort --unique
 	local -a ZYPPER_OPTLIST=(
+		--cache-dir -C
+		--color
+		--config -c
+		--disable-repositories
+		--disable-system-resolvables
+		--gpg-auto-import-keys
+		--help -h
+		--ignore-unknown -i
+		--installroot
+		--no-abbrev -A
+		--no-cd
+		--no-color
+		--no-gpg-checks
+		--non-interactive-include-reboot-patches
+		--non-interactive -n
+		--no-refresh
+		--no-remote
+		--pkg-cache-dir
+		--plus-content
+		--plus-repo -p
+		--promptids
+		--quiet -q
+		--raw-cache-dir
+		--releasever
+		--reposd-dir -D
+		--root -R
+		--solv-cache-dir
+		--table-style -s
+		--terse -t
+		--userdata
+		--verbose -v
+		--version -V
+		--xmlout -x
+	)
+	local -a ZYPPER_OPTLONG=(
 		--cache-dir
 		--color
 		--config
@@ -132,7 +245,6 @@ _zypper() {
 		--no-abbrev
 		--no-cd
 		--no-color
-		--no-color.
 		--no-gpg-checks
 		--non-interactive
 		--non-interactive-include-reboot-patches
@@ -172,10 +284,9 @@ _zypper() {
 		then
 			command=${COMP_WORDS[ITER]}
 			break;
-		fi
-		if   [[ "${comp}" =~ "zypper" ]]
+		elif [[ 'zypper' == "${comp}" ]]
 		then
-			command="zypper"
+			command='zypper'
 			break;
 		fi
 	done
@@ -189,65 +300,80 @@ _zypper() {
 			return 0;
 		;;
 		--repo | -r | --from)
-			opts=(${opts[@]}$(echo; LC_ALL=POSIX $ZYPPER -q lr | \
-				sed -rn '/^[0-9]/{
-					s/^[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
-					s/[[:blank:]]*$//
-					p
-				}'))
+			opts=($(_repositories))
+			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
+			_strip
+			eval $noglob
+			return 0;
+		;;
+		--conflicts         |\
+		--conflicts-pkg     |\
+		--enhances          |\
+		--enhances-pkg      |\
+		--obsoletes         |\
+		--obsoletes-pkg     |\
+		--provides-pkg      |\
+		--provides-pkg      |\
+		--recommends        |\
+		--recommends-pkg    |\
+		--requires-pkg      |\
+		--requires-pkg      |\
+		--suggests          |\
+		--suggests-pkg      |\
+		--supplements       |\
+		--supplements-pkg   \
+		)
+			opts=($(_available_packages))
 			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
 			_strip
 			eval $noglob
 			return 0;
 		;;
 	esac
-	
-	if   [[ "$command" =~ "zypper" ]]
+
+	if   [[ 'zypper' == "${command}" ]]
 	then
-		opts=(${ZYPPER_CMDLIST[*]} ${ZYPPER_OPTLIST[*]})
+		opts=(${ZYPPER_OPTLONG[*]} ${ZYPPER_CMDLONG[*]})
+
+		# ${opts} are already sorted and grouped
+		compopt -o nosort
 		COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
 		_strip
 		eval $noglob
 		return 0;
 	fi
 
-	if   [[ -n "$command" ]]
+	if   [[ -n "${command}" ]]
 	then
-		if   ! [[ $cur =~ ^[^-] ]]
+		if   [[ -z $cur || $cur =~ ^- ]]
 		then
 			opts=$(LC_ALL=POSIX $ZYPPER -q help $command 2>&1 | sed -n '1,/[Oo]ptions:$/d; s/^.\{,6\}\(--[^[:blank:][]*\).*/\1/p')
 		fi
 
 		#handling individual commands if they need more then we can dig from help
-		if   ! [[ $cur =~ ^- ]]
+		if   [[ -z $cur || $cur =~ ^[^-] ]]
 		then
 			case "$command" in
 				help | '?')
 					opts=(${ZYPPER_CMDLIST[@]})
 				;;
-				removerepo | rr | modifyrepo | mr | renamerepo | nr | refresh | ref)
+				clean | cc | modifyrepo | mr | refresh | ref | removerepo | rr | renamerepo | nr | repos | lr)
 					opts=(
 						${opts[@]}
-						$(LC_ALL=POSIX $ZYPPER -q lr | \
-							sed -rn '/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
-								s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
-								s/[[:blank:]]*$//
-								/^$/d
-								p
-							}'
-						)
+						$(_repositories)
 					)
 				;;
-				addservice | as | modifyservice | ms | removeservice | rs)
+				addservice | as | modifyservice | ms | removeservice | rs | refresh-services | refs)
 					opts=(
 						${opts[@]}
-						$(LC_ALL=POSIX $ZYPPER -q ls | \
+						$(LC_ALL=POSIX $ZYPPER -q ls --sort-by-name | \
 						sed -rn '/^[[:blank:]]*[0-9]/{
 							s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
 							s/[[:blank:]]*$//
 							/^$/d
 							p
-						}'))
+						}')
+					)
 				;;
 				removelock | rl)
 					opts=(
@@ -258,7 +384,8 @@ _zypper() {
 							s/[[:blank:]]*$//
 							/^$/d
 							p
-						}'))
+						}')
+					)
 				;;
 				product-info)
 					opts=(
@@ -292,6 +419,9 @@ _zypper() {
 				;;
 			esac
 		fi
+
+		# ${opts} are already sorted and grouped
+		compopt -o nosort
 		COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
 		_strip
 	fi
