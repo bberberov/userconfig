@@ -74,11 +74,12 @@ _zypper() {
 	set -o noglob
 
 	local -a ZYPPER_SUBCOMM=(
-		$($ZYPPER -q subcommand | sed -e 's/, */\n/g')
 		subcommand
+		$($ZYPPER -q subcommand | sed -e 's/, */\n/g')
 	)
 # 	Complete
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([a-z-]+, [a-z-]+|[a-z-]+).*/\1/p' | tr -d ',' |  sort --unique
+# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([a-z-]+, [a-z?-]+|[a-z-]+).*/\1/p' | tr -d ',' |  sort --unique
+# 	Complete, one per line
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/{ /^ {6}/{ s/^ {6}//; s/ {2}.*$//; s/, /\n/g; p } }' | sort --unique
 # 	Long only
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([^, ]+).*/\1/p' | sort --unique
@@ -91,7 +92,7 @@ _zypper() {
 		cleanlocks cl
 		dist-upgrade dup
 		download
-		help
+		help ?
 		info if
 		install in
 		install-new-recommends inr
@@ -194,6 +195,7 @@ _zypper() {
 	)
 # 	Complete
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^<,]+, -.|--[^<, ]+).*/\1/p' | tr -d ',' |  sort --unique
+# 	Complete, one per line
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/{ /^ {4}/{ s/^ {4}//; s/ {2}.*$//; s/, /\n/g; s/ .*$//; p; } }' |  sort --unique
 # 	Long only
 # 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^ ,]*).*/\1/p' | sort --unique
