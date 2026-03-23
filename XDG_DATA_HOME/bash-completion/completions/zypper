@@ -6,8 +6,7 @@
 # 2015-04-26 add completion for install+remove+update commands, Bernhard M. Wiedemann <bwiedemann@suse.de>
 # 2026-01-30 speed up invocation with hard-coded lists, Boian Berberov
 
-_strip()
-{
+_strip() {
 	local s c o
 	if   (( 0 < ${#COMPREPLY[@]} ))
 	then
@@ -50,7 +49,7 @@ _available_packages() {
 	_available_solvables2 $cur
 }
 _repositories() {
-	LC_ALL=POSIX "$(type -P zypper)" -q lr --alias --sort-by-alias \
+	LC_ALL=POSIX "$(type -P zypper)" -q repos --alias --sort-by-alias \
 	| sed -rn '
 		/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
 			s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
@@ -349,7 +348,12 @@ _zypper() {
 	then
 		if   [[ -z $cur || $cur =~ ^- ]]
 		then
-			opts=$(LC_ALL=POSIX $ZYPPER -q help $command 2>&1 | sed -n '1,/[Oo]ptions:$/d; s/^.\{,6\}\(--[^[:blank:][]*\).*/\1/p')
+			if   [[ "${command}" == "${command%-color}-color" ]]
+			then
+				opts=$(LC_ALL=POSIX $ZYPPER -q help ${command%-color} 2>&1 | sed -n '1,/[Oo]ptions:$/d; s/^.\{,6\}\(--[^[:blank:][]*\).*/\1/p')
+			else
+				opts=$(LC_ALL=POSIX $ZYPPER -q help ${command} 2>&1 | sed -n '1,/[Oo]ptions:$/d; s/^.\{,6\}\(--[^[:blank:][]*\).*/\1/p')
+			fi
 		fi
 
 		#handling individual commands if they need more then we can dig from help
@@ -414,6 +418,12 @@ _zypper() {
 					)
 				;;
 				install | in | source-install | si | download | info | if | addlock | al)
+					opts=(
+						${opts[@]}
+						$(_available_packages)
+					)
+				;;
+				info-color)
 					opts=(
 						${opts[@]}
 						$(_available_packages)
