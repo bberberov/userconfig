@@ -81,8 +81,8 @@ _comp_cmd_mkfs_exfat()
 			return
 		;;
 		--*)
-			compopt -o nospace
 			_comp_compgen -- -W "${long_opts}"
+			[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 			return
 		;;
 		-*)

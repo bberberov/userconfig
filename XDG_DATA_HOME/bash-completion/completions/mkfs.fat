@@ -121,8 +121,8 @@ _comp_cmd_mkfs_fat()
 			return
 		;;
 		--*)
-			compopt -o nospace
 			_comp_compgen -- -W "${long_opts}"
+			[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
 			return
 		;;
 		-*)
