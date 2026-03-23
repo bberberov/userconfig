@@ -56,7 +56,7 @@ _comp_cmd_mkfs_exfat()
 			_comp_compgen -- -W "${cluster_sizes}"
 			return
 		;;
-		-h|-V|--help|--version)
+		-h | -V | --help | --version)
 			return
 		;;
 	esac
@@ -77,7 +77,7 @@ _comp_cmd_mkfs_exfat()
 			_comp_compgen -c "${cur#*=}" -- -W "${cluster_sizes}"
 			return
 		;;
-		-h|-V|--help|--version)
+		-h | -V | --help | --version)
 			return
 		;;
 		--*)

@@ -112,17 +112,17 @@ _comp_cmd_mkfs_f2fs()
 			_comp_compgen -- -W '512 1024 2048 4096'
 			return
 		;;
-		-c|-l|-o|-C|-R|-s|-T|-z)
+		-c | -l | -o | -C | -R | -s | -T | -z)
 			# TODO: expand completion for some of these
 			return
 		;;
-		-h|--help)
+		-h | --help)
 			return
 		;;
 	esac
 
 	case "${cur}" in
-		-h|--help)
+		-h | --help)
 			return
 		;;
 		--*)

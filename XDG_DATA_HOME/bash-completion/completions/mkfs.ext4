@@ -86,7 +86,7 @@ _comp_cmd_mkfs_ext4()
 					_comp_compgen -R -- -W "${avail_opts}"
 					return
 				;;
-				assume_storage_prezeroed=*|lazy_itable_init=*|lazy_journal_init=*|packed_meta_blocks=*)
+				assume_storage_prezeroed=* | lazy_itable_init=* | lazy_journal_init=* | packed_meta_blocks=*)
 					compopt -o nospace
 # 					_comp_compgen -c "${realcur##*=}" -- -P "${realprefix}" -W '0 1'
 					_comp_compgen -c "${realcur##*=}" -- -W '0 1'
@@ -107,7 +107,7 @@ _comp_cmd_mkfs_ext4()
 					_comp_compgen -c "${realcur##*=}" -- -W 'usrquota grpquota prjquota usrquota:grpquota usrquota:prjquota grpquota:prjquota usrquota:grpquota:prjquota'
 					return
 				;;
-				assume_storage_prezeroed|discard|encoding=*|hash_seed=*|lazy_itable_init|lazy_journal_init|mmp_update_interval=|no_copy_xattrs|offset=*|orphan_file_size=*|packed_meta_blocks|resize=*|root_owner*|root_perms*|stride=*|stripe_width=*)
+				assume_storage_prezeroed | discard | encoding=* | hash_seed=* | lazy_itable_init | lazy_journal_init | mmp_update_interval= | no_copy_xattrs | offset=* | orphan_file_size=* | packed_meta_blocks | resize=* | root_owner* | root_perms* | stride=* | stripe_width=*)
 					return
 				;;
 				*)
@@ -198,7 +198,7 @@ _comp_cmd_mkfs_ext4()
 			_comp_compgen -- -W "clear random time"
 			return
 		;;
-		-c|-D|-F|-G|-i|-j|-L|-m|-M|-n|-N|-o|-q|-v|-V)
+		-c | -D | -F | -G | -i | -j | -L | -m | -M | -n | -N | -o | -q | -v | -V)
 			return
 		;;
 	esac

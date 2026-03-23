@@ -47,10 +47,10 @@ _comp_cmd_mkfs_xfs()
 			fi
 
 			case "${cur}" in
-				agcount=*|agsize=*|cowextsize=*|name=*|size=*|sunit=*|su=*|swidth=*|sw=*|noalign|projinherit=*|extszinherit=*|concurrency=*)
+				agcount=* | agsize=* | cowextsize=* | name=* | size=* | sunit=* | su=* | swidth=* | sw=* | noalign | projinherit=* | extszinherit=* | concurrency=*)
 					return
 				;;
-				file=*|rtinherit=*|daxinherit=*)
+				file=* | rtinherit=*| daxinherit=*)
 					_comp_compgen -c "${cur#*=}" -- -W '0 1'
 					return
 				;;
@@ -108,7 +108,7 @@ _comp_cmd_mkfs_xfs()
 					_comp_compgen -c "${cur#*=}" -- -W '2 1'
 					return
 				;;
-				align=*|projid32bit=*)
+				align=* | projid32bit=*)
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -118,7 +118,7 @@ _comp_cmd_mkfs_xfs()
 					_comp_compgen -c "${cur#*=}" -- -W '0 1'
 					return
 				;;
-				align|projid32bit)
+				align | projid32bit)
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -127,11 +127,11 @@ _comp_cmd_mkfs_xfs()
 
 					return
 				;;
-				sparse=*|nrext64=*)
+				sparse=* | nrext64=*)
 					_comp_compgen -c "${cur#*=}" -- -W '0 1'
 					return
 				;;
-				maxpct=*|nrext64)
+				maxpct=* | nrext64)
 					return
 				;;
 				*)
@@ -164,14 +164,14 @@ _comp_cmd_mkfs_xfs()
 			fi
 
 			case "${cur}" in
-				agnum=*|internal|logdev=*|size=*|sunit=*|su=*)
+				agnum=* | internal | logdev=* | size=* | sunit=* | su=*)
 					return
 				;;
 				internal=*)
 					_comp_compgen -c "${cur#*=}" -- -W '0 1'
 					return
 				;;
-				version=*|lazy-count=*)
+				version=* | lazy-count=*)
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -212,10 +212,10 @@ _comp_cmd_mkfs_xfs()
 			fi
 
 			case "${cur}" in
-				uquota|gquota|pquota|uqnoenforce|gqnoenforce|pqnoenforc)
+				uquota | gquota | pquota | uqnoenforce | gqnoenforce | pqnoenforc)
 					return
 				;;
-				bigtime=*|finobt=*|inobtcount=*|metadir=*|rmapbt=*|reflink=*)
+				bigtime=* | finobt=* | inobtcount=* | metadir=* | rmapbt=* | reflink=*)
 					_comp_compgen -c "${cur#*=}" -- -W '0 1'
 					return
 				;;

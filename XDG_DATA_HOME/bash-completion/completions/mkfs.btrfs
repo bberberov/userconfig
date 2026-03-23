@@ -59,22 +59,22 @@ _comp_cmd_mkfs_btrfs()
 			_comp_compgen -- -W 'crc32c xxhash sha256 blake2'
 			return
 		;;
-		-d|--data|-m|--metadata)
+		-d | --data | -m | --metadata)
 			compopt -o nosort
 			_comp_compgen -- -W 'single dup raid0 raid1 raid1c3 raid1c4 raid5 raid6 raid10'
 			return
 		;;
-		-n|--nodesize)
+		-n | --nodesize)
 			compopt -o nosort
 			_comp_compgen -- -W '16K 4K 8K 32K 64K'
 			return
 		;;
-		-s|--sectorsize)
+		-s | --sectorsize)
 			compopt -o nosort
 			_comp_compgen -- -W '4K'
 			return
 		;;
-		-r|--rootdir)
+		-r | --rootdir)
 			_comp_compgen_filedir
 			return
 		;;
@@ -91,7 +91,7 @@ _comp_cmd_mkfs_btrfs()
 
 
 		;;
-		-O|--features)
+		-O | --features)
 			realcur="${cur##*,}"
 			prefix="${cur%$realcur}"
 
@@ -123,20 +123,20 @@ _comp_cmd_mkfs_btrfs()
 			_comp_compgen -c "${realcur}" -- -P "${prefix}" -W "${avail_opts}"
 			return
 		;;
-		-U|--uuid|--device-uuid)
+		-U | --uuid | --device-uuid)
 			_comp_compgen -- -W "$(uuidgen -r)"
 			return
 		;;
-		-b|--byte-count|-L|--label|-u|--subvol|--inode-flags|--reflink|--shrink)
+		-b | --byte-count | -L | --label | -u | --subvol | --inode-flags | --reflink | --shrink)
 			return
 		;;
-		-h|-V|--help|--version)
+		-h | -V | --help | --version)
 			return
 		;;
 	esac
 
 	case "${cur}" in
-		-h|-V|--help|--version)
+		-h | -V | --help | --version)
 			return
 		;;
 		--*)
