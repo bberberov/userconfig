@@ -376,9 +376,4 @@ _comp_cmd_mkfs_xfs()
 			return
 		;;
 	esac
-} && complete -F _comp_cmd_mkfs_xfs mkfs.xfs
-
-if   which mkfs.xfs-color > /dev/null 2>&1
-then
-	complete -F _comp_cmd_mkfs_xfs mkfs.xfs-color
-fi
+} && complete -F _comp_cmd_mkfs_xfs mkfs.xfs mkfs.xfs-color
