@@ -266,9 +266,17 @@ done
 
 # BEGIN XDG_CONFIG_HOME
 
+echo
+
 XDG_CONFIG_HOME_local=${XDG_CONFIG_HOME:-${HOME}/.config}
 
-echo
+if   [[ ! -d "${XDG_CONFIG_HOME_local}" ]]
+then
+	echo "Created missing ${XDG_CONFIG_HOME_local}"
+	mkdir -p "${XDG_CONFIG_HOME_local}"
+	chmod 700 "${XDG_CONFIG_HOME_local}"
+fi
+
 for f in "${repo_tree_e}/XDG_CONFIG_HOME/"*
 do
 	bn="$(basename ${f})"
@@ -326,9 +334,17 @@ done
 
 # BEGIN XDG_DATA_HOME
 
+echo
+
 XDG_DATA_HOME_local=${XDG_DATA_HOME:-${HOME}.local/share}
 
-echo
+if   [[ ! -d "${XDG_DATA_HOME_local}" ]]
+then
+	echo "Created missing ${XDG_DATA_HOME_local}"
+	mkdir -p "${XDG_DATA_HOME_local}"
+	chmod 700 "${XDG_DATA_HOME_local}"
+fi
+
 for f in "${repo_tree_e}/XDG_DATA_HOME/"*
 do
 	bn="$(basename ${f})"
