@@ -17,6 +17,7 @@ kate-wildcard(XDG_CONFIG_HOME/git/app/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/host/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/ignore): syntax Git Ignore;
 kate-wildcard(XDG_CONFIG_HOME/osc/oscrc): syntax INI Files;
+kate-wildcard(XDG_CONFIG_HOME/plasma-nm): syntax INI Files;
 kate-wildcard(XDG_DATA_HOME/bash-completion/completions/*): syntax Bash;
 kate-wildcard(XDG_DATA_HOME/konsole/*): syntax INI Files;
 kate-wildcard(etc/mke2fs.conf): syntax TOML;

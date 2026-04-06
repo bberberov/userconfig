@@ -291,7 +291,7 @@ do
 			bash_completion)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" bash
 			;;
-			plasma_nm)
+			plasma-nm)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" plasmashell
 			;;
 			*)
