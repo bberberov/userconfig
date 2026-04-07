@@ -96,10 +96,16 @@ userlink_on_exec()
 				userlink "${bn}" "${tgt}" "${lnk}"
 				return 0
 			else
-				if  [[ -L "${lnk}" && "${tgt}" == "$(readlink "${lnk}")" ]]
+				if   [[ -L "${lnk}" ]]
 				then
-					echo "Removing existing link ${bn} since none of { ${@} } were found"
-					return 0
+					if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
+					then
+						echo "Removing existing link ${bn} since none of { ${@} } were found"
+						return 0
+					else
+						echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${@} } were found"
+						return 1
+					fi
 				else
 					echo "Skipping ${bn} since none of { ${@} } were found"
 					return 1
@@ -112,10 +118,16 @@ userlink_on_exec()
 			userlink "${bn}" "${tgt}" "${lnk}"
 			return 0
 		else
-			if   [[ -L "${lnk}" && "${tgt}" == "$(readlink "${lnk}")" ]]
+			if   [[ -L "${lnk}" ]]
 			then
-				echo "Removing existing link ${bn} since ${bn} was not found"
-				return 0
+				if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
+				then
+					echo "Removing existing link ${bn} since ${bn} was not found"
+					return 0
+				else
+					echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					return 1
+				fi
 			else
 				echo "Skipping ${bn} since ${bn} was not found"
 				return 1
