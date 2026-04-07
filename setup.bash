@@ -329,7 +329,7 @@ do
 			# NOTE: Special cases
 			case "${bn}" in
 				git)
-					userskip "${bn}" "${f}" 'configure manually'
+					userskip "${bn}" "${f}" 'second level only, configure manually'
 				;;
 				kate)
 					userskip "${bn}" "${f}" 'second level only'
@@ -386,7 +386,7 @@ do
 					userskip "${bn}" "${f}" 'use BASH_COMPLETION_USER_DIR'
 				;;
 				org.kde.syntax-highlighting)
-					userlink_on_exec "${bn}" "${f}" "${XDG_DATA_HOME_local}/${bn}" ksyntaxhighlighter6
+					userskip "${bn}" "${f}" 'second level only'
 				;;
 				*)
 					userlink_on_exec "${bn}" "${f}" "${XDG_DATA_HOME_local}/${bn}"
