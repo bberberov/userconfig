@@ -93,6 +93,18 @@ git_include_remove()
 		include.path
 }
 
+if   ! which git > /dev/null 2>&1
+then
+	echo 'git not found, skipping'
+	exit 0
+fi
+
+if   [[ ! -d "${dst}"  ]]
+then
+	echo "Creating ${dst}"
+	mkdir -p "${dst}"
+fi
+
 # Link global ignore file
 userlink ignore "${src}/ignore" "${dst}/ignore"
 
