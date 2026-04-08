@@ -76,6 +76,7 @@ _comp_cmd_mkfs_ext4()
 
 			case "${realcur}" in
 				'')
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -243,4 +244,4 @@ _comp_cmd_mkfs_ext4()
 			return
 		;;
 	esac
-} && complete -F _comp_cmd_mkfs_ext4 mke2fs mkfs.ext2 mkfs.ext3 mkfs.ext4 mkfs.ext2-config mkfs.ext3-config mkfs.ext4-config
+} && complete -F _comp_cmd_mkfs_ext4 mke2fs mkfs.ext2 mkfs.ext3 mkfs.ext4
