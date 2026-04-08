@@ -44,7 +44,8 @@ _comp_cmd_mkfs_fat()
 
 	case "${prev}" in
 		-f)
-			if (( 63 == COMP_TYPE ))
+			# COMP_TYPE = '?', for listing completions after successive tabs
+			if   (( 63 == COMP_TYPE ))
 			then
 				echo
 				echo "Number of FATs:"
@@ -55,7 +56,8 @@ _comp_cmd_mkfs_fat()
 			return
 		;;
 		-F)
-			if (( 63 == COMP_TYPE ))
+			# COMP_TYPE = '?', for listing completions after successive tabs
+			if   (( 63 == COMP_TYPE ))
 			then
 				echo
 				echo "FAT type:"
@@ -80,7 +82,8 @@ _comp_cmd_mkfs_fat()
 			return
 		;;
 		-s)
-			if (( 63 == COMP_TYPE ))
+			# COMP_TYPE = '?', for listing completions after successive tabs
+			if   (( 63 == COMP_TYPE ))
 			then
 				echo
 				echo "Sectors per cluster:"
@@ -91,7 +94,8 @@ _comp_cmd_mkfs_fat()
 			return
 		;;
 		-S)
-			if (( 63 == COMP_TYPE ))
+			# COMP_TYPE = '?', for listing completions after successive tabs
+			if   (( 63 == COMP_TYPE ))
 			then
 				echo
 				echo "Logical sector size:"

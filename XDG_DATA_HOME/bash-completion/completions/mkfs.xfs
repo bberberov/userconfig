@@ -40,7 +40,8 @@ _comp_cmd_mkfs_xfs()
 			esac
 		;;
 		-d)
-			if (( 63 == COMP_TYPE ))
+			# COMP_TYPE = '?', for listing completions after successive tabs
+			if   (( 63 == COMP_TYPE ))
 			then
 				echo
 				echo "Data Options:"
@@ -80,6 +81,7 @@ _comp_cmd_mkfs_xfs()
 			esac
 		;;
 		-i)
+			# COMP_TYPE = '?', for listing completions after successive tabs
 			if   (( 63 == COMP_TYPE ))
 			then
 				echo
@@ -98,6 +100,7 @@ _comp_cmd_mkfs_xfs()
 					return
 				;;
 				attr=*)
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -109,6 +112,7 @@ _comp_cmd_mkfs_xfs()
 					return
 				;;
 				align=* | projid32bit=*)
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -119,6 +123,7 @@ _comp_cmd_mkfs_xfs()
 					return
 				;;
 				align | projid32bit)
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -157,6 +162,7 @@ _comp_cmd_mkfs_xfs()
 			esac
 		;;
 		-l)
+			# COMP_TYPE = '?', for listing completions after successive tabs
 			if   (( 63 == COMP_TYPE ))
 			then
 				echo
@@ -172,6 +178,7 @@ _comp_cmd_mkfs_xfs()
 					return
 				;;
 				version=* | lazy-count=*)
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -205,6 +212,7 @@ _comp_cmd_mkfs_xfs()
 			esac
 		;;
 		-m)
+			# COMP_TYPE = '?', for listing completions after successive tabs
 			if   (( 63 == COMP_TYPE ))
 			then
 				echo
@@ -220,6 +228,7 @@ _comp_cmd_mkfs_xfs()
 					return
 				;;
 				crc=*)
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -258,6 +267,7 @@ _comp_cmd_mkfs_xfs()
 			esac
 		;;
 		-n)
+			# COMP_TYPE = '?', for listing completions after successive tabs
 			if   (( 63 == COMP_TYPE ))
 			then
 				echo
@@ -276,6 +286,7 @@ _comp_cmd_mkfs_xfs()
 					return
 				;;
 				fstype=*)
+					# COMP_TYPE = '?', for listing completions after successive tabs
 					if   (( 63 == COMP_TYPE ))
 					then
 						echo
@@ -302,6 +313,7 @@ _comp_cmd_mkfs_xfs()
 			esac
 		;;
 		-p)
+			# COMP_TYPE = '?', for listing completions after successive tabs
 			if   (( 63 == COMP_TYPE ))
 			then
 				echo
