@@ -1,0 +1,349 @@
+#! /usr/bin/env bash
+
+# Copyright © 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_fn_modules()
+{
+	# NOTE: hyperfine --warmup 1 "sed -e 's@^.*/@@; s/\.ko$//' /lib/modules/$(uname -r)/modules.order"
+	# NOTE: hyperfine --warmup 1 "ls -1LR /lib/modules/$(uname -r)/ 2>/dev/null | sed -n -E -e 's/\.k?o(\.([gx]z|bz2|zst))?$//p'"
+
+	local module_file="/lib/modules/${1}/modules.order"
+	if   [[ -f "${module_file}" ]]
+	then
+		_comp_compgen -- -W "$(command sed -e 's@^.*/@@; s/\.ko$//' "${module_file}")"
+	fi
+	return
+}
+
+_comp_cmd_depmod()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-h
+		-v
+		-V
+	'
+	local long_opts='
+		--help
+		--verbose
+		--version
+	'
+
+	case "${prev}" in
+		-V | --version | -h | --help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_depmod depmod
+
+_comp_cmd_insmod()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-f
+		-s
+		-v
+		-V
+		-h
+	'
+	local long_opts='
+		--force
+		--syslog
+		--verbose
+		--version
+		--help
+	'
+
+	case "${prev}" in
+		-V | --version | -h | --help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_fn_modules "$(command uname -r)"
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_insmod insmod
+
+_comp_cmd_kmod()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-V
+		-h
+	'
+	local long_opts='
+		--version
+		--help
+	'
+	local cmds='
+		help
+		list
+		static-nodes
+	'
+
+	case "${prev}" in
+		-V | --version | -h | --help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen -- -W "${short_opts} ${long_opts} ${cmds}"
+			return
+		;;
+	esac
+
+} && complete -F _comp_cmd_kmod kmod
+
+_comp_cmd_lsmod()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-s
+		-v
+		-V
+		-h
+	'
+	local long_opts='
+		--syslog
+		--verbose
+		--version
+		--help
+	'
+
+	case "${prev}" in
+		-V | --version | -h | --help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_lsmod lsmod
+
+_comp_cmd_modinfo()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -n = -- "$@" || return
+
+	local short_opts='
+		-V
+		-F
+		-b
+		-k
+		-0
+		-h
+	'
+	local long_opts='
+		--version
+		--field=
+		--basedir=
+		--null
+		--help
+	'
+	local fields='
+		alias
+		author
+		depends
+		description
+		filename
+		firmware
+		import_ns
+		intree
+		license
+		name
+		parm
+		retpoline
+		sig_hashalgo
+		sig_id
+		sig_key
+		signature
+		signer
+		srcversion
+		suserelease
+		vermagic
+	'
+
+	case "${prev}" in
+		-F)
+			_comp_compgen -c "${cur#*=}" -- -W "${fields}"
+			return
+		;;
+		-b)
+			return
+		;;
+		-k)
+			_comp_compgen -c "${cur#*=}" -- -W "$(command ls -1 /lib/modules/)"
+			return
+		;;
+		-V | --version | -h | --help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--field=*)
+			_comp_compgen -c "${cur#*=}" -- -W "${fields}"
+			return
+		;;
+		--basedir=*)
+			return
+		;;
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			[[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			# TODO list modules when -k or -b is set
+			_comp_fn_modules "$(uname -r)"
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_modinfo modinfo
+
+_comp_cmd_modprobe()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-f
+		-s
+		-v
+		-V
+	'
+	local long_opts='
+		--force
+		--syslog
+		--verbose
+		--version
+	'
+
+	case "${prev}" in
+		-V | --version)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			# TODO list modules when -S or -d is set
+			_comp_fn_modules "$(command uname -r)"
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_modprobe modprobe
+
+_comp_cmd_rmmod()
+{
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local short_opts='
+		-f
+		-s
+		-v
+		-V
+		-h
+	'
+	local long_opts='
+		--force
+		--syslog
+		--verbose
+		--version
+		--help
+	'
+
+	case "${prev}" in
+		-V | --version | -h | --help)
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		--*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		-*)
+			_comp_compgen -- -W "${short_opts} ${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen -- -W "$(command lsmod | command cut -f1 -d' ')"
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_rmmod rmmod
