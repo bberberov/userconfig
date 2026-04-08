@@ -323,7 +323,7 @@ do
 		if   [[ -x "${f}/.setup.bash" ]]
 		then
 			echo "Delegating to ${f}/.setup.bash"
-			"${f}/.setup.bash"
+			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
 			echo "Finished with ${f}/.setup.bash"
 		else
 			# NOTE: Special cases
@@ -377,7 +377,7 @@ do
 		if   [[ -x "${f}/.setup.bash" ]]
 		then
 			echo "Delegating to ${f}/.setup.bash"
-			"${f}/.setup.bash"
+			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
 			echo "Finished with ${f}/.setup.bash"
 		else
 			# NOTE: Special cases
