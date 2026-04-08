@@ -1,11 +1,44 @@
-if   which realpath > /dev/null 2>&1 && which dirname > /dev/null 2>&1
-then
-	bash_completion_dir="$( realpath "$( dirname "${BASH_SOURCE[0]}" )"'/../../XDG_DATA_HOME/bash-completion/.' )"
+# Copyright © 2025, 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
 
-	if   [[ -n "${BASH_COMPLETION_USER_DIR}" && -d "${bash_completion_dir}" ]]
+if   ! which realpath > /dev/null 2>&1 || ! which dirname > /dev/null 2>&1
+then
+	exit 0
+fi
+
+# BASH_VERSION in 3.0
+if   [[ -n "${BASH_VERSION}" ]]
+then
+	origin="$( realpath "$( dirname "${BASH_SOURCE[0]}" )" )"
+else
+	origin="$( realpath "$( dirname "${0}" )" )"
+fi
+
+bash_completion_dir="$( realpath "${origin}"'/../../XDG_DATA_HOME/bash-completion/.' )"
+
+# Bash completion
+if   [[ -d "${bash_completion_dir}" ]]
+then
+	if   [[ -f "${bash_completion_dir}/bash_completion" ]]
 	then
-		[[ ":${BASH_COMPLETION_USER_DIR}:" =~ ":${bash_completion_dir}"/?':' ]] \
-		|| export BASH_COMPLETION_USER_DIR="${BASH_COMPLETION_USER_DIR}:${bash_completion_dir}"
+		source "${bash_completion_dir}/bash_completion"
+	fi
+
+	if   [[ -n "${BASH_COMPLETION_USER_DIR}" ]]
+	then
+		if   [[ "${bash_completion_dir}" != "${BASH_COMPLETION_USER_DIR}" ]]
+		then
+			# Clean if/when re-sourcing, Bash 2.0 compatible
+			new_BASH_COMPLETION_USER_DIR=":${BASH_COMPLETION_USER_DIR}:"
+			pattern=":${bash_completion_dir}:";  new_PATH="${new_PATH/${pattern}/:}"
+			new_BASH_COMPLETION_USER_DIR="${new_BASH_COMPLETION_USER_DIR#:}"
+			new_BASH_COMPLETION_USER_DIR="${new_BASH_COMPLETION_USER_DIR%:}"
+
+			export BASH_COMPLETION_USER_DIR="${new_BASH_COMPLETION_USER_DIR}:${bash_completion_dir}"
+		fi
 	else
 		export BASH_COMPLETION_USER_DIR="${bash_completion_dir}"
 	fi
