@@ -311,6 +311,9 @@ do
 			bash_completion)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" bash
 			;;
+			konsolerc)
+				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" konsole
+			;;
 			plasma-nm)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" plasmashell
 			;;

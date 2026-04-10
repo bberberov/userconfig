@@ -1,0 +1,14 @@
+[Desktop Entry]
+DefaultProfile=Normal.profile
+
+[General]
+ConfigVersion=1
+
+[MainWindow]
+MenuBar=Disabled
+
+[TabBar]
+TabBarPosition=Bottom
+
+[UiSettings]
+ColorScheme=
