@@ -280,7 +280,7 @@ done
 
 echo
 
-XDG_CONFIG_HOME_local=${XDG_CONFIG_HOME:-${HOME}/.config}
+XDG_CONFIG_HOME_local="${XDG_CONFIG_HOME:-${HOME}/.config}"
 
 if   [[ ! -d "${XDG_CONFIG_HOME_local}" ]]
 then
@@ -351,7 +351,7 @@ done
 
 echo
 
-XDG_DATA_HOME_local=${XDG_DATA_HOME:-${HOME}.local/share}
+XDG_DATA_HOME_local="${XDG_DATA_HOME:-${HOME}.local/share}"
 
 if   [[ ! -d "${XDG_DATA_HOME_local}" ]]
 then
@@ -400,3 +400,24 @@ do
 done
 
 # END   XDG_DATA_HOME
+
+# BEGIN Generated content
+
+echo
+
+XDG_CACHE_HOME_local="${XDG_CACHE_HOME:-${HOME}/.cache}"
+
+if   which bat > /dev/null 2>&1
+then
+	if   [[ ! -d "${XDG_CACHE_HOME_local}/bat" ]]
+	then
+		echo "Generating initial bat cache"
+		bat cache --build
+	else
+		echo "bat cache exists, skipping"
+	fi
+else
+	echo "Skipping bat cache gneration, bat was not found"
+fi
+
+# END   Generated content
