@@ -13,11 +13,8 @@ alias   cd...='cd ../../..'
 alias  cd....='cd ../../../..'
 alias cd.....='cd ../../../../..'
 
-alias  cd-xdg-config='cd "${XDG_CONFIG_HOME:-${HOME}/.config}"'
-alias   cd-xdg-cache='cd "${XDG_CACHE_HOME:-${HOME}/.cache}"'
-alias    cd-xdg-data='cd "${XDG_DATA_HOME:-${HOME}/.local/share}"'
-alias   cd-xdg-state='cd "${XDG_STATE_HOME:-${HOME}/.local/state}"'
-alias cd-xdg-runtime='test -d "${XDG_RUNTIME_DIR}" && cd "${XDG_RUNTIME_DIR}"'
+alias cd-user=fn_cd_user
+alias cd-xdg=fn_cd_xdg
 
 alias cd-sudo-home='cd "${SUDO_HOME:-${HOME}}"'
 
@@ -591,19 +588,6 @@ fi
 if   which usbimager > /dev/null 2>&1
 then
 	alias usbimager='usbimager -m1024 -7'
-fi
-
-# xdg-user-dir
-if   which xdg-user-dir > /dev/null 2>&1
-then
-	alias     cd-xdg-desktop='cd "$(xdg-user-dir DESKTOP)"'
-	alias   cd-xdg-documents='cd "$(xdg-user-dir DOCUMENTS)"'
-	alias    cd-xdg-download='cd "$(xdg-user-dir DOWNLOAD)"'
-	alias       cd-xdg-music='cd "$(xdg-user-dir MUSIC)"'
-	alias    cd-xdg-pictures='cd "$(xdg-user-dir PICTURES)"'
-	alias cd-xdg-publicshare='cd "$(xdg-user-dir PUBLICSHARE)"'
-	alias   cd-xdg-templates='cd "$(xdg-user-dir TEMPLATES)"'
-	alias      cd-xdg-videos='cd "$(xdg-user-dir VIDEOS)"'
 fi
 
 # xmllint

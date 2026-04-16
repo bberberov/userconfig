@@ -117,3 +117,43 @@ then
 			"lsdlta${i}-color"
 	done
 fi
+
+# Functions
+complete -W '
+	archive
+	config
+	exec
+	inbox
+	obs
+	project
+	srv
+	vcs
+' cd-user
+
+if   which xdg-user-dir > /dev/null 2>&1
+then
+	complete -o nosort -W '
+		desktop
+		documents
+		download
+		music
+		pictures
+		publicshare
+		templates
+		videos
+
+		cache
+		config
+		data
+		runtime
+		state
+	' cd-xdg
+else
+	complete -W '
+		cache
+		config
+		data
+		runtime
+		state
+	' cd-xdg
+fi
