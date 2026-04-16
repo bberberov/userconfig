@@ -450,15 +450,15 @@ then
 	alias  lsdlrs='lsd -lrS'
 	alias  lsdlrt='lsd -lrt'
 	alias   lsdlx='lsd -lX'
-	alias   lsdla='lsd -l'
+	alias   lsdla='lsd -lA'
 	alias lsdlars='lsd -lArS'
 	alias lsdlart='lsd -lArt'
 	alias  lsdlax='lsd -lAX'
 
 	alias   lsdt='lsd     -tree'
-	alias  lsdta='lsd -A  -tree'
+	alias  lsdat='lsd -A  -tree'
 	alias  lsdlt='lsd -l  -tree'
-	alias lsdlta='lsd -lA -tree'
+	alias lsdlat='lsd -lA -tree'
 
 	alias     lsd-color='lsd --color=always'
 	alias    lsda-color='lsd --color=always -A'
@@ -473,21 +473,21 @@ then
 	alias  lsdlax-color='lsd --color=always -lAX'
 
 	alias   lsdt-color='lsd --color=always     -tree'
-	alias  lsdta-color='lsd --color=always -A  -tree'
+	alias  lsdat-color='lsd --color=always -A  -tree'
 	alias  lsdlt-color='lsd --color=always -l  -tree'
-	alias lsdlta-color='lsd --color=always -lA -tree'
+	alias lsdlat-color='lsd --color=always -lA -tree'
 
 	for (( i=2; i < 9; i+=1 ))
 	do
 		alias   "lsdt${i}"="lsd     --tree --depth ${i}"
-		alias  "lsdta${i}"="lsd -A  --tree --depth ${i}"
+		alias  "lsdat${i}"="lsd -A  --tree --depth ${i}"
 		alias  "lsdlt${i}"="lsd -l  --tree --depth ${i}"
-		alias "lsdlta${i}"="lsd -lA --tree --depth ${i}"
+		alias "lsdlat${i}"="lsd -lA --tree --depth ${i}"
 
 		alias   "lsdt${i}-color"="lsd --color=always     --tree --depth ${i}"
-		alias  "lsdta${i}-color"="lsd --color=always -A  --tree --depth ${i}"
+		alias  "lsdat${i}-color"="lsd --color=always -A  --tree --depth ${i}"
 		alias  "lsdlt${i}-color"="lsd --color=always -l  --tree --depth ${i}"
-		alias "lsdlta${i}-color"="lsd --color=always -lA --tree --depth ${i}"
+		alias "lsdlat${i}-color"="lsd --color=always -lA --tree --depth ${i}"
 	done
 fi
 

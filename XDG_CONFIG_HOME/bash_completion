@@ -115,7 +115,7 @@ then
 fi
 
 # lsd aliases
-if   lsd --version > /dev/null 2>&1
+if   which lsd > /dev/null 2>&1
 then
 	complete -W '
 		--git
@@ -124,7 +124,7 @@ then
 		--extensionsort
 		--reverse
 	' -o bashdefault -o default -o filenames \
-		lsd-color \
+		lsda \
 		\
 		lsdl \
 		lsdlrs \
@@ -134,6 +134,9 @@ then
 		lsdlars \
 		lsdlart \
 		lsdlax \
+		\
+		lsd-color \
+		lsda-color \
 		\
 		lsdl-color \
 		lsdlrs-color \
@@ -148,29 +151,29 @@ then
 		--git
 	' -o bashdefault -o default -o filenames \
 		lsdt \
-		lsdta \
+		lsdat \
 		lsdlt \
-		lsdlta \
+		lsdlat \
 		\
 		lsdt-color \
-		lsdta-color \
+		lsdat-color \
 		lsdlt-color \
-		lsdlta-color
+		lsdlat-color
 
-	for (( i=2 ; i < 9 ; i+=1 ))
+	for (( i=2; i < 9; i+=1 ))
 	do
 		complete -W '
 			--git
 		' -o bashdefault -o default -o filenames \
 			"lsdt${i}" \
-			"lsdta${i}" \
+			"lsdat${i}" \
 			"lsdlt${i}" \
-			"lsdlta${i}" \
+			"lsdlat${i}" \
 			\
 			"lsdt${i}-color" \
-			"lsdta${i}-color" \
+			"lsdat${i}-color" \
 			"lsdlt${i}-color" \
-			"lsdlta${i}-color"
+			"lsdlat${i}-color"
 	done
 fi
 
