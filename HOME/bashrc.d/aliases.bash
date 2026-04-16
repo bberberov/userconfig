@@ -196,6 +196,12 @@ then
 	alias Fgrep-color='grep --color=always -F'
 	alias       Sgrep='grep --color=auto -F'
 	alias Sgrep-color='grep --color=always -F'
+
+	for (( i=1 ; i < 9 ; i+=1 ))
+	do
+		alias "grep${i}"="grep --context=${i}"
+		alias "grep${i}-color"="grep --color=always --context=${i}"
+	done
 fi
 
 # ip
@@ -477,7 +483,7 @@ then
 	alias  lsdlt-color='lsd --color=always -l  -tree'
 	alias lsdlat-color='lsd --color=always -lA -tree'
 
-	for (( i=2; i < 9; i+=1 ))
+	for (( i=2 ; i < 9 ; i+=1 ))
 	do
 		alias   "lsdt${i}"="lsd     --tree --depth ${i}"
 		alias  "lsdat${i}"="lsd -A  --tree --depth ${i}"
@@ -534,24 +540,8 @@ then
 	for (( i=1 ; i < 9 ; i+=1 ))
 	do
 		alias "rg${i}"="rg --context=${i}"
-		alias "rg${i}a"="rg --after-context=${i}"
-		alias "rg${i}b"="rg --before-context=${i}"
 		alias "rg${i}-color"="rg --color=always --context=${i}"
-		alias "rg${i}a-color"="rg --color=always --after-context=${i}"
-		alias "rg${i}b-color"="rg --color=always --before-context=${i}"
 	done
-
-	alias  rg-autoconf="rg -g '*.ac'"
-	alias  rg-automake="rg -g '*.am'"
-	alias rg-autotools="rg -g '*.{ac,am,m4}'"
-	alias     rg-cmake="rg -g 'CMakeLists.txt' -g '*.cmake'"
-	alias      rg-make="rg -g '{GNUmakefile,makefile,Makefile}'"
-	alias     rg-meson="rg -g '{meson.build,meson.options,meson_options.txt}'"
-	alias      rg-spec="rg -g '*.spec'"
-
-	alias         rg-c="rg -g '*.{c,h}'"
-	alias       rg-cpp="rg -g '*.{cpp,hpp}'"
-	alias       rg-cxx="rg -g '*.{c,h,cpp,hpp}'"
 fi
 
 # rpm

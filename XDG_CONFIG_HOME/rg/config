@@ -1,0 +1,9 @@
+--type-add=autoconf:*.ac
+--type-add=automake:{*.am,[Mm]akefile.in}
+--type-add=c:*.[cChH]
+--type-add=cpp:*.[ch]{pp,xx}
+--type-add=m4:*.m4
+--type-add=make:{GNUmakefile,[mM]akefile}
+
+--type-add=autotools:include:autoconf,automake,m4
+--type-add=cxx:include:c,cpp
