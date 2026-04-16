@@ -126,6 +126,7 @@ for app in \
 	bzip2 \
 	delta \
 	difftastic \
+	eza \
 	meld \
 	mergiraf \
 	xz \

@@ -1,5 +1,61 @@
 # shellcheck shell=bash disable=SC1091
 
+# ela as eza aliases
+if   [[ -r /usr/share/bash-completion/completions/eza ]]
+then
+	source /usr/share/bash-completion/completions/eza
+	complete -o filenames -o bashdefault -F _eza \
+		ela \
+		elaa \
+		\
+		elal \
+		elalrs \
+		elalrt \
+		elalx \
+		elala \
+		elalars \
+		elalart \
+		elalax \
+		\
+		elat \
+		elata \
+		elalt \
+		elalta \
+		\
+		eza-color \
+		\
+		ela-color \
+		elaa-color \
+		\
+		elal-color \
+		elalrs-color \
+		elalrt-color \
+		elalx-color \
+		elala-color \
+		elalars-color \
+		elalart-color \
+		elalax-color \
+		\
+		elat-color \
+		elata-color \
+		elalt-color \
+		elalta-color
+
+	for (( i=2 ; i < 9 ; i+=1 ))
+	do
+		complete -o filenames -o bashdefault -F _eza \
+			"elat${i}" \
+			"elata${i}" \
+			"elalt${i}" \
+			"elalta${i}" \
+			\
+			"elat${i}-color" \
+			"elata${i}-color" \
+			"elalt${i}-color" \
+			"elalta${i}-color"
+	done
+fi
+
 # ls aliases
 if   ls --version > /dev/null 2>&1
 then

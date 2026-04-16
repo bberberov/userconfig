@@ -78,26 +78,58 @@ then
 	alias difft-y-color='difft --color always --width ${COLUMNS} --display side-by-side'
 fi
 
-# eza
+# eza (as ela)
 if   which eza > /dev/null 2>&1
 then
-	alias   eza='eza --group-directories-first'
-	alias  leza='eza --group-directories-first -lbg'
-	alias  teza='eza --group-directories-first -T'
-	alias ezalt='eza --group-directories-first -lbg -T'
+	alias     eza='eza --group-directories-first -bg'
 
-	alias   eza-color='eza --color=always --group-directories-first'
-	alias  leza-color='eza --color=always --group-directories-first -lbg'
-	alias  teza-color='eza --color=always --group-directories-first -T'
-	alias ezalt-color='eza --color=always --group-directories-first -lbg -T'
+	alias     ela='eza --group-directories-first -bg'
+	alias    elaa='eza --group-directories-first -bgA'
 
-	for (( i=2 ; i < 10 ; i+=1 ))
+	alias    elal='eza --group-directories-first -bgl'
+	alias  elalrs='eza --group-directories-first -bglr --sort=size'
+	alias  elalrt='eza --group-directories-first -bglr --sort=modified'
+	alias   elalx='eza --group-directories-first -bgl  --sort=extension'
+	alias   elala='eza --group-directories-first -bglA'
+	alias elalars='eza --group-directories-first -bglAr --sort=size'
+	alias elalart='eza --group-directories-first -bglAr --sort=modified'
+	alias  elalax='eza --group-directories-first -bglA  --sort=extension'
+
+	alias   elat='eza --group-directories-first -bgT'
+	alias  elata='eza --group-directories-first -bgTA'
+	alias  elalt='eza --group-directories-first -bgTl'
+	alias elalta='eza --group-directories-first -bgTlA'
+
+	alias     eza-color='eza --color=always --group-directories-first -bg'
+
+	alias     ela-color='eza --color=always --group-directories-first -bg'
+	alias    elaa-color='eza --color=always --group-directories-first -bgA'
+
+	alias    elal-color='eza --color=always --group-directories-first -bgl'
+	alias  elalrs-color='eza --color=always --group-directories-first -bglr --sort=size'
+	alias  elalrt-color='eza --color=always --group-directories-first -bglr --sort=modified'
+	alias   elalx-color='eza --color=always --group-directories-first -bgl  --sort=extension'
+	alias   elala-color='eza --color=always --group-directories-first -bglA'
+	alias elalars-color='eza --color=always --group-directories-first -bglAr --sort=size'
+	alias elalart-color='eza --color=always --group-directories-first -bglAr --sort=modified'
+	alias  elalax-color='eza --color=always --group-directories-first -bglA  --sort=extension'
+
+	alias   elat-color='eza --color=always --group-directories-first -bgT'
+	alias  elata-color='eza --color=always --group-directories-first -bgTA'
+	alias  elalt-color='eza --color=always --group-directories-first -bgTl'
+	alias elalta-color='eza --color=always --group-directories-first -bgTlA'
+
+	for (( i=2 ; i < 9 ; i+=1 ))
 	do
-		alias  "teza${i}"="eza --group-directories-first -T -L ${i}"
-		alias "ezalt${i}"="eza --group-directories-first -lbg -T -L ${i}"
+		alias   "elat${i}"="eza --group-directories-first -bgT   -L ${i}"
+		alias  "elata${i}"="eza --group-directories-first -bgTA  -L ${i}"
+		alias  "elalt${i}"="eza --group-directories-first -bgTl  -L ${i}"
+		alias "elalta${i}"="eza --group-directories-first -bgTlA -L ${i}"
 
-		alias  "teza${i}-color"="eza --color=always --group-directories-first -T -L ${i}"
-		alias "ezalt${i}-color"="eza --color=always --group-directories-first -lbg -T -L ${i}"
+		alias   "elat${i}-color"="eza --color=always --group-directories-first -bgT   -L ${i}"
+		alias  "elata${i}-color"="eza --color=always --group-directories-first -bgTA  -L ${i}"
+		alias  "elalt${i}-color"="eza --color=always --group-directories-first -bgTl  -L ${i}"
+		alias "elalta${i}-color"="eza --color=always --group-directories-first -bgTlA -L ${i}"
 	done
 fi
 
