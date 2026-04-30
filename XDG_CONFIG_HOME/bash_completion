@@ -181,6 +181,7 @@ fi
 complete -W '
 	archive
 	config
+	desk
 	exec
 	inbox
 	obs
