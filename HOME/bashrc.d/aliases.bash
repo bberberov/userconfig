@@ -612,6 +612,18 @@ then
 	alias usbimager='usbimager -m1024 -7'
 fi
 
+# xdpyinfo
+if   which xdpyinfo > /dev/null 2>&1
+then
+	if   which grep > /dev/null 2>&1
+	then
+		alias xdpi='xdpyinfo | grep -A 2 "^screen #.*"'
+	elif which sed > /dev/null 2>&1
+	then
+		alias xdpi='xdpyinfo | sed -n -e "/^screen #/,+2p"'
+	fi
+fi
+
 # xmllint
 if   which xmllint > /dev/null 2>&1
 then
