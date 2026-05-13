@@ -297,7 +297,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			kate | osc)
+			kate | knighttimerc | konsole* | osc | plasma*)
 				echo "Skipping ${bn} for EUID ${EUID} (${f})"
 				continue
 			;;

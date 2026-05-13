@@ -16,6 +16,7 @@ kate-wildcard(XDG_CONFIG_HOME/git/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/app/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/host/*): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/git/ignore): syntax Git Ignore;
+kate-wildcard(XDG_CONFIG_HOME/knighttime): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/konsolerc): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/osc/oscrc): syntax INI Files;
 kate-wildcard(XDG_CONFIG_HOME/plasma-nm): syntax INI Files;
