@@ -2,7 +2,7 @@
 Color=24,24,24
 
 [BackgroundFaint]
-Color=15,15,15
+Color=63,63,63
 
 [BackgroundIntense]
 Color=0,0,0
@@ -11,7 +11,7 @@ Color=0,0,0
 Color=24,24,24
 
 [Color0Faint]
-Color=15,15,15
+Color=63,63,63
 
 [Color0Intense]
 Color=85,85,85
