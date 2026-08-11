@@ -2,9 +2,7 @@
 
 [general]
 apiurl=https://api.opensuse.org
-
 checkout_no_colon=1
-checkout_rooted=1
 use_keyring=1
 
 [https://api.opensuse.org]
