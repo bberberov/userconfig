@@ -297,7 +297,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			kate | knighttimerc | klipperrc | konsole* | osc | plasma*)
+			kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
 				echo "Skipping ${bn} for EUID ${EUID} (${f})"
 				continue
 			;;
@@ -311,11 +311,14 @@ do
 			bash_completion)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" bash
 			;;
+			klipperrc | knighttimerc | plasma-nm)
+				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" plasmashell
+			;;
 			konsolerc)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" konsole
 			;;
-			klipperrc | plasma-nm)
-				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" plasmashell
+			ksmserverrc)
+				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" ksmserver
 			;;
 			*)
 				userlink "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
