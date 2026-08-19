@@ -1,0 +1,31 @@
+[CompactMode]
+IconSize=22
+MaximumTextWidthIndex=2
+PreviewSize=32
+
+[DetailsMode]
+IconSize=22
+PreviewSize=32
+
+[General]
+DoubleClickViewAction=none
+ShowSelectionToggle=false
+Version=202
+ViewPropsTimestamp=2026,8,15,10,10,10.100
+
+[IconsMode]
+IconSize=48
+PreviewSize=48
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[PreviewSettings]
+Plugins=imagethumbnail,glycin-image-rs,jpegthumbnail,glycin-jxl,opendocumentthumbnail,gsthumbnail,svgthumbnail

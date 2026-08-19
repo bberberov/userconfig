@@ -297,7 +297,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
+			dolphinrc | kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
 				echo "Skipping ${bn} for EUID ${EUID} (${f})"
 				continue
 			;;
@@ -308,6 +308,9 @@ do
 	then
 		# NOTE: Special cases
 		case "${bn}" in
+			dolphinrc)
+				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" dolphin
+			;;
 			bash_completion)
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" bash
 			;;
