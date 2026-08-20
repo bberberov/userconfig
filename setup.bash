@@ -198,29 +198,39 @@ else
 fi
 
 # Update .profile if needed
-if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile' "${HOME}/.profile" > /dev/null 2>&1
+if   [[ -d "${repo_tree_e}/HOME/profile.d" ]]
 then
-	echo 'Adding .profile configuration'
-	echo '
-for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile
-do
-	source "${f}"
-done' >> "${HOME}/.profile"
+	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile' "${HOME}/.profile" > /dev/null 2>&1
+	then
+		echo 'Adding .profile configuration'
+		echo '
+	for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile
+	do
+		source "${f}"
+	done' >> "${HOME}/.profile"
+	else
+		echo 'Skipping .profile configuration'
+	fi
 else
-	echo 'Skipping .profile configuration'
+	echo 'Skipping .profile configuration, no HOME/profile.d/'
 fi
 
 # Update .bashrc if needed
-if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash' "${HOME}/.bashrc" > /dev/null 2>&1
+if   [[ -d "${repo_tree_e}/HOME/bashrc.d" ]]
 then
-	echo 'Adding .bashrc configuration'
-	echo '
-for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash
-do
-	source "${f}"
-done' >> "${HOME}/.bashrc"
+	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash' "${HOME}/.bashrc" > /dev/null 2>&1
+	then
+		echo 'Adding .bashrc configuration'
+		echo '
+	for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash
+	do
+		source "${f}"
+	done' >> "${HOME}/.bashrc"
+	else
+		echo 'Skipping .bashrc configuration'
+	fi
 else
-	echo 'Skipping .bashrc configuration'
+	echo 'Skipping .bashrc configuration, no HOME/bashrc.d/'
 fi
 
 # BEGIN HOME
@@ -297,7 +307,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			dolphinrc | kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
+			dconf | dolphinrc | kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
 				echo "Skipping ${bn} for EUID ${EUID} (${f})"
 				continue
 			;;
@@ -337,9 +347,6 @@ do
 		else
 			# NOTE: Special cases
 			case "${bn}" in
-				git)
-					userskip "${bn}" "${f}" 'second level only, configure manually'
-				;;
 				kate)
 					userskip "${bn}" "${f}" 'second level only'
 				;;
@@ -391,11 +398,14 @@ do
 		else
 			# NOTE: Special cases
 			case "${bn}" in
+				applications)
+					userskip "${bn}" "${f}" 'configure manually'
+				;;
 				bash-completion)
 					userskip "${bn}" "${f}" 'use BASH_COMPLETION_USER_DIR'
 				;;
 				org.kde.syntax-highlighting)
-					userskip "${bn}" "${f}" 'second level only'
+					userskip "${bn}" "${f}" 'configure manually'
 				;;
 				*)
 					userlink_on_exec "${bn}" "${f}" "${XDG_DATA_HOME_local}/${bn}"
@@ -409,21 +419,24 @@ done
 
 # BEGIN Generated content
 
-echo
-
-XDG_CACHE_HOME_local="${XDG_CACHE_HOME:-${HOME}/.cache}"
-
-if   which bat > /dev/null 2>&1
+if [[ -d "${repo_tree_e}/XDG_CONFIG_HOME/bat/syntaxes" || -d "${repo_tree_e}/XDG_CONFIG_HOME/bat/themes" ]]
 then
-	if   [[ ! -d "${XDG_CACHE_HOME_local}/bat" ]]
+	echo
+
+	XDG_CACHE_HOME_local="${XDG_CACHE_HOME:-${HOME}/.cache}"
+
+	if   which bat > /dev/null 2>&1
 	then
-		echo "Generating initial bat cache"
-		bat cache --build
+		if   [[ ! -d "${XDG_CACHE_HOME_local}/bat" ]]
+		then
+			echo "Generating initial bat cache"
+			bat cache --build
+		else
+			echo "bat cache exists, skipping"
+		fi
 	else
-		echo "bat cache exists, skipping"
+		echo "Skipping bat cache gneration, bat was not found"
 	fi
-else
-	echo "Skipping bat cache gneration, bat was not found"
 fi
 
 # END   Generated content

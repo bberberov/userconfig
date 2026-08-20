@@ -6,9 +6,9 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-dmn="${1}"
-src="${2}"
-dst="${3}"
+dmn="${1:-public}"
+src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
+dst="${3:-"${XDG_DATA_HOME:-${HOME}.local/share}/kxmlgui5"}"
 
 userlink()
 {

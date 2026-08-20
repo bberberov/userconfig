@@ -6,12 +6,13 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-dmn="${1}"
-src="${2}"
-dst="${3}"
+dmn="${1:-public}"
+src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
+dst="${3:-"${XDG_CONFIG_HOME:-${HOME}/.config}/git"}"
 
 userlink()
 {
+	# Arguments:
 	# bn="${1}"
 	# tgt="${2}"
 	# lnk="${3}"

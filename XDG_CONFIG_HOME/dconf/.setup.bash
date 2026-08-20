@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: EUPL-1.2
 
 dmn="${1}"
-src="${2:-.}"
+src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
 dst="${3}"
 
 configs=(
