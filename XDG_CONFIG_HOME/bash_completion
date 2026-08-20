@@ -8,51 +8,83 @@ then
 		ela \
 		elaa \
 		\
+		elaz \
+		\
 		elal \
+		elalz \
 		elalrs \
 		elalrt \
 		elalx \
+		elalxz \
 		elala \
+		elalaz \
 		elalars \
 		elalart \
 		elalax \
+		elalaxz \
 		\
 		elat \
+		elatd \
 		elata \
+		elatad \
 		elalt \
+		elaltd \
+		elaltz \
 		elalta \
+		elaltad \
+		elaltaz \
 		\
 		eza-color \
 		\
 		ela-color \
 		elaa-color \
 		\
+		elaz-color \
+		\
 		elal-color \
+		elalz-color \
 		elalrs-color \
 		elalrt-color \
 		elalx-color \
+		elalxz-color \
 		elala-color \
+		elalaz-color \
 		elalars-color \
 		elalart-color \
 		elalax-color \
+		elalaxz-color \
 		\
 		elat-color \
+		elatd-color \
 		elata-color \
+		elatad-color \
 		elalt-color \
-		elalta-color
+		elaltd-color \
+		elaltz-color \
+		elalta-color \
+		elaltad-color \
+		elaltaz-color
 
 	for (( i=2 ; i < 9 ; i+=1 ))
 	do
 		complete -o filenames -o bashdefault -F _eza \
 			"elat${i}" \
+			"elatd${i}" \
 			"elata${i}" \
+			"elatad${i}" \
 			"elalt${i}" \
+			"elaltd${i}" \
 			"elalta${i}" \
+			"elaltad${i}" \
 			\
 			"elat${i}-color" \
+			"elatd${i}-color" \
 			"elata${i}-color" \
+			"elatad${i}-color" \
 			"elalt${i}-color" \
-			"elalta${i}-color"
+			"elaltd${i}-color" \
+			"elalta${i}-color" \
+			"elaltad${i}-color"
 	done
 fi
 
@@ -60,6 +92,19 @@ fi
 if   ls --version > /dev/null 2>&1
 then
 	# GNU ls
+
+	complete -W '
+		--all
+		--almost-all
+		--reverse
+		--sort=extension
+		--sort=size
+		--sort=time
+	' -o bashdefault -o default -o filenames \
+		lg \
+		lag \
+		lg-color \
+		lag-color
 
 	complete -W '
 		--all
@@ -75,11 +120,17 @@ then
 		--sort=time
 	' -o bashdefault -o default -o filenames \
 		ll \
+		llz \
 		lla \
+		llaz \
 		ll-color \
-		lla-color
+		llz-color \
+		lla-color \
+		llaz-color
 
 	complete -W '
+		--all
+		--almost-all
 		--block-size=1
 		--block-size=1K
 		--block-size=1M
@@ -88,30 +139,38 @@ then
 		llrs \
 		llrt \
 		llg \
+		llgz \
 		llrsg \
 		llrtg \
 		llx \
+		llxz \
 		\
 		llars \
 		llart \
 		llag \
+		llagz \
 		llarsg \
 		llartg \
 		llax \
+		llaxz \
 		\
 		llrs-color \
 		llrt-color \
 		llg-color \
+		llgz-color \
 		llrsg-color \
 		llrtg-color \
 		llx-color \
+		llxz-color \
 		\
 		llars-color \
 		llart-color \
 		llag-color \
+		llagz-color \
 		llarsg-color \
 		llartg-color \
-		llax-color
+		llax-color \
+		llaxz-color
 fi
 
 # lsd aliases
@@ -179,12 +238,19 @@ fi
 
 # Functions
 complete -W '
+	flatpak
+	freeciv
+	ssh
+' cd-config
+
+complete -W '
 	archive
 	config
 	desk
 	exec
 	inbox
 	obs
+	pim
 	project
 	srv
 	vcs

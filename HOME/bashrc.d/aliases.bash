@@ -13,8 +13,17 @@ alias   cd...='cd ../../..'
 alias  cd....='cd ../../../..'
 alias cd.....='cd ../../../../..'
 
-alias cd-user=fn_cd_user
-alias cd-xdg=fn_cd_xdg
+alias cd3u='cd ../../..'
+alias cd4u='cd ../../../..'
+alias cd5u='cd ../../../../..'
+alias cd6u='cd ../../../../../..'
+alias cd7u='cd ../../../../../../..'
+alias cd8u='cd ../../../../../../../..'
+alias cd9u='cd ../../../../../../../../..'
+
+alias cd-config=fn_cd_config
+alias   cd-user=fn_cd_user
+alias    cd-xdg=fn_cd_xdg
 
 alias cd-sudo-home='cd "${SUDO_HOME:-${HOME}}"'
 
@@ -81,55 +90,87 @@ fi
 # eza (as ela)
 if   which eza > /dev/null 2>&1
 then
-	alias     eza='eza --group-directories-first -bg'
+	alias     eza='eza --group-directories-first -b'
 
 	alias     ela='eza --group-directories-first -bg'
 	alias    elaa='eza --group-directories-first -bgA'
 
+	alias    elaz='eza --group-directories-first -lZ --no-permissions --no-filesize --no-user --no-time'
+
 	alias    elal='eza --group-directories-first -bgl'
+	alias   elalz='eza --group-directories-first -bglZ'
 	alias  elalrs='eza --group-directories-first -bglr --sort=size'
 	alias  elalrt='eza --group-directories-first -bglr --sort=modified'
 	alias   elalx='eza --group-directories-first -bgl  --sort=extension'
+	alias  elalxz='eza --group-directories-first -bglZ --sort=extension'
 	alias   elala='eza --group-directories-first -bglA'
+	alias  elalaz='eza --group-directories-first -bglAZ'
 	alias elalars='eza --group-directories-first -bglAr --sort=size'
 	alias elalart='eza --group-directories-first -bglAr --sort=modified'
 	alias  elalax='eza --group-directories-first -bglA  --sort=extension'
+	alias elalaxz='eza --group-directories-first -bglAZ --sort=extension'
 
-	alias   elat='eza --group-directories-first -bgT'
-	alias  elata='eza --group-directories-first -bgTA'
-	alias  elalt='eza --group-directories-first -bgTl'
-	alias elalta='eza --group-directories-first -bgTlA'
+	alias    elat='eza --group-directories-first -bgT'
+	alias   elatd='eza --group-directories-first -bgTD'
+	alias   elata='eza --group-directories-first -bgTA'
+	alias  elatad='eza --group-directories-first -bgTAD'
+	alias   elalt='eza --group-directories-first -bgTl'
+	alias  elaltd='eza --group-directories-first -bgTlD'
+	alias  elaltz='eza --group-directories-first -bgTlZ'
+	alias  elalta='eza --group-directories-first -bgTlA'
+	alias elaltad='eza --group-directories-first -bgTlAD'
+	alias elaltaz='eza --group-directories-first -bgTlAZ'
 
-	alias     eza-color='eza --color=always --group-directories-first -bg'
+	alias     eza-color='eza --color=always --group-directories-first -b'
 
 	alias     ela-color='eza --color=always --group-directories-first -bg'
 	alias    elaa-color='eza --color=always --group-directories-first -bgA'
 
+	alias    elaz-color='eza --color=always --group-directories-first -lZ --no-permissions --no-filesize --no-user --no-time'
+
 	alias    elal-color='eza --color=always --group-directories-first -bgl'
+	alias   elalz-color='eza --color=always --group-directories-first -bglZ'
 	alias  elalrs-color='eza --color=always --group-directories-first -bglr --sort=size'
 	alias  elalrt-color='eza --color=always --group-directories-first -bglr --sort=modified'
 	alias   elalx-color='eza --color=always --group-directories-first -bgl  --sort=extension'
+	alias  elalxz-color='eza --color=always --group-directories-first -bglZ --sort=extension'
 	alias   elala-color='eza --color=always --group-directories-first -bglA'
+	alias  elalaz-color='eza --color=always --group-directories-first -bglAZ'
 	alias elalars-color='eza --color=always --group-directories-first -bglAr --sort=size'
 	alias elalart-color='eza --color=always --group-directories-first -bglAr --sort=modified'
 	alias  elalax-color='eza --color=always --group-directories-first -bglA  --sort=extension'
+	alias elalaxz-color='eza --color=always --group-directories-first -bglAZ --sort=extension'
 
-	alias   elat-color='eza --color=always --group-directories-first -bgT'
-	alias  elata-color='eza --color=always --group-directories-first -bgTA'
-	alias  elalt-color='eza --color=always --group-directories-first -bgTl'
-	alias elalta-color='eza --color=always --group-directories-first -bgTlA'
+	alias    elat-color='eza --color=always --group-directories-first -bgT'
+	alias   elatd-color='eza --color=always --group-directories-first -bgTD'
+	alias   elata-color='eza --color=always --group-directories-first -bgTA'
+	alias  elatad-color='eza --color=always --group-directories-first -bgTAD'
+	alias   elalt-color='eza --color=always --group-directories-first -bgTl'
+	alias  elaltd-color='eza --color=always --group-directories-first -bgTlD'
+	alias  elaltz-color='eza --color=always --group-directories-first -bgTlZ'
+	alias  elalta-color='eza --color=always --group-directories-first -bgTlA'
+	alias elaltad-color='eza --color=always --group-directories-first -bgTlAD'
+	alias elaltaz-color='eza --color=always --group-directories-first -bgTlAZ'
 
 	for (( i=2 ; i < 9 ; i+=1 ))
 	do
-		alias   "elat${i}"="eza --group-directories-first -bgT   -L ${i}"
-		alias  "elata${i}"="eza --group-directories-first -bgTA  -L ${i}"
-		alias  "elalt${i}"="eza --group-directories-first -bgTl  -L ${i}"
-		alias "elalta${i}"="eza --group-directories-first -bgTlA -L ${i}"
+		alias    "elat${i}"="eza --group-directories-first -bgT    -L ${i}"
+		alias   "elatd${i}"="eza --group-directories-first -bgTD   -L ${i}"
+		alias   "elata${i}"="eza --group-directories-first -bgTA   -L ${i}"
+		alias  "elatad${i}"="eza --group-directories-first -bgTAD  -L ${i}"
+		alias   "elalt${i}"="eza --group-directories-first -bgTl   -L ${i}"
+		alias  "elaltd${i}"="eza --group-directories-first -bgTlD  -L ${i}"
+		alias  "elalta${i}"="eza --group-directories-first -bgTlA  -L ${i}"
+		alias "elaltad${i}"="eza --group-directories-first -bgTlAD -L ${i}"
 
-		alias   "elat${i}-color"="eza --color=always --group-directories-first -bgT   -L ${i}"
-		alias  "elata${i}-color"="eza --color=always --group-directories-first -bgTA  -L ${i}"
-		alias  "elalt${i}-color"="eza --color=always --group-directories-first -bgTl  -L ${i}"
-		alias "elalta${i}-color"="eza --color=always --group-directories-first -bgTlA -L ${i}"
+		alias    "elat${i}-color"="eza --color=always --group-directories-first -bgT    -L ${i}"
+		alias   "elatd${i}-color"="eza --color=always --group-directories-first -bgTD   -L ${i}"
+		alias   "elata${i}-color"="eza --color=always --group-directories-first -bgTA   -L ${i}"
+		alias  "elatad${i}-color"="eza --color=always --group-directories-first -bgTAD  -L ${i}"
+		alias   "elalt${i}-color"="eza --color=always --group-directories-first -bgTl   -L ${i}"
+		alias  "elaltd${i}-color"="eza --color=always --group-directories-first -bgTlD  -L ${i}"
+		alias  "elalta${i}-color"="eza --color=always --group-directories-first -bgTlA  -L ${i}"
+		alias "elaltad${i}-color"="eza --color=always --group-directories-first -bgTlAD -L ${i}"
 	done
 fi
 
@@ -202,6 +243,12 @@ then
 		alias "grep${i}"="grep --context=${i}"
 		alias "grep${i}-color"="grep --color=always --context=${i}"
 	done
+fi
+
+# hostname
+if   which hostname > /dev/null 2>&1
+then
+	alias hostnames='hostname --all-fqdns'
 fi
 
 # ip
@@ -315,37 +362,49 @@ then
 		alias     l1ax-color='ls --color=always -1AX --group-directories-first'
 
 		# ll base
-		alias             ll='ls --color=auto -l --human-readable'
+		alias             ll='ls --color=auto -l   --human-readable'
+		alias            llz='ls --color=auto -lZ  --human-readable'
 		alias           llrs='ls --color=auto -lrS --human-readable'
 		alias           llrt='ls --color=auto -lrt --human-readable'
-		alias            llg='ls --color=auto -l --group-directories-first --human-readable'
+		alias            llg='ls --color=auto -l   --group-directories-first --human-readable'
+		alias           llgz='ls --color=auto -lZ  --group-directories-first --human-readable'
 		alias          llrsg='ls --color=auto -lrS --group-directories-first --human-readable'
 		alias          llrtg='ls --color=auto -lrt --group-directories-first --human-readable'
-		alias            llx='ls --color=auto -lX --group-directories-first --human-readable'
+		alias            llx='ls --color=auto -lX  --group-directories-first --human-readable'
+		alias           llxz='ls --color=auto -lXZ --group-directories-first --human-readable'
 
-		alias            lla='ls --color=auto -lA --human-readable'
+		alias            lla='ls --color=auto -lA   --human-readable'
+		alias           llaz='ls --color=auto -lAZ  --human-readable'
 		alias          llars='ls --color=auto -lArS --human-readable'
 		alias          llart='ls --color=auto -lArt --human-readable'
-		alias           llag='ls --color=auto -lA --group-directories-first --human-readable'
+		alias           llag='ls --color=auto -lA   --group-directories-first --human-readable'
+		alias          llagz='ls --color=auto -lAZ  --group-directories-first --human-readable'
 		alias         llarsg='ls --color=auto -lArS --group-directories-first --human-readable'
 		alias         llartg='ls --color=auto -lArt --group-directories-first --human-readable'
-		alias           llax='ls --color=auto -lAX --group-directories-first --human-readable'
+		alias           llax='ls --color=auto -lAX  --group-directories-first --human-readable'
+		alias          llaxz='ls --color=auto -lAXZ --group-directories-first --human-readable'
 
-		alias       ll-color='ls --color=always -l --human-readable'
+		alias       ll-color='ls --color=always -l   --human-readable'
+		alias      llz-color='ls --color=always -lZ  --human-readable'
 		alias     llrs-color='ls --color=always -lrS --human-readable'
 		alias     llrt-color='ls --color=always -lrt --human-readable'
-		alias      llg-color='ls --color=always -l --group-directories-first --human-readable'
+		alias      llg-color='ls --color=always -l   --group-directories-first --human-readable'
+		alias     llgz-color='ls --color=always -lZ  --group-directories-first --human-readable'
 		alias    llrsg-color='ls --color=always -lrS --group-directories-first --human-readable'
-		alias    llrsg-color='ls --color=always -lrt --group-directories-first --human-readable'
-		alias      llx-color='ls --color=always -lX --group-directories-first --human-readable'
+		alias    llrtg-color='ls --color=always -lrt --group-directories-first --human-readable'
+		alias      llx-color='ls --color=always -lX  --group-directories-first --human-readable'
+		alias     llxz-color='ls --color=always -lXZ --group-directories-first --human-readable'
 
-		alias      lla-color='ls --color=always -lA --human-readable'
+		alias      lla-color='ls --color=always -lA   --human-readable'
+		alias     llaz-color='ls --color=always -lAZ  --human-readable'
 		alias    llars-color='ls --color=always -lArS --human-readable'
 		alias    llart-color='ls --color=always -lArt --human-readable'
-		alias     llag-color='ls --color=always -lA --group-directories-first --human-readable'
+		alias     llag-color='ls --color=always -lA   --group-directories-first --human-readable'
+		alias    llagz-color='ls --color=always -lAZ  --group-directories-first --human-readable'
 		alias   llarsg-color='ls --color=always -lArS --group-directories-first --human-readable'
 		alias   llartg-color='ls --color=always -lArt --group-directories-first --human-readable'
-		alias     llax-color='ls --color=always -lAX --group-directories-first --human-readable'
+		alias     llax-color='ls --color=always -lAX  --group-directories-first --human-readable'
+		alias    llaxz-color='ls --color=always -lAXZ --group-directories-first --human-readable'
 	else
 		# non-GNU ls
 

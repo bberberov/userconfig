@@ -16,6 +16,26 @@ fn_cd_if_exists()
 	fi
 }
 
+fn_cd_config()
+{
+	if   [[ -n "${1}" ]]
+	then
+		case "${1}" in
+			flatpak)
+				fn_cd_if_exists "${HOME}/.var/app"
+			;;
+			freeciv)
+				fn_cd_if_exists "${HOME}/.freeciv"
+			;;
+			ssh)
+				fn_cd_if_exists "${HOME}/.ssh"
+			;;
+		esac
+	fi
+
+	return $?
+}
+
 fn_cd_user()
 {
 	if   [[ -n "${1}" ]]
@@ -38,6 +58,9 @@ fn_cd_user()
 			;;
 			obs)
 				fn_cd_if_exists "/srv/user/${USER}/obs"
+			;;
+			pim)
+				fn_cd_if_exists "/srv/user/${USER}/pim"
 			;;
 			project)
 				fn_cd_if_exists "${HOME}/user/project"
