@@ -374,7 +374,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			konsole)
+			konsole | kxmlgui5)
 				echo "Skipping ${bn} for EUID ${EUID} (${f})"
 				continue
 			;;
@@ -386,7 +386,7 @@ do
 		if   [[ -x "${f}/.setup.bash" ]]
 		then
 			echo "Delegating to ${f}/.setup.bash"
-			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
+			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_DATA_HOME_local}/${bn}"
 			echo "Finished with ${f}/.setup.bash"
 		else
 			# NOTE: Special cases
