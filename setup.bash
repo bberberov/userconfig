@@ -11,6 +11,7 @@ userdir="/srv/user/${SUDO_USER:-${USER}}"
 repo_name='userconfig.git'
 repo_path="github.com/bberberov/${repo_name}"
 perm_repo="${userdir}/vcs/${repo_path}"
+# shellcheck disable=SC2016
 repo_tree_f='${HOME}/user/config/'"${domain}"
 repo_tree_e="${HOME}/user/config/${domain}"
 
@@ -25,12 +26,18 @@ for cmd in \
 do
 	if   ! which "${cmd}" > /dev/null 2>&1
 	then
-		echo "ERROR: command ${cmd} not found"
+		if   (( 4 <= USER_COLORTERM ))
+		then
+			echo -e "\e[31mERROR: command ${cmd} not found\e[0m"
+		else
+			echo "ERROR: command ${cmd} not found"
+		fi
 	fi
 done
 
 userlink()
 {
+	# Arguments:
 	# bn="${1}"
 	# tgt="${2}"
 	# lnk="${3}"
@@ -39,10 +46,21 @@ userlink()
 	then
 		if   [[ "${2}" == "$(readlink "${3}")" ]]
 		then
-			echo "Using linked ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[32mUsing linked\e[0m ${1}"
+			else
+				echo "Using linked ${1}"
+			fi
 		else
-			echo "/ Link mismatch ${1}: "
-			echo "\ ${3} -> $(readlink "${3}")"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[31m/ Link mismatch\e[0m ${1}: "
+				echo -e "\e[31m\ \e[0m${3} -> $(readlink "${3}")"
+			else
+				echo "/ Link mismatch ${1}: "
+				echo "\ ${3} -> $(readlink "${3}")"
+			fi
 		fi
 	elif [[ -e "${3}" ]]
 	then
@@ -50,30 +68,70 @@ userlink()
 		then
 			if   [[ -f "${3}" ]]
 			then
-				echo "Existing file ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[31mExisting file\e[0m ${3}"
+				else
+					echo "Existing file ${3}"
+				fi
 			else
-				echo "Not a file or symlink ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mNot a file or symlink\e[0m ${3}"
+				else
+					echo "Not a file or symlink ${3}"
+				fi
 			fi
 		elif [[ -d "${2}" ]]
 		then
 			if   [[ -d "${3}" ]]
 			then
-				echo "Existing directory ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[31mExisting directory\e[0m ${3}"
+				else
+					echo "Existing directory ${3}"
+				fi
 			else
-				echo "Not a directory or symlink ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mNot a directory or symlink\e[0m ${3}"
+				else
+					echo "Not a directory or symlink ${3}"
+				fi
 			fi
 		else
-			echo "Not a file, directory or symlink ${3}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[34mNot a file, directory or symlink\e[0m ${3}"
+			else
+				echo "Not a file, directory or symlink ${3}"
+			fi
 		fi
 	else
 		if   [[ -f "${2}" ]]
 		then
-			echo "Linking file ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[36mLinking file\e[0m ${1}"
+			else
+				echo "Linking file ${1}"
+			fi
 		elif [[ -d "${2}" ]]
 		then
-			echo "Linking directory ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[36mLinking directory\e[0m ${1}"
+			else
+				echo "Linking directory ${1}"
+			fi
 		else
-			echo "Linking neither file nor directory ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[36mLinking neither file nor directory\e[0m ${1}"
+			else
+				echo "Linking neither file nor directory ${1}"
+			fi
 		fi
 		ln --symbolic --no-target-directory "$2" "$3"
 	fi
@@ -89,7 +147,7 @@ userlink_on_exec()
 
 	if   (( 0 < $# ))
 	then
-		for cmd in ${@}
+		for cmd in "${@}"
 		do
 			if   which "${cmd}" > /dev/null 2>&1
 			then
@@ -100,14 +158,29 @@ userlink_on_exec()
 				then
 					if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
 					then
-						echo "Removing existing link ${bn} since none of { ${@} } were found"
+						if   (( 4 <= USER_COLORTERM ))
+						then
+							echo -e "\e[33mRemoving existing link\e[0m ${bn} since none of { ${*} } were found"
+						else
+							echo "Removing existing link ${bn} since none of { ${*} } were found"
+						fi
 						return 0
 					else
-						echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${@} } were found"
+						if   (( 4 <= USER_COLORTERM ))
+						then
+							echo -e "\e[31mSkipping existing link\e[0m ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
+						else
+							echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
+						fi
 						return 1
 					fi
 				else
-					echo "Skipping ${bn} since none of { ${@} } were found"
+					if   (( 4 <= USER_COLORTERM ))
+					then
+						echo -e "\e[34mSkipping\e[0m ${bn} since none of { ${*} } were found"
+					else
+						echo "Skipping ${bn} since none of { ${*} } were found"
+					fi
 					return 1
 				fi
 			fi
@@ -122,14 +195,29 @@ userlink_on_exec()
 			then
 				if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
 				then
-					echo "Removing existing link ${bn} since ${bn} was not found"
+					if   (( 4 <= USER_COLORTERM ))
+					then
+						echo "\e[33mRemoving existing link\e[0m ${bn} since ${bn} was not found"
+					else
+						echo "Removing existing link ${bn} since ${bn} was not found"
+					fi
 					return 0
 				else
-					echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					if   (( 4 <= USER_COLORTERM ))
+					then
+						echo -e "\e[31mSkipping existing link\e[0m ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					else
+						echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					fi
 					return 1
 				fi
 			else
-				echo "Skipping ${bn} since ${bn} was not found"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mSkipping\e[0m ${bn} since ${bn} was not found"
+				else
+					echo "Skipping ${bn} since ${bn} was not found"
+				fi
 				return 1
 			fi
 		fi
@@ -140,9 +228,19 @@ userskip()
 {
 	if   [[ -n "$3" ]]
 	then
-		echo "Skipping $1 intentionally, ${3} (${2})"
+		if   (( 4 <= USER_COLORTERM ))
+		then
+			echo -e "\e[34mSkipping\e[0m $1 intentionally, ${3} (${2})"
+		else
+			echo "Skipping $1 intentionally, ${3} (${2})"
+		fi
 	else
-		echo "Skipping $1 intentionally (${2})"
+		if   (( 4 <= USER_COLORTERM ))
+		then
+			echo -e "\e[34mSkipping\e[0m $1 intentionally (${2})"
+		else
+			echo "Skipping $1 intentionally (${2})"
+		fi
 	fi
 }
 
@@ -157,10 +255,10 @@ then
 			[[ -d "${userdir}" ]] || sudo mkdir -p "${userdir}"
 			[[ -O "${userdir}" && -G "${userdir}" ]] || sudo bash -c '[[ -n "${SUDO_UID}" ]] && chown "${SUDO_UID}:${SUDO_GID}" '"${userdir}"
 			[[ 700 -eq "$(stat --printf=%a "${userdir}")" ]] || chmod 700 "${userdir}"
-			[[ -d "${perm_repo%/${repo_name}}" ]] || mkdir -p "${perm_repo%/${repo_name}}"
+			[[ -d "${perm_repo%"/${repo_name}"}" ]] || mkdir -p "${perm_repo%"/${repo_name}"}"
 
 			# Bare clone and permanent tree setup
-			git -C "${perm_repo%/${repo_name}}" clone-bare "https://${repo_path}"
+			git -C "${perm_repo%"/${repo_name}"}" clone-bare "https://${repo_path}"
 		else
 			echo '/ Cannot find git-clone-bare subcommand.'
 			echo '\ Make sure git-clone-bare is in the PATH, or set up the permanent repo manually.'
@@ -203,6 +301,7 @@ then
 	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile' "${HOME}/.profile" > /dev/null 2>&1
 	then
 		echo 'Adding .profile configuration'
+		# shellcheck disable=2016
 		echo '
 	for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile
 	do
@@ -221,6 +320,7 @@ then
 	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash' "${HOME}/.bashrc" > /dev/null 2>&1
 	then
 		echo 'Adding .bashrc configuration'
+		# shellcheck disable=2016
 		echo '
 	for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash
 	do
@@ -238,7 +338,7 @@ fi
 echo
 for f in "${repo_tree_e}/HOME/".*
 do
-	bn="$(basename ${f})"
+	bn="$(basename "${f}")"
 
 	if   [[ -f "${f}" ]]
 	then
@@ -260,7 +360,7 @@ do
 				userlink_on_exec "${bn}" "${f}" "${HOME}/${bn}" zypper
 			;;
 			*)
-				echo "Skipping ${bn} because there is no specific definition"
+				userskip "${bn}" "${f}" 'because there is no specific definition'
 			;;
 		esac
 	elif [[ -d "${f}" ]]
@@ -274,10 +374,10 @@ do
 			# NOTE: Special cases
 			case "${bn}" in
 				.config | bashrc.d | profile.d)
-					echo "Skipping ${bn} intentionally (${f})"
+					userskip "${bn}" "${f}"
 				;;
 				*)
-					echo "Skipping ${bn} because there is no specific definition (${f})"
+					userskip "${bn}" "${f}" 'because there is no specific definition'
 				;;
 			esac
 		fi
@@ -301,14 +401,14 @@ fi
 
 for f in "${repo_tree_e}/XDG_CONFIG_HOME/"*
 do
-	bn="$(basename ${f})"
+	bn="$(basename "${f}")"
 
 	# Exclude for non-users
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
 			dconf | dolphinrc | kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
-				echo "Skipping ${bn} for EUID ${EUID} (${f})"
+				userskip "${bn}" "${f}" "for EUID ${EUID}"
 				continue
 			;;
 		esac
@@ -375,14 +475,14 @@ fi
 
 for f in "${repo_tree_e}/XDG_DATA_HOME/"*
 do
-	bn="$(basename ${f})"
+	bn="$(basename "${f}")"
 
 	# Exclude for non-users
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			konsole | kxmlgui5)
-				echo "Skipping ${bn} for EUID ${EUID} (${f})"
+			konsole | kxmlgui5 | org.kde.syntax-highlighting)
+				userskip "${bn}" "${f}" "for EUID ${EUID}"
 				continue
 			;;
 		esac

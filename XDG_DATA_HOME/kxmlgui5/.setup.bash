@@ -6,12 +6,16 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-dmn="${1:-public}"
-src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
-dst="${3:-"${XDG_DATA_HOME:-${HOME}.local/share}/kxmlgui5"}"
+# shellcheck disable=SC2034
+{
+	# dmn="${1}"
+	src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
+	dst="${3:-"${XDG_DATA_HOME:-${HOME}.local/share}/kxmlgui5"}"
+}
 
 userlink()
 {
+	# Arguments:
 	# bn="${1}"
 	# tgt="${2}"
 	# lnk="${3}"
@@ -20,10 +24,21 @@ userlink()
 	then
 		if   [[ "${2}" == "$(readlink "${3}")" ]]
 		then
-			echo $'\t'"Using linked ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[32mUsing linked\e[0m ${1}"
+			else
+				echo "Using linked ${1}"
+			fi
 		else
-			echo $'\t'"/ Link mismatch ${1}: "
-			echo $'\t'"\ ${3} -> $(readlink "${3}")"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[31m/ Link mismatch\e[0m ${1}: "
+				echo -e "\e[31m\ \e[0m${3} -> $(readlink "${3}")"
+			else
+				echo "/ Link mismatch ${1}: "
+				echo "\ ${3} -> $(readlink "${3}")"
+			fi
 		fi
 	elif [[ -e "${3}" ]]
 	then
@@ -31,30 +46,70 @@ userlink()
 		then
 			if   [[ -f "${3}" ]]
 			then
-				echo $'\t'"Existing file ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[31mExisting file\e[0m ${3}"
+				else
+					echo "Existing file ${3}"
+				fi
 			else
-				echo $'\t'"Not a file or symlink ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mNot a file or symlink\e[0m ${3}"
+				else
+					echo "Not a file or symlink ${3}"
+				fi
 			fi
 		elif [[ -d "${2}" ]]
 		then
 			if   [[ -d "${3}" ]]
 			then
-				echo $'\t'"Existing directory ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[31mExisting directory\e[0m ${3}"
+				else
+					echo "Existing directory ${3}"
+				fi
 			else
-				echo $'\t'"Not a directory or symlink ${3}"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mNot a directory or symlink\e[0m ${3}"
+				else
+					echo "Not a directory or symlink ${3}"
+				fi
 			fi
 		else
-			echo $'\t'"Not a file, directory or symlink ${3}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[34mNot a file, directory or symlink\e[0m ${3}"
+			else
+				echo "Not a file, directory or symlink ${3}"
+			fi
 		fi
 	else
 		if   [[ -f "${2}" ]]
 		then
-			echo $'\t'"Linking file ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[36mLinking file\e[0m ${1}"
+			else
+				echo "Linking file ${1}"
+			fi
 		elif [[ -d "${2}" ]]
 		then
-			echo $'\t'"Linking directory ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[36mLinking directory\e[0m ${1}"
+			else
+				echo "Linking directory ${1}"
+			fi
 		else
-			echo $'\t'"Linking neither file nor directory ${1}"
+			if   (( 4 <= USER_COLORTERM ))
+			then
+				echo -e "\e[36mLinking neither file nor directory\e[0m ${1}"
+			else
+				echo "Linking neither file nor directory ${1}"
+			fi
 		fi
 		ln --symbolic --no-target-directory "$2" "$3"
 	fi
@@ -70,7 +125,7 @@ userlink_on_exec()
 
 	if   (( 0 < $# ))
 	then
-		for cmd in ${@}
+		for cmd in "${@}"
 		do
 			if   which "${cmd}" > /dev/null 2>&1
 			then
@@ -81,14 +136,29 @@ userlink_on_exec()
 				then
 					if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
 					then
-						echo $'\t'"Removing existing link ${bn} since none of { ${@} } were found"
+						if   (( 4 <= USER_COLORTERM ))
+						then
+							echo -e "\e[33mRemoving existing link\e[0m ${bn} since none of { ${*} } were found"
+						else
+							echo "Removing existing link ${bn} since none of { ${*} } were found"
+						fi
 						return 0
 					else
-						echo $'\t'"Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${@} } were found"
+						if   (( 4 <= USER_COLORTERM ))
+						then
+							echo -e "\e[31mSkipping existing link\e[0m ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
+						else
+							echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
+						fi
 						return 1
 					fi
 				else
-					echo $'\t'"Skipping ${bn} since none of { ${@} } were found"
+					if   (( 4 <= USER_COLORTERM ))
+					then
+						echo -e "\e[34mSkipping\e[0m ${bn} since none of { ${*} } were found"
+					else
+						echo "Skipping ${bn} since none of { ${*} } were found"
+					fi
 					return 1
 				fi
 			fi
@@ -103,14 +173,29 @@ userlink_on_exec()
 			then
 				if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
 				then
-					echo $'\t'"Removing existing link ${bn} since ${bn} was not found"
+					if   (( 4 <= USER_COLORTERM ))
+					then
+						echo -e "\e[33mRemoving existing link\e[0m ${bn} since ${bn} was not found"
+					else
+						echo "Removing existing link ${bn} since ${bn} was not found"
+					fi
 					return 0
 				else
-					echo $'\t'"Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					if   (( 4 <= USER_COLORTERM ))
+					then
+						echo -e "\e[31mSkipping existing link\e[0m ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					else
+						echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since ${bn} was not found"
+					fi
 					return 1
 				fi
 			else
-				echo $'\t'"Skipping ${bn} since ${bn} was not found"
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mSkipping\e[0m ${bn} since ${bn} was not found"
+				else
+					echo "Skipping ${bn} since ${bn} was not found"
+				fi
 				return 1
 			fi
 		fi
@@ -119,7 +204,7 @@ userlink_on_exec()
 
 for f in "${src}/"*
 do
-	bn="$(basename ${f})"
+	bn="$(basename "${f}")"
 
 	if   [[ -d "${f}" ]]
 	then
