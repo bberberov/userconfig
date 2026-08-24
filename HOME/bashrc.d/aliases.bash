@@ -653,6 +653,11 @@ then
 	then
 		alias validate-autoyast='xmllint --noout --relaxng /usr/share/YaST2/schema/autoyast/rng/profile.rng'
 	fi
+
+	if   [[ -f '/usr/lib/python3.13/site-packages/kiwi/schema/kiwi.rng' ]]
+	then
+		alias validate-kiwi='xmllint --noout --relaxng /usr/lib/python3.13/site-packages/kiwi/schema/kiwi.rng'
+	fi
 fi
 
 # Custom
