@@ -202,22 +202,8 @@ fi
 # git
 if   which git > /dev/null 2>&1
 then
-	alias cd-git-repo='declare r="$(git rev-parse --git-common-dir 2> /dev/null)"; [[ -n "${r}" ]] && cd "${r}/"'
-	alias cd-git-tree='
-		if   [[ -f "gitdir" ]]
-		then
-			cd-file-gitdir
-		else
-			declare t="$(git rev-parse --show-toplevel 2> /dev/null)"
-			if   [[ -n "${t}" ]]
-			then
-				cd "${t}"
-			else
-				echo "fatal: this operation must be run in a worktree or a worktree configuration directory"
-				false
-			fi
-		fi
-	'
+	alias cd-git-repo=fn_cd_git_repo
+	alias cd-git-tree=fn_cd_git_tree
 
 	alias      diff-git='git diff --no-index'
 	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'
@@ -627,8 +613,8 @@ if   which sed > /dev/null 2>&1
 then
 	alias Esed='sed -E'
 
-	alias cd-file-gitdir='cd "$(sed -e s:\/\.git\$:: gitdir)"'
-	alias cd-file-.git='cd "$(sed -e s@^gitdir:\ \/@/@ .git)"'
+	alias cd-file-gitdir=fn_cd_file_gitdir
+	alias cd-file-.git=fn_cd_file_.git
 fi
 
 # stat

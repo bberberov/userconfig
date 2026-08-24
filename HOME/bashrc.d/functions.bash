@@ -79,6 +79,117 @@ fn_cd_user()
 	return $?
 }
 
+if   which git > /dev/null 2>&1
+then
+	fn_cd_git_repo()
+	{
+		local r rval
+		r="$(git rev-parse --git-common-dir 2> /dev/null)"
+		rval=$?
+
+		if   [[ -n "${r}" ]]
+		then
+			cd "${r}/" || return 205
+		else
+			return ${rval}
+		fi
+	}
+
+	fn_cd_git_tree()
+	{
+		local rval
+
+		if   [[ -f 'gitdir' ]]
+		then
+			cd-file-gitdir
+		else
+			local t
+			t="$(git rev-parse --show-toplevel 2> /dev/null)"
+			rval=$?
+
+			if   [[ -n "${t}" ]]
+			then
+				cd "${t}" || return 205
+			else
+				local r
+				r="$(git rev-parse --git-common-dir 2> /dev/null)"
+				rval=$?
+
+				if   (( 0 == rval ))
+				then
+					local w
+					w="$(ls -1 "${r}/worktrees/" 2> /dev/null)"
+					rval=$?
+
+					if   (( 0 == rval ))
+					then
+						local wn
+						wn="$(echo "${w}" | wc -l 2> /dev/null)"
+						rval=$?
+
+						if   (( 1 == wn )) && [[ -f "${r}/worktrees/${w}/gitdir" ]]
+						then
+							fn_cd_file_gitdir "${r}/worktrees/${w}/gitdir"
+						else
+							echo 'fatal: no single worktree configuration directory found' > /dev/stderr
+							return 1
+						fi
+					else
+						echo 'fatal: failed to find worktree configuration directories' > /dev/stderr
+						return ${rval}
+					fi
+				else
+					echo 'fatal: this operation must be run in a worktree or a repo' > /dev/stderr
+					return ${rval}
+				fi
+			fi
+		fi
+	}
+fi
+
+if   which sed > /dev/null 2>&1
+then
+	fn_cd_file_gitdir()
+	{
+		local p rval
+
+		p="$(sed -e 's:/\.git$::' "${1:-gitdir}" 2> /dev/null)"
+		rval=$?
+
+		if   (( 0 == rval ))
+		then
+			cd "${p}" || return 205
+		else
+			return ${rval}
+		fi
+	}
+
+	fn_cd_file_.git()
+	{
+		local p rval
+
+		p="$(sed -e 's@^gitdir: /@/@' "${1:-.git}" 2> /dev/null)"
+		rval=$?
+
+		if   (( 0 == rval ))
+		then
+			cd "${p}" || return 205
+		else
+			return ${rval}
+		fi
+	}
+else
+	fn_cd_file_gitdir()
+	{
+		return 255
+	}
+	fn_cd_file_.git()
+	{
+		return 255
+	}
+fi
+
+
 if   which xdg-user-dir > /dev/null 2>&1
 then
 	fn_cd_xdg()
