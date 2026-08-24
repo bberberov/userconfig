@@ -3,7 +3,7 @@
 # BEGIN BTRFS
 
 # mkfs.btrfs
-if   which mkfs.btrfs > /dev/null 2>&1
+if   type -fP 'mkfs.btrfs' > '/dev/null' 2>&1
 then
 	alias mkfs.btrfs-config_single='mkfs.btrfs \
 --data single \
@@ -35,7 +35,7 @@ fi
 # BEGIN exFAT
 
 # mkfs.exfat
-if   which mkfs.exfat > /dev/null 2>&1
+if   type -fP 'mkfs.exfat' > '/dev/null' 2>&1
 then
 	alias   mkfs.exfat-config_sd-8MiB='mkfs.exfat -b  8K -c   8K'
 	alias  mkfs.exfat-config_sd-64MiB='mkfs.exfat -b 16K -c  16K'
@@ -53,7 +53,7 @@ fi
 # BEGIN EXT4
 
 # tune2fs
-if   which tune2fs > /dev/null 2>&1
+if   type -fP 'tune2fs' > '/dev/null' 2>&1
 then
 	#                                 mount_opts limit: [------8-------+-------+-------|-------+-------+-------+------]
 	alias    tune2fs-config_root='tune2fs -E mount_opts=noatime'
@@ -74,7 +74,7 @@ fi
 # BEGIN F2FS
 
 # mkfs.f2fs
-if   which mkfs.f2fs > /dev/null 2>&1
+if   type -fP 'mkfs.f2fs' > '/dev/null' 2>&1
 then
 	alias mkfs.f2fs-config_default='mkfs.btrfs \
 	-e \
@@ -93,7 +93,7 @@ qcow2,vdi,vmdk\
 fi
 
 # mount.f2fs
-if   ! which mount.f2fs > /dev/null 2>&1
+if   ! type -fP 'mount.f2fs' > '/dev/null' 2>&1
 then
 	alias mount.f2fs='mount -t f2fs \
 	-o \
@@ -109,14 +109,14 @@ fi
 # BEGIN FAT
 
 # mkfs.fat
-if   which mkfs.fat > /dev/null 2>&1
+if   type -fP 'mkfs.fat' > '/dev/null' 2>&1
 then
-	if   which mkfs.fat12 > /dev/null 2>&1
+	if   type -fP 'mkfs.fat12' > '/dev/null' 2>&1
 	then
 		alias mkfs.fat12='mkfs.fat -F 12'
 	fi
 
-	if   which mkfs.fat16 > /dev/null 2>&1
+	if   type -fP 'mkfs.fat16' > '/dev/null' 2>&1
 	then
 		alias mkfs.fat16='mkfs.fat -F 16'
 
@@ -141,7 +141,7 @@ then
 		alias mkfs.fat16-config_af-512k='mkfs.fat -F 16 -S 4096 -s 128'
 	fi
 
-	if   which mkfs.fat32 > /dev/null 2>&1
+	if   type -fP 'mkfs.fat32' > '/dev/null' 2>&1
 	then
 		alias mkfs.fat32='mkfs.fat -F 32'
 
@@ -170,7 +170,7 @@ fi
 # END   FAT
 
 # mount
-if   which mount > /dev/null 2>&1
+if   type -fP 'mount' > '/dev/null' 2>&1
 then
 	alias mount-manual='mount -o noatime'
 	alias mount-examine='mount -o ro,noatime,nodev,nosuid,noexec'

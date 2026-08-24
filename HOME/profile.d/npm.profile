@@ -1,12 +1,18 @@
-if   which npm > /dev/null 2>&1
+if   type 'npm' > '/dev/null' 2>&1
 then
-	npm_prefix="$(npm config get prefix)"
-
-	if   echo "${npm_prefix}" | grep "^${HOME}" > /dev/null
+	if   type 'sed' > '/dev/null' 2>&1 && type 'envsubst' > '/dev/null' 2>&1
 	then
-		echo ":${PATH}:" | grep -E ":${npm_prefix}/bin/?:" > /dev/null \
-		|| export PATH="${npm_prefix}/bin:${PATH}"
+		# NOTE: It's +20x faster <shrug>
+		npm_prefix="$(command sed -ne '/^prefix[[:space:]]*=/{ s/^prefix[[:space:]]*=[[:space:]]*//; p; }' "${HOME}/.npmrc" | command envsubst)"
+		npm_prefix=${npm_prefix#\"}
+		npm_prefix=${npm_prefix%\"}
+	else
+		npm_prefix="$(command npm config get prefix)"
 	fi
 
-	unset npm_prefix
+	if   [ "${npm_prefix}" -eq "${HOME}/${npm_prefix#${HOME}/}" ]
+	then
+		echo ":${PATH}:" | grep -E ":${npm_prefix}/bin/?:" > '/dev/null' \
+		|| export PATH="${npm_prefix}/bin:${PATH}"
+	fi
 fi

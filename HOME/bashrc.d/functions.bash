@@ -79,7 +79,7 @@ fn_cd_user()
 	return $?
 }
 
-if   which git > /dev/null 2>&1
+if   type -fP 'git' > '/dev/null' 2>&1
 then
 	fn_cd_git_repo()
 	{
@@ -147,7 +147,7 @@ then
 	}
 fi
 
-if   which sed > /dev/null 2>&1
+if   type -fP 'sed' > '/dev/null' 2>&1
 then
 	fn_cd_file_gitdir()
 	{
@@ -190,7 +190,7 @@ else
 fi
 
 
-if   which xdg-user-dir > /dev/null 2>&1
+if   type -fP 'xdg-user-dir' > '/dev/null' 2>&1
 then
 	fn_cd_xdg()
 	{

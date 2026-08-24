@@ -1,7 +1,7 @@
 # shellcheck disable=SC2139
 
 # bat
-if   which bat > /dev/null 2>&1
+if   type -fP 'bat' > '/dev/null' 2>&1
 then
 	alias bat-color='bat --color always --terminal-width ${COLUMNS}'
 fi
@@ -28,15 +28,15 @@ alias    cd-xdg=fn_cd_xdg
 alias cd-sudo-home='cd "${SUDO_HOME:-${HOME}}"'
 
 # delta
-if   which delta > /dev/null 2>&1
+if   type -fP 'delta' > '/dev/null' 2>&1
 then
 	alias delta-y='delta --features=diffy'
 fi
 
 # df
-if   which df > /dev/null 2>&1
+if   type -fP 'df' > '/dev/null' 2>&1
 then
-	if   df --version > /dev/null 2>&1
+	if   command df --version > '/dev/null' 2>&1
 	then
 		# GNU df
 		alias        df='df -h'
@@ -71,7 +71,7 @@ then
 fi
 
 # diff
-if   which diff > /dev/null 2>&1
+if   type -fP 'diff' > '/dev/null' 2>&1
 then
 	alias         diff='diff --color=auto'
 	alias       diff-y='diff --color=auto -y'
@@ -80,7 +80,7 @@ then
 fi
 
 # difft
-if   which difft > /dev/null 2>&1
+if   type -fP 'difft' > '/dev/null' 2>&1
 then
 	alias difft-y='difft --display side-by-side'
 	alias   difft-color='difft --color always --width ${COLUMNS}'
@@ -88,7 +88,7 @@ then
 fi
 
 # eza (as ela)
-if   which eza > /dev/null 2>&1
+if   type -fP 'eza' > '/dev/null' 2>&1
 then
 	alias     eza='eza --group-directories-first -b'
 
@@ -175,13 +175,13 @@ then
 fi
 
 # fd
-if   which fd > /dev/null 2>&1
+if   type -fP 'fd' > '/dev/null' 2>&1
 then
 	alias fd-color='fd --color=always'
 fi
 
 # findmnt
-if   which findmnt > /dev/null 2>&1
+if   type -fP 'findmnt' > '/dev/null' 2>&1
 then
 	alias         lsmount='findmnt -o SOURCE,TARGET,FSTYPE,OPTIONS'
 	alias     lsmount-opt='findmnt -o SOURCE,TARGET,VFS-OPTIONS,FS-OPTIONS'
@@ -200,7 +200,7 @@ then
 fi
 
 # git
-if   which git > /dev/null 2>&1
+if   type -fP 'git' > '/dev/null' 2>&1
 then
 	alias cd-git-repo=fn_cd_git_repo
 	alias cd-git-tree=fn_cd_git_tree
@@ -213,7 +213,7 @@ then
 fi
 
 # grep
-if   which grep > /dev/null 2>&1
+if   type -fP 'grep' > '/dev/null' 2>&1
 then
 	alias        grep='grep --color=auto'
 	alias  grep-color='grep --color=always'
@@ -232,13 +232,13 @@ then
 fi
 
 # hostname
-if   which hostname > /dev/null 2>&1
+if   type -fP 'hostname' > '/dev/null' 2>&1
 then
 	alias hostnames='hostname --all-fqdns'
 fi
 
 # ip
-if   which ip > /dev/null 2>&1
+if   type -fP 'ip' > '/dev/null' 2>&1
 then
 	alias            ip='ip --color=auto'
 	alias           ip4='ip --color=auto -4'
@@ -257,7 +257,7 @@ then
 fi
 
 # jq
-if   which jq > /dev/null 2>&1
+if   type -fP 'jq' > '/dev/null' 2>&1
 then
 	alias jq-color='jq --color-output'
 fi
@@ -265,50 +265,27 @@ fi
 #
 # KDE
 #
-if   which kstart > /dev/null 2>&1
+if   type -fP 'kstart' > '/dev/null' 2>&1
 then
-	if   which dolphin > /dev/null 2>&1
+	if   type -fP 'dolphin' > '/dev/null' 2>&1
 	then
 		alias dolphin-here='kstart -- dolphin "$(pwd)"'
 	fi
 
-	if   which konsole > /dev/null 2>&1
+	if   type -fP 'konsole' > '/dev/null' 2>&1
 	then
 		alias konsole-here='kstart -- konsole --workdir "$(pwd)"'
 	fi
 fi
 
 # less
-if   which less > /dev/null 2>&1
-then
-	#
-	# NOTE: Probably not going to look for exceptions before version 340
-	# NOTE: ( the introduction of the -F and -R options, and UTF-8 support)
-	# NOTE: `--version` was added earlier
-	#
-	if   which sed > /dev/null 2>&1
-	then
-		less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
-	elif which grep > /dev/null 2>&1
-	then
-		less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
-	else
-		less_version='340'
-	fi
 
-	if   (( 620 < less_version ))
-	then
-		# --wordwrap was introduced in 621
-		alias less-wrap='less --wordwrap'
-	fi
-
-	unset less_version
-fi
+# NOTE: less is in its own bashrc.d/less.bash file
 
 # ls
-if   which ls > /dev/null 2>&1
+if   type -fP 'ls' > '/dev/null' 2>&1
 then
-	if   ls --version > /dev/null 2>&1
+	if   command ls --version > '/dev/null' 2>&1
 	then
 		# GNU ls
 
@@ -485,7 +462,7 @@ then
 fi
 
 # lsblk
-if   which lsblk > /dev/null 2>&1
+if   type -fP 'lsblk' > '/dev/null' 2>&1
 then
 	alias lsblk-disk='lsblk -dp -o NAME,GROUP,TRAN,VENDOR,MODEL,REV,SERIAL,SIZE,PHY-SEC,LOG-SEC,ZONED,SCHED'
 	alias lsblk-part='lsblk  -p -o NAME,PTTYPE,TYPE,SIZE,PARTTYPE,PARTTYPENAME,PARTFLAGS,PARTLABEL,MOUNTPOINTS'
@@ -493,7 +470,7 @@ then
 fi
 
 # lsd
-if   which lsd > /dev/null 2>&1
+if   type -fP 'lsd' > '/dev/null' 2>&1
 then
 	alias    lsda='lsd -A'
 
@@ -543,7 +520,7 @@ then
 fi
 
 # npm
-if   which npm > /dev/null 2>&1
+if   type -fP 'npm' > '/dev/null' 2>&1
 then
 	alias     npm-list='npm list --global'
 	alias npm-outdated='npm outdated --global'
@@ -551,34 +528,34 @@ then
 fi
 
 # onefetch
-if   which onefetch > /dev/null 2>&1
+if   type -fP 'onefetch' > '/dev/null' 2>&1
 then
 	alias onefetch='onefetch --number-of-languages 8'
 fi
 
 # pip
-if   which pip > /dev/null 2>&1
+if   type -fP 'pip' > '/dev/null' 2>&1
 then
 	alias     pip-list='pip list --user'
 	alias pip-outdated='pip list --user --outdated'
 fi
 
 # pip2
-if   which pip2 > /dev/null 2>&1
+if   type -fP 'pip2' > '/dev/null' 2>&1
 then
 	alias     pip2-list='pip2 list --user'
 	alias pip2-outdated='pip2 list --user --outdated'
 fi
 
 # pip3
-if   which pip3 > /dev/null 2>&1
+if   type -fP 'pip3' > '/dev/null' 2>&1
 then
 	alias     pip3-list='pip3 list --user'
 	alias pip3-outdated='pip3 list --user --outdated'
 fi
 
 # rg
-if   which rg > /dev/null 2>&1
+if   type -fP 'rg' > '/dev/null' 2>&1
 then
 	alias rg-color='rg --color=always'
 
@@ -590,7 +567,7 @@ then
 fi
 
 # rpm
-if   which rpm > /dev/null 2>&1
+if   type -fP 'rpm' > '/dev/null' 2>&1
 then
 	alias rpm-show='rpm --eval="\
 %%{build_cflags}    = %{?build_cflags}
@@ -609,7 +586,7 @@ then
 fi
 
 # sed
-if   which sed > /dev/null 2>&1
+if   type -fP 'sed' > '/dev/null' 2>&1
 then
 	alias Esed='sed -E'
 
@@ -618,7 +595,7 @@ then
 fi
 
 # stat
-if   which stat > /dev/null 2>&1
+if   type -fP 'stat' > '/dev/null' 2>&1
 then
 	alias stat-color='stat --printf="\
 \e[90m  File:\e[0m \e[4m%n\e[0m
@@ -634,7 +611,7 @@ then
 fi
 
 # tree
-if   which tree > /dev/null 2>&1
+if   type -fP 'tree' > '/dev/null' 2>&1
 then
 	alias ltree='tree -pugshD'
 
@@ -652,25 +629,25 @@ then
 fi
 
 # usbimager
-if   which usbimager > /dev/null 2>&1
+if   type -fP 'usbimager' > '/dev/null' 2>&1
 then
 	alias usbimager='usbimager -m1024 -7'
 fi
 
 # xdpyinfo
-if   which xdpyinfo > /dev/null 2>&1
+if   type -fP 'xdpyinfo' > '/dev/null' 2>&1
 then
-	if   which grep > /dev/null 2>&1
+	if   type -fP 'grep' > '/dev/null' 2>&1
 	then
 		alias xdpi='xdpyinfo | grep -A 2 "^screen #.*"'
-	elif which sed > /dev/null 2>&1
+	elif type -fP 'sed' > '/dev/null' 2>&1
 	then
 		alias xdpi='xdpyinfo | sed -n -e "/^screen #/,+2p"'
 	fi
 fi
 
 # xmllint
-if   which xmllint > /dev/null 2>&1
+if   type -fP 'xmllint' > '/dev/null' 2>&1
 then
 	if   [[ -f '/usr/share/YaST2/schema/autoyast/rng/profile.rng' ]]
 	then
@@ -681,9 +658,13 @@ fi
 # Custom
 alias separator='echo; for (( i=0 ; i < ${COLUMNS} ; i+=1 )); do echo -n "="; done; echo; echo'
 
-[ -x /c/Windows/System32/OpenSSH/ssh ]  && alias  ssh-win='/c/Windows/System32/OpenSSH/ssh  -o GSSAPIAuthentication=yes'
-[ -x /c/Windows/System32/OpenSSH/scp ]  && alias  scp-win='/c/Windows/System32/OpenSSH/scp  -o GSSAPIAuthentication=yes'
-[ -x /c/Windows/System32/OpenSSH/sftp ] && alias sftp-win='/c/Windows/System32/OpenSSH/sftp -o GSSAPIAuthentication=yes'
-[ -x /c/Windows/System32/OpenSSH/ssh-add ]     && alias     ssh-add-win='/c/Windows/System32/OpenSSH/ssh-add'
-[ -x /c/Windows/System32/OpenSSH/ssh-keygen ]  && alias  ssh-keygen-win='/c/Windows/System32/OpenSSH/ssh-keygen'
-[ -x /c/Windows/System32/OpenSSH/ssh-keyscan ] && alias ssh-keyscan-win='/c/Windows/System32/OpenSSH/ssh-keyscan'
+if   [[ 'Windows_NT' == "${OS}" && 'MINGW64' == "${MSYSTEM}" ]]
+then
+	[[ -x '/c/Windows/System32/OpenSSH/ssh'  ]] && alias  ssh-win='/c/Windows/System32/OpenSSH/ssh  -o GSSAPIAuthentication=yes'
+	[[ -x '/c/Windows/System32/OpenSSH/scp'  ]] && alias  scp-win='/c/Windows/System32/OpenSSH/scp  -o GSSAPIAuthentication=yes'
+	[[ -x '/c/Windows/System32/OpenSSH/sftp' ]] && alias sftp-win='/c/Windows/System32/OpenSSH/sftp -o GSSAPIAuthentication=yes'
+
+	[[ -x '/c/Windows/System32/OpenSSH/ssh-add'     ]] && alias     ssh-add-win='/c/Windows/System32/OpenSSH/ssh-add'
+	[[ -x '/c/Windows/System32/OpenSSH/ssh-keygen'  ]] && alias  ssh-keygen-win='/c/Windows/System32/OpenSSH/ssh-keygen'
+	[[ -x '/c/Windows/System32/OpenSSH/ssh-keyscan' ]] && alias ssh-keyscan-win='/c/Windows/System32/OpenSSH/ssh-keyscan'
+fi

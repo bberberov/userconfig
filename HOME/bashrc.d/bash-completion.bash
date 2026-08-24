@@ -4,13 +4,12 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
-if   ! which realpath > /dev/null 2>&1 || ! which dirname > /dev/null 2>&1
+if   ! type -fP 'realpath' > '/dev/null' 2>&1 || ! type -fP 'dirname' > '/dev/null' 2>&1
 then
 	exit 0
 fi
 
-# BASH_VERSION in 3.0
-if   [[ -n "${BASH_VERSION}" ]]
+if   (( 3 <= BASH_VERSINFO[0] ))
 then
 	origin="$( realpath "$( dirname "${BASH_SOURCE[0]}" )" )"
 else

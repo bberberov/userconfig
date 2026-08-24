@@ -1,16 +1,16 @@
 # NOTE: makes use of the USER_COLORTERM environment variable
 
-if   which less > /dev/null 2>&1
+if   type -fP 'less' > '/dev/null' 2>&1
 then
 	#
 	# NOTE: Probably not going to look for exceptions before version 340
 	# NOTE: ( the introduction of the -F and -R options, and UTF-8 support)
 	# NOTE: `--version` was added earlier
 	#
-	if   which sed > /dev/null 2>&1
+	if   type -fP 'sed' > '/dev/null' 2>&1
 	then
 		less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
-	elif which grep > /dev/null 2>&1
+	elif type -fP 'grep' > '/dev/null' 2>&1
 	then
 		less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
 	else
@@ -42,10 +42,16 @@ then
 					LESS="${LESS} --use-color"
 				fi
 
-				if   (( 677 < less_version ))
+				if   (( 620 < less_version ))
 				then
-					# variable LESS_SHELL_LINES was introduced in 678
-					export LESS_SHELL_LINES=3
+					# --wordwrap was introduced in 621
+					alias less-wrap='less --wordwrap'
+
+					if   (( 677 < less_version ))
+					then
+						# variable LESS_SHELL_LINES was introduced in 678
+						export LESS_SHELL_LINES=3
+					fi
 				fi
 			fi
 		else
@@ -56,6 +62,4 @@ then
 	fi
 
 	export LESS
-
-	unset less_version
 fi

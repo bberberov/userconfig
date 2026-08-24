@@ -53,9 +53,9 @@ else
 			USER_COLORTERM=4
 		;;
 		*)
-			if   which tput > /dev/null 2>&1
+			if   type -fP 'tput' > '/dev/null' 2>&1
 			then
-				case "$(tput colors 2>/dev/null)" in
+				case "$(tput 'colors' 2> '/dev/null')" in
 					16777216)
 						USER_COLORTERM=24
 					;;
@@ -63,7 +63,7 @@ else
 						USER_COLORTERM=8
 					;;
 					16)
-						if   [[ -n "$(tput dim 2>/dev/null)" ]]
+						if   [[ -n "$(tput 'dim' 2> '/dev/null')" ]]
 						then
 							# 5 = dim colors and [90–97, 100–107] colors supported
 							USER_COLORTERM=5
