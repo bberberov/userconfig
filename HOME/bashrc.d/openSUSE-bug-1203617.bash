@@ -14,11 +14,11 @@ then
 		source '/etc/profile.d/modules.sh'
 	fi
 
-	if   [[ -f '/etc/profile.d/fzf-bash.sh' ]]
-	then
-		source '/etc/profile.d/fzf-bash.sh'
-	elif [[ -f '/etc/profile.d/skim-bash-integration.sh' ]]
+	if   [[ -f '/etc/profile.d/skim-bash-integration.sh' ]]
 	then
 		source '/etc/profile.d/skim-bash-integration.sh'
+	elif [[ -f '/etc/profile.d/fzf-bash.sh' ]]
+	then
+		source '/etc/profile.d/fzf-bash.sh'
 	fi
 fi
