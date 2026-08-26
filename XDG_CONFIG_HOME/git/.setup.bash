@@ -216,7 +216,7 @@ for app in \
 	bat \
 	bzip2 \
 	delta \
-	difftastic \
+	difft \
 	eza \
 	meld \
 	mergiraf \
