@@ -13,7 +13,7 @@
 	dst="${3:-"${XDG_CONFIG_HOME:-${HOME}/.config}/dconf"}"
 }
 
-if   ! which dconf > /dev/null 2>&1
+if   ! type -fP dconf > /dev/null 2>&1
 then
 	if   (( 4 <= USER_COLORTERM ))
 	then
@@ -75,7 +75,7 @@ dconf_on_exec()
 	# dir="${2}"
 	# file="${3}"
 
-	if   which "${1}" > /dev/null 2>&1
+	if   type -fP "${1}" > /dev/null 2>&1
 	then
 		echo -n "${1} was found: "
 		dconf_apply "${2}" "${3}"

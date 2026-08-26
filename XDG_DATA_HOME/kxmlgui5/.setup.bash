@@ -127,7 +127,7 @@ userlink_on_exec()
 	then
 		for cmd in "${@}"
 		do
-			if   which "${cmd}" > /dev/null 2>&1
+			if   type -fP "${cmd}" > /dev/null 2>&1
 			then
 				userlink "${bn}" "${tgt}" "${lnk}"
 				return 0
@@ -164,7 +164,7 @@ userlink_on_exec()
 			fi
 		done
 	else
-		if   which "${bn}" > /dev/null 2>&1
+		if   type -fP "${bn}" > /dev/null 2>&1
 		then
 			userlink "${bn}" "${tgt}" "${lnk}"
 			return 0

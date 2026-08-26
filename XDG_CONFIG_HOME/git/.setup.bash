@@ -180,7 +180,7 @@ git_include_skip()
 	fi
 }
 
-if   ! which git > /dev/null 2>&1
+if   ! type -fP git > /dev/null 2>&1
 then
 	if   (( 4 <= USER_COLORTERM ))
 	then
@@ -224,7 +224,7 @@ for app in \
 	zstd \
 ;
 do
-	if   which "${app}" > /dev/null 2>&1
+	if   type -fP "${app}" > /dev/null 2>&1
 	then
 		if   ! git_include_exists "${dst}/config" "config.${dmn}.d/app/${app}.config"
 		then
@@ -243,12 +243,12 @@ do
 done
 
 # Add less-621+ config
-if   which less > /dev/null 2>&1
+if   type -fP less > /dev/null 2>&1
 then
-	if   which sed > /dev/null 2>&1
+	if   type -fP sed > /dev/null 2>&1
 	then
 		less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
-	elif which grep > /dev/null 2>&1
+	elif type -fP grep > /dev/null 2>&1
 	then
 		less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
 	else
