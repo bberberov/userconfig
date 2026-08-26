@@ -9,7 +9,7 @@
 # shellcheck disable=SC2034
 {
 	dmn="${1:-public}"
-	src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
+	src="${2:-"$( realpath "$( dirname "${BASH_SOURCE[0]}" )" )"}"
 	dst="${3:-"${XDG_CONFIG_HOME:-${HOME}/.config}/git"}"
 }
 

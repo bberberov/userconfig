@@ -9,7 +9,7 @@
 # shellcheck disable=SC2034
 {
 	# dmn="${1}"
-	src="${2:-"$( dirname "${BASH_SOURCE[0]}" )"}"
+	src="${2:-"$( realpath "$( dirname "${BASH_SOURCE[0]}" )" )"}"
 	dst="${3:-"${XDG_DATA_HOME:-${HOME}.local/share}/kxmlgui5"}"
 }
 
