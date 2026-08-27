@@ -9,6 +9,7 @@ MenuBar=Disabled
 
 [TabBar]
 TabBarPosition=Bottom
+TabBarVisibility=AlwaysShowTabBar
 
 [UiSettings]
 ColorScheme=
