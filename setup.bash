@@ -19,12 +19,13 @@ repo_tree_e="${HOME}/user/config/${domain}"
 for cmd in \
 	chmod \
 	grep \
+	ls \
 	readlink \
 	stat \
 	sudo \
 ;
 do
-	if   ! which "${cmd}" > /dev/null 2>&1
+	if   ! type -fP "${cmd}" > /dev/null 2>&1
 	then
 		if   (( 4 <= USER_COLORTERM ))
 		then
@@ -37,156 +38,153 @@ done
 
 userlink()
 {
-	# Arguments:
-	# bn="${1}"
-	# tgt="${2}"
-	# lnk="${3}"
+	local bn="${1}"
+	local tgt="${2}"
+	local lnk="${3}"
 
-	if   [[ -L "${3}" ]]
+	if   [[ -L "${lnk}" ]]
 	then
-		if   [[ "${2}" == "$(readlink "${3}")" ]]
+		if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
 		then
 			if   (( 4 <= USER_COLORTERM ))
 			then
-				echo -e "\e[32mUsing linked\e[0m ${1}"
+				echo -e "\e[32mUsing linked\e[0m ${bn}"
 			else
-				echo "Using linked ${1}"
+				echo "Using linked ${bn}"
 			fi
 		else
 			if   (( 4 <= USER_COLORTERM ))
 			then
-				echo -e "\e[31m/ Link mismatch\e[0m ${1}: "
-				echo -e "\e[31m\ \e[0m${3} -> $(readlink "${3}")"
+				echo -e "\e[31m/ Link mismatch\e[0m ${bn}: "
+				echo -e "\e[31m\ \e[0m${lnk} -> $(readlink "${lnk}")"
 			else
-				echo "/ Link mismatch ${1}: "
-				echo "\ ${3} -> $(readlink "${3}")"
+				echo "/ Link mismatch ${bn}: "
+				echo "\ ${lnk} -> $(readlink "${lnk}")"
 			fi
 		fi
-	elif [[ -e "${3}" ]]
+	elif [[ -e "${lnk}" ]]
 	then
-		if   [[ -f "${2}" ]]
+		if   [[ -f "${tgt}" ]]
 		then
-			if   [[ -f "${3}" ]]
+			if   [[ -f "${lnk}" ]]
 			then
 				if   (( 4 <= USER_COLORTERM ))
 				then
-					echo -e "\e[31mExisting file\e[0m ${3}"
+					echo -e "\e[31mExisting file\e[0m ${lnk}"
 				else
-					echo "Existing file ${3}"
+					echo "Existing file ${lnk}"
 				fi
 			else
 				if   (( 4 <= USER_COLORTERM ))
 				then
-					echo -e "\e[34mNot a file or symlink\e[0m ${3}"
+					echo -e "\e[34mNot a file or symlink\e[0m ${lnk}"
 				else
-					echo "Not a file or symlink ${3}"
+					echo "Not a file or symlink ${lnk}"
 				fi
 			fi
-		elif [[ -d "${2}" ]]
+		elif [[ -d "${tgt}" ]]
 		then
-			if   [[ -d "${3}" ]]
+			if   [[ -d "${lnk}" ]]
 			then
 				if   (( 4 <= USER_COLORTERM ))
 				then
-					echo -e "\e[31mExisting directory\e[0m ${3}"
+					echo -e "\e[31mExisting directory\e[0m ${lnk}"
 				else
-					echo "Existing directory ${3}"
+					echo "Existing directory ${lnk}"
 				fi
 			else
 				if   (( 4 <= USER_COLORTERM ))
 				then
-					echo -e "\e[34mNot a directory or symlink\e[0m ${3}"
+					echo -e "\e[34mNot a directory or symlink\e[0m ${lnk}"
 				else
-					echo "Not a directory or symlink ${3}"
+					echo "Not a directory or symlink ${lnk}"
 				fi
 			fi
 		else
 			if   (( 4 <= USER_COLORTERM ))
 			then
-				echo -e "\e[34mNot a file, directory or symlink\e[0m ${3}"
+				echo -e "\e[34mNot a file, directory or symlink\e[0m ${lnk}"
 			else
-				echo "Not a file, directory or symlink ${3}"
+				echo "Not a file, directory or symlink ${lnk}"
 			fi
 		fi
 	else
-		if   [[ -f "${2}" ]]
+		if   [[ -f "${tgt}" ]]
 		then
 			if   (( 4 <= USER_COLORTERM ))
 			then
-				echo -e "\e[36mLinking file\e[0m ${1}"
+				echo -e "\e[36mLinking file\e[0m ${bn}"
 			else
-				echo "Linking file ${1}"
+				echo "Linking file ${bn}"
 			fi
-		elif [[ -d "${2}" ]]
+		elif [[ -d "${tgt}" ]]
 		then
 			if   (( 4 <= USER_COLORTERM ))
 			then
-				echo -e "\e[36mLinking directory\e[0m ${1}"
+				echo -e "\e[36mLinking directory\e[0m ${bn}"
 			else
-				echo "Linking directory ${1}"
+				echo "Linking directory ${bn}"
 			fi
 		else
 			if   (( 4 <= USER_COLORTERM ))
 			then
-				echo -e "\e[36mLinking neither file nor directory\e[0m ${1}"
+				echo -e "\e[36mLinking neither file nor directory\e[0m ${bn}"
 			else
-				echo "Linking neither file nor directory ${1}"
+				echo "Linking neither file nor directory ${bn}"
 			fi
 		fi
 		ln --symbolic --no-target-directory "$2" "$3"
 	fi
 }
 
-userlink_on_exec()
+userlink_on()
 {
-	local bn="${1}"
-	local tgt="${2}"
-	local lnk="${3}"
+	local success="${1}"
+	local bn="${2}"
+	local tgt="${3}"
+	local lnk="${4}"
 
-	shift 3
+	shift 4
 
 	if   (( 0 < $# ))
 	then
-		for cmd in "${@}"
-		do
-			if   which "${cmd}" > /dev/null 2>&1
+		if   (( 0 == success ))
+		then
+			userlink "${bn}" "${tgt}" "${lnk}"
+			return 0
+		else
+			if   [[ -L "${lnk}" ]]
 			then
-				userlink "${bn}" "${tgt}" "${lnk}"
-				return 0
-			else
-				if   [[ -L "${lnk}" ]]
+				if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
 				then
-					if   [[ "${tgt}" == "$(readlink "${lnk}")" ]]
+					if   (( 4 <= USER_COLORTERM ))
 					then
-						if   (( 4 <= USER_COLORTERM ))
-						then
-							echo -e "\e[33mRemoving existing link\e[0m ${bn} since none of { ${*} } were found"
-						else
-							echo "Removing existing link ${bn} since none of { ${*} } were found"
-						fi
-						return 0
+						echo -e "\e[33mRemoving existing link\e[0m ${bn} since none of { ${*} } were found"
 					else
-						if   (( 4 <= USER_COLORTERM ))
-						then
-							echo -e "\e[31mSkipping existing link\e[0m ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
-						else
-							echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
-						fi
-						return 1
+						echo "Removing existing link ${bn} since none of { ${*} } were found"
 					fi
+					return 0
 				else
 					if   (( 4 <= USER_COLORTERM ))
 					then
-						echo -e "\e[34mSkipping\e[0m ${bn} since none of { ${*} } were found"
+						echo -e "\e[31mSkipping existing link\e[0m ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
 					else
-						echo "Skipping ${bn} since none of { ${*} } were found"
+						echo "Skipping existing link ${lnk}, points to $(readlink "${lnk}"), since none of { ${*} } were found"
 					fi
 					return 1
 				fi
+			else
+				if   (( 4 <= USER_COLORTERM ))
+				then
+					echo -e "\e[34mSkipping\e[0m ${bn} since none of { ${*} } were found"
+				else
+					echo "Skipping ${bn} since none of { ${*} } were found"
+				fi
+				return 1
 			fi
-		done
+		fi
 	else
-		if   which "${bn}" > /dev/null 2>&1
+		if   (( 0 == success ))
 		then
 			userlink "${bn}" "${tgt}" "${lnk}"
 			return 0
@@ -224,6 +222,72 @@ userlink_on_exec()
 	fi
 }
 
+userlink_on_exec()
+{
+	local bn="${1}"
+	local tgt="${2}"
+	local lnk="${3}"
+
+	shift 3
+
+	if   (( 0 < $# ))
+	then
+		for cmd in "${@}"
+		do
+			if   type -fP "${cmd}" > /dev/null 2>&1
+			then
+				userlink_on 0 "${bn}" "${tgt}" "${lnk}" ${@}
+				return 0
+			fi
+		done
+
+		userlink_on 1 "${bn}" "${tgt}" "${lnk}" ${@}
+		return 1
+	else
+		if   type -fP "${bn}" > /dev/null 2>&1
+		then
+			userlink_on 0 "${bn}" "${tgt}" "${lnk}"
+			return 0
+		fi
+
+		userlink_on 1 "${bn}" "${tgt}" "${lnk}"
+		return 1
+	fi
+}
+
+userlink_on_lib()
+{
+	local bn="${1}"
+	local tgt="${2}"
+	local lnk="${3}"
+
+	shift 3
+
+	if   (( 0 < $# ))
+	then
+		for lib in "${@}"
+		do
+			if   ls -1 "/usr/lib64/${lib}"-* > /dev/null 2>&1 || ls -1 "/usr/lib/${lib}"-* > /dev/null 2>&1
+			then
+				userlink_on 0 "${bn}" "${tgt}" "${lnk}" ${@}
+				return 0
+			fi
+		done
+
+		userlink_on 1 "${bn}" "${tgt}" "${lnk}" ${@}
+		return 1
+	else
+		if   ls -1 "/usr/lib64/lib${bn}"-* > /dev/null 2>&1 || ls -1 "/usr/lib/lib${bn}"-* > /dev/null 2>&1
+		then
+			userlink_on 0 "${bn}" "${tgt}" "${lnk}"
+			return 0
+		fi
+
+		userlink_on 1 "${bn}" "${tgt}" "${lnk}"
+		return 1
+	fi
+}
+
 userskip()
 {
 	if   [[ -n "$3" ]]
@@ -249,7 +313,7 @@ if   (( 1000 <= EUID ))
 then
 	if   [[ ! -d "${perm_repo}" ]] || ! git -C "${perm_repo}" rev-parse --git-dir > /dev/null 2>&1
 	then
-		if   which git-clone-bare > /dev/null 2>&1
+		if   type -fP 'git-clone-bare' > '/dev/null' 2>&1
 		then
 			echo 'Setting up permanent userconfig repo'
 			[[ -d "${userdir}" ]] || sudo mkdir -p "${userdir}"
@@ -525,7 +589,7 @@ then
 
 	XDG_CACHE_HOME_local="${XDG_CACHE_HOME:-${HOME}/.cache}"
 
-	if   which bat > /dev/null 2>&1
+	if   type -fP 'bat' > '/dev/null' 2>&1
 	then
 		if   [[ ! -d "${XDG_CACHE_HOME_local}/bat" ]]
 		then
