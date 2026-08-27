@@ -10,9 +10,16 @@ then
 		npm_prefix="$(command npm config get prefix)"
 	fi
 
-	if   [ "${npm_prefix}" -eq "${HOME}/${npm_prefix#${HOME}/}" ]
+	if   [ "${npm_prefix}" = "${HOME}/${npm_prefix#"${HOME}/"}" ]
 	then
-		echo ":${PATH}:" | grep -E ":${npm_prefix}/bin/?:" > '/dev/null' \
-		|| export PATH="${npm_prefix}/bin:${PATH}"
+		case ":${PATH}:" in
+			*:${npm_prefix}/bin:* | *:${npm_prefix}/bin/:* )
+				:
+			;;
+			*)
+				# Prefix
+				export PATH="${npm_prefix}/bin:${PATH}"
+			;;
+		esac
 	fi
 fi

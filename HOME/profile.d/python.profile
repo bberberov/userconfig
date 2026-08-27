@@ -2,9 +2,23 @@ if   type pip3 > '/dev/null' 2>&1 || type pip > /dev/null 2>&1
 then
 	export PYTHONUSERBASE="${HOME}/pip"
 
-	echo ":${PATH}:" | grep -E ":${PYTHONUSERBASE}/bin/?:" > '/dev/null' \
-	|| export PATH="${PYTHONUSERBASE}/bin:${PATH}"
+	case ":${PATH}:" in
+		*:${PYTHONUSERBASE}/bin:* | *:${PYTHONUSERBASE}/bin/:* )
+			:
+		;;
+		*)
+			# Prefix
+			export PATH="${PYTHONUSERBASE}/bin:${PATH}"
+		;;
+	esac
 
-	echo ":${MANPATH}:" | grep -E ":${PYTHONUSERBASE}/share/man/?:" > '/dev/null' \
-	|| export MANPATH="${PYTHONUSERBASE}/share/man:${MANPATH}"
+	case ":${MANPATH}:" in
+		*:${PYTHONUSERBASE}/share/man:* | *:${PYTHONUSERBASE}/share/man/:* )
+			:
+		;;
+		*)
+			# Prefix
+			export MANPATH="${PYTHONUSERBASE}/share/man:${MANPATH}"
+		;;
+	esac
 fi
