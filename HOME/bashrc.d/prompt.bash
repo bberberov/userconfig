@@ -1,25 +1,62 @@
 # NOTE: makes use of the USER_COLORTERM environment variable
 
+# NOTE: must wrap non-printable in '\[' and '\]', see https://mywiki.wooledge.org/BashFAQ/053
 if   (( 5 <= USER_COLORTERM ))
 then
+	yel=$'\[\e[0;93m\]'
+	grn=$'\[\e[92m\]'
+	tyl=$'\[\e[96m\]'
+
+	rc=$'\[\e[95m\] $? '
+	ep=$'\[\e[0m\] '
+	nl=$'\[\e[0m\]\n'
+	wd=$'\[\e[90m\]:\[\e[94m\]\w'
+
+	conn="${SSH_CONNECTION:+$'\[\e[0m\]ssh://'}"
+
 	if   (( EUID < 1000 ))
 	then
-		userconfig_user_color='\[\e[91m\]'
-		userconfig_prompt_color='\[\e[91m\]'
+		un=$'\[\e[91m\]\u\[\e[90m\]@'
+		pc=$'\[\e[91m\]'
 	else
-		userconfig_user_color='\[\e[92m\]'
-		userconfig_prompt_color='\[\e[94m\]'
+		un=$'\[\e[92m\]\u\[\e[90m\]@'
+		pc=$'\[\e[94m\]'
 	fi
 elif (( 4 <= USER_COLORTERM ))
 then
+	yel=$'\[\e[0;1;33m\]'
+	grn=$'\[\e[1;32m\]'
+	tyl=$'\[\e[1;36m\]'
+
+	rc=$'\[\e[1;35m\] $? '
+	ep=$'\[\e[0m\] '
+	nl=$'\[\e[0m\]\n'
+	wd=$'\[\e[1;30m\]:\[\e[1;34m\]\w'
+
+	conn="${SSH_CONNECTION:+$'\[\e[0m\]ssh://'}"
+
 	if   (( EUID < 1000 ))
 	then
-		userconfig_user_color='\[\e[01;31m\]'
-		userconfig_prompt_color='\[\e[01;31m\]'
+		un=$'\e[01;31m\u\[\e[1;30m\]@'
+		pc=$'\e[01;31m'
 	else
-		userconfig_user_color='\[\e[01;32m\]'
-		userconfig_prompt_color='\[\e[01;34m\]'
+		un=$'\e[01;32m\u\[\e[1;30m\]@'
+		pc=$'\e[01;34m'
 	fi
+else
+	yel=''
+	grn=''
+	tyl=''
+
+	rc=' $? '
+	ep=' '
+	nl='\n'
+	wd=':\w'
+
+	conn="${SSH_CONNECTION:+ssh://}"
+
+	un='\u@'
+	pc=''
 fi
 
 if
@@ -27,67 +64,30 @@ if
 	|| 4  < BASH_VERSINFO[0] \
 	))
 then
-	# Unicode in 4.2, [[ -v ]] check in 4.2, '+=' operator in 3.1, String expansion $'xxx' in 2.1
-	if   (( 5 <= USER_COLORTERM ))
+	# NOTE:
+	# 4.4: PS0
+	# 4.2: Unicode in $'xxx', [[ -v ]] check
+	# 2.0: String expansion $'xxx'
+	if   [[ -v NO_PII ]]
 	then
-		PS0=$'\[\e[93m\]\u25b6 \\t \u25b6\[\e[0m\]\n'
-		PS1=$'\[\e[93m\]\u2500 \\t \u25c0\[\e[95m\] $? \[\e[0m\]'
-		if [[ -v NO_PII ]]
-		then
-		PS1+="${userconfig_user_color}"$'\u\[\e[90m\]@\[\e[96m\]test.test\[\e[90m\]:\[\e[94m\]\W\[\e[0m\]\n'
-		else
-		PS1+="${userconfig_user_color}"$'\u\[\e[90m\]@\[\e[96m\]\h\[\e[90m\]:\[\e[94m\]\w\[\e[0m\]\n'
-		fi
-		PS1+="${userconfig_prompt_color}"$'\u25b6\[\e[0m\] '
-	elif (( 4 <= USER_COLORTERM ))
-	then
-		PS0=$'\[\e[01;33m\]\u25b6 \\t \u25b6\[\e[0m\]\n'
-		PS1=$'\[\e[01;33m\]\u2500 \\t \u25c0\[\e[01;35m\] $? \[\e[0m\]'
-		if [[ -v NO_PII ]]
-		then
-		PS1+="${userconfig_user_color}"$'\u\[\e[01;30m\]@\[\e[01;36m\]test.test\[\e[01;30m\]:\[\e[01;34m\]\W\[\e[0m\]\n'
-		else
-		PS1+="${userconfig_user_color}"$'\u\[\e[01;30m\]@\[\e[01;36m\]\h\[\e[01;30m\]:\[\e[01;34m\]\w\[\e[0m\]\n'
-		fi
-		PS1+="${userconfig_prompt_color}"$'\u25b6\[\e[0m\] '
+		hn='test.test'
 	else
-		PS0=$'\u25b6 \\t \u25b6\n'
-		PS1=$'\u2500 \\t \u25c0 $? '
-		if [[ -v NO_PII ]]
-		then
-		PS1+=$'\u@test.test:\W\n'
-		else
-		PS1+=$'\u@\h:\w\n'
-		fi
-		PS1+=$'\u25b6 '
+		hn='\h'
 	fi
+
+	PS0="${yel}"$'\u25b6 \\t \u25b6'"${nl}"
+	PS2="${pc}"$'\u25b6'"${ep}"
+	PS1="${yel}"$'\u2500 \\t \u25c0'"${rc}${conn}${un}${tyl}${hn}${wd}${nl}${PS2}"
+	PS4="${pc}"$'\u2295'"${ep}"
 else
-	# Bash should support '\n' for PS? variables in all versions?
-	if   (( 5 <= USER_COLORTERM ))
+	if   [[ -n "${NO_PII:-}" ]]
 	then
-		PS0='\[\e[93m\]> \\t >\[\e[0m\]\n'
-		if   [[ -n "${NO_PII}" ]]
-		then
-		PS1='\[\e[93m\]- \\t <\[\e[95m\] $? \[\e[0m\]'"${userconfig_user_color}"'\u\[\e[90m\]@\[\e[96m\]test.test\[\e[90m\]:\[\e[94m\]\W\[\e[0m\]\n'"${userconfig_prompt_color}"'>\[\e[0m\] '
-		else
-		PS1='\[\e[01;33m\]- \\t <\[\e[95m\] $? \[\e[0m\]'"${userconfig_user_color}"'\u\[\e[90m\]@\[\e[96m\]\h\[\e[90m\]:\[\e[94m\]\w\[\e[0m\]\n'"${userconfig_prompt_color}"'>\[\e[0m\] '
-		fi
-	elif (( 4 <= USER_COLORTERM ))
-	then
-		PS0='\[\e[01;33m\]> \\t >\[\e[0m\]\n'
-		if   [[ -n "${NO_PII}" ]]
-		then
-		PS1='\[\e[01;33m\]- \\t <\[\e[01;35m\] $? \[\e[0m\]'"${userconfig_user_color}"'\u\[\e[01;30m\]@\[\e[01;36m\]test.test\[\e[01;30m\]:\[\e[01;34m\]\W\[\e[0m\]\n'"${userconfig_prompt_color}"'>\[\e[0m\] '
-		else
-		PS1='\[\e[01;33m\]- \\t <\[\e[01;35m\] $? \[\e[0m\]'"${userconfig_user_color}"'\u\[\e[01;30m\]@\[\e[01;36m\]\h\[\e[01;30m\]:\[\e[01;34m\]\w\[\e[0m\]\n'"${userconfig_prompt_color}"'>\[\e[0m\] '
-		fi
+		hn='test.test'
 	else
-		PS0='> \t >\n'
-		if   [[ -n "${NO_PII}" ]]
-		then
-		PS1='- \t < $? \u@test.test:\W\n> '
-		else
-		PS1='- \t < $? \u@\h:\w\n> '
-		fi
+		hn='\h'
 	fi
+
+	PS2="${pc}>${ep}"
+	PS1="${yel}"'- \t <'"${rc}${conn}${un}${tyl}${hn}${wd}${nl}${PS2}"
+	PS4="${pc}+${ep}"
 fi
