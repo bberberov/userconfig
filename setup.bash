@@ -25,7 +25,7 @@ for cmd in \
 	sudo \
 ;
 do
-	if   ! type -fP "${cmd}" > /dev/null 2>&1
+	if   ! type -fP "${cmd}" > '/dev/null' 2>&1
 	then
 		if   (( 4 <= USER_COLORTERM ))
 		then
@@ -234,7 +234,7 @@ userlink_on_exec()
 	then
 		for cmd in "${@}"
 		do
-			if   type -fP "${cmd}" > /dev/null 2>&1
+			if   type -fP "${cmd}" > '/dev/null' 2>&1
 			then
 				userlink_on 0 "${bn}" "${tgt}" "${lnk}" ${@}
 				return 0
@@ -244,7 +244,7 @@ userlink_on_exec()
 		userlink_on 1 "${bn}" "${tgt}" "${lnk}" ${@}
 		return 1
 	else
-		if   type -fP "${bn}" > /dev/null 2>&1
+		if   type -fP "${bn}" > '/dev/null' 2>&1
 		then
 			userlink_on 0 "${bn}" "${tgt}" "${lnk}"
 			return 0
