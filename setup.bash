@@ -471,7 +471,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			dconf | dolphinrc | kate | klipperrc | knighttimerc | konsole* | ksmserverrc | osc | plasma*)
+			dconf | dolphinrc | kate | katerc | klipperrc | knighttimerc | konsolerc | ksmserverrc | kwriterc | osc | plasma*)
 				userskip "${bn}" "${f}" "for EUID ${EUID}"
 				continue
 			;;
