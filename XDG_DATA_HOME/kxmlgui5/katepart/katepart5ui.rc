@@ -206,4 +206,11 @@
   <Action group="edit_operations" name="edit_redo"/>
   <Action name="bookmarks"/>
  </ToolBar>
+ <ActionProperties scheme="Default">
+  <Action name="file_save_as" shortcut="; "/>
+  <Action name="folding_expandtoplevel" shortcut="Ctrl+{"/>
+  <Action name="folding_toplevel" shortcut="Ctrl+}"/>
+  <Action name="tools_scripts_sort" shortcut="Ctrl+Shift+S"/>
+  <Action name="view_dynamic_word_wrap" shortcut="F9"/>
+ </ActionProperties>
 </gui>
