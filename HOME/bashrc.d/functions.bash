@@ -104,7 +104,7 @@ then
 			cd-file-gitdir
 		else
 			local t
-			t="$(git rev-parse --show-toplevel 2> /dev/null)"
+			t="$(git rev-parse --show-toplevel 2> '/dev/null')"
 			rval=$?
 
 			if   [[ -n "${t}" ]]
@@ -153,7 +153,7 @@ then
 	{
 		local p rval
 
-		p="$(sed -e 's:/\.git$::' "${1:-gitdir}" 2> /dev/null)"
+		p="$(sed -e 's:/\.git$::' "${1:-gitdir}" 2> '/dev/null')"
 		rval=$?
 
 		if   (( 0 == rval ))
@@ -168,7 +168,7 @@ then
 	{
 		local p rval
 
-		p="$(sed -e 's@^gitdir: /@/@' "${1:-.git}" 2> /dev/null)"
+		p="$(sed -e 's@^gitdir: /@/@' "${1:-.git}" 2> '/dev/null')"
 		rval=$?
 
 		if   (( 0 == rval ))
@@ -223,19 +223,19 @@ then
 				;;
 
 				cache)
-					fn_cd_if_exists "${XDG_CACHE_HOME:-${HOME}/.cache}"
+					fn_cd_if_exists "${XDG_CACHE_HOME:-"${HOME}/.cache"}"
 				;;
 				config)
-					fn_cd_if_exists "${XDG_CONFIG_HOME:-${HOME}/.config}"
+					fn_cd_if_exists "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
 				;;
 				data)
-					fn_cd_if_exists "${XDG_DATA_HOME:-${HOME}/.local/share}"
+					fn_cd_if_exists "${XDG_DATA_HOME:-"${HOME}/.local/share"}"
 				;;
 				runtime)
 					fn_cd_if_exists "${XDG_RUNTIME_DIR}"
 				;;
 				state)
-					fn_cd_if_exists "${XDG_STATE_HOME:-${HOME}/.local/state}"
+					fn_cd_if_exists "${XDG_STATE_HOME:-"${HOME}/.local/state"}"
 				;;
 			esac
 		fi
@@ -249,19 +249,19 @@ else
 		then
 			case "${1}" in
 				cache)
-					fn_cd_if_exists "${XDG_CACHE_HOME:-${HOME}/.cache}"
+					fn_cd_if_exists "${XDG_CACHE_HOME:-"${HOME}/.cache"}"
 				;;
 				config)
-					fn_cd_if_exists "${XDG_CONFIG_HOME:-${HOME}/.config}"
+					fn_cd_if_exists "${XDG_CONFIG_HOME:-"${HOME}/.config"}"
 				;;
 				data)
-					fn_cd_if_exists "${XDG_DATA_HOME:-${HOME}/.local/share}"
+					fn_cd_if_exists "${XDG_DATA_HOME:-"${HOME}/.local/share"}"
 				;;
 				runtime)
 					fn_cd_if_exists "${XDG_RUNTIME_DIR}"
 				;;
 				state)
-					fn_cd_if_exists "${XDG_STATE_HOME:-${HOME}/.local/state}"
+					fn_cd_if_exists "${XDG_STATE_HOME:-"${HOME}/.local/state"}"
 				;;
 			esac
 		fi
