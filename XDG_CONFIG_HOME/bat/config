@@ -1,23 +1,44 @@
---map-syntax "**/bash-completion/bash_completion:Bourne Again Shell (bash)"
---map-syntax "**/bash-completion/completions/*:Bourne Again Shell (bash)"
---map-syntax ".npmrc:INI"
---map-syntax ".profile:Bourne Again Shell (bash)"
+### Custom
+
 --map-syntax "/usr/lib/rpm/macros.d/*:RPM Spec"
 --map-syntax "/usr/lib/rpm/macros:RPM Spec"
+
+### Staging
+
+### 50-npm.toml
+--map-syntax ".npmrc:INI"
 --map-syntax "{,/opt,/usr}/etc/npmrc:INI"
---map-syntax "{,/opt,/usr}/etc/profile:Bourne Again Shell (bash)"
+
+### 50-ssh.toml
 --map-syntax "{,/opt,/usr}/etc/ssh/ssh_config.d/*:SSH Config"
 --map-syntax "{,/opt,/usr}/etc/ssh/sshd_config.d/*:SSHD Config"
 
-# KDE
---map-syntax     "${XDG_DATA_HOME}/drkonqi/crashes/*.ini:JSON"
---map-syntax "${HOME}/.local/share/drkonqi/crashes/*.ini:JSON"
+### 50-shell.toml
+--map-syntax "**/bash-completion/bash_completion:Bourne Again Shell (bash)"
+--map-syntax "**/bash-completion/completions/*:Bourne Again Shell (bash)"
+--map-syntax ".profile:Bourne Again Shell (bash)"
+--map-syntax "{,/opt,/usr}/etc/profile:Bourne Again Shell (bash)"
 
+### 50-kde.toml
 --map-syntax     "${XDG_DATA_HOME}/konsole/*.{colorscheme,profile}:INI"
 --map-syntax "${HOME}/.local/share/konsole/*.{colorscheme,profile}:INI"
 
+--map-syntax "QtProject.conf:INI"
+--map-syntax "Trolltech.conf:INI"
+
 --map-syntax "akonadi_*[0-9]rc:INI"
 
+--map-syntax "kcmfonts:INI"
+--map-syntax "kdeglobals:INI"
+--map-syntax "knfsshare:INI"
+--map-syntax "konsolesshconfig:INI"
+
+# rc
+--map-syntax "baloofileinformationrc:INI"
+--map-syntax "baloofilerc:INI"
+--map-syntax "bluedevilglobalrc:INI"
+--map-syntax "dolphinrc:INI"
+--map-syntax "gwenviewrc:INI"
 --map-syntax "kactivitymanagerd-pluginsrc:INI"
 --map-syntax "kactivitymanagerd-statsrc:INI"
 --map-syntax "kactivitymanagerdrc:INI"
@@ -49,6 +70,7 @@
 --map-syntax "kmenueditrc:INI"
 --map-syntax "kmixctrlrc:INI"
 --map-syntax "kmixrc:INI"
+--map-syntax "knighttimerc:INI"
 --map-syntax "konquerorrc:INI"
 --map-syntax "konsolerc:INI"
 --map-syntax "korganizerrc:INI"
@@ -67,38 +89,28 @@
 --map-syntax "kwalletmanagerrc:INI"
 --map-syntax "kwalletrc:INI"
 --map-syntax "kwinrc:INI"
+--map-syntax "kwinrulesrc:INI"
 --map-syntax "kwriterc:INI"
 --map-syntax "kxkbrc:INI"
+--map-syntax "powerdevilrc:INI"
+--map-syntax "powermanagementprofilesrc:INI"
+--map-syntax "spectaclerc:INI"
 
+# metainfos
 --map-syntax "katemetainfos:INI"
 --map-syntax "kwritemetainfos:INI"
 
+# plasma
 --map-syntax "plasma-localerc:INI"
 --map-syntax "plasma-nm:INI"
 --map-syntax "plasma-org.kde.plasma.desktop-appletsrc:INI"
 --map-syntax "plasmashellrc:INI"
 
-# openSUSE
+--map-syntax     "${XDG_DATA_HOME}/drkonqi/crashes/*.ini:JSON"
+--map-syntax "${HOME}/.local/share/drkonqi/crashes/*.ini:JSON"
+
+### 50-zypper.toml
 --map-syntax "${HOME}/.zypper.conf:INI"
 --map-syntax "/etc/zypp/*.conf:INI"
+--map-syntax "/etc/zypp/*.d/*.conf:INI"
 --map-syntax "/etc/zypp/repos.d/*.repo:INI"
-
-# In source, pre-release
---map-syntax "*.bash_login:Bourne Again Shell (bash)"
---map-syntax "*.bash_logout:Bourne Again Shell (bash)"
---map-syntax "*.bash_profile:Bourne Again Shell (bash)"
---map-syntax "*.bashrc:Bourne Again Shell (bash)"
---map-syntax "*.zlogin:Bourne Again Shell (bash)"
---map-syntax "*.zlogout:Bourne Again Shell (bash)"
---map-syntax "*.zprofile:Bourne Again Shell (bash)"
---map-syntax "*.zshenv:Bourne Again Shell (bash)"
---map-syntax "*.zshrc:Bourne Again Shell (bash)"
---map-syntax "bash_login:Bourne Again Shell (bash)"
---map-syntax "bash_logout:Bourne Again Shell (bash)"
---map-syntax "bash_profile:Bourne Again Shell (bash)"
---map-syntax "bashrc:Bourne Again Shell (bash)"
---map-syntax "zlogin:Bourne Again Shell (bash)"
---map-syntax "zlogout:Bourne Again Shell (bash)"
---map-syntax "zprofile:Bourne Again Shell (bash)"
---map-syntax "zshenv:Bourne Again Shell (bash)"
---map-syntax "zshrc:Bourne Again Shell (bash)"
