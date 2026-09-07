@@ -204,6 +204,7 @@ if   type -fP 'git' > '/dev/null' 2>&1
 then
 	alias cd-git-repo=fn_cd_git_repo
 	alias cd-git-tree=fn_cd_git_tree
+	alias cd-git-tree-config=fn_cd_git_tree_config
 
 	alias      diff-git='git diff --no-index'
 	alias diffchart-git='git diff --no-index --stat --stat-name-width=30'

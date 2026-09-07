@@ -27,6 +27,9 @@ fn_cd_config()
 			freeciv)
 				fn_cd_if_exists "${HOME}/.freeciv"
 			;;
+			git)
+				fn_cd_if_exists "${XDG_CONFIG_HOME:-"${HOME}/.config"}/git"
+			;;
 			ssh)
 				fn_cd_if_exists "${HOME}/.ssh"
 			;;
@@ -90,6 +93,29 @@ then
 		if   [[ -n "${r}" ]]
 		then
 			cd "${r}/" || return 205
+		else
+			return ${rval}
+		fi
+	}
+
+	fn_cd_git_tree_config()
+	{
+		local r w rval
+		r="$(git rev-parse --git-common-dir 2> '/dev/null')"
+		rval=$?
+
+		if   [[ -n "${r}" ]]
+		then
+			w="$(git rev-parse --git-dir 2> '/dev/null')"
+			rval=$?
+
+			if   [[ -n "${w}" && "${w}" != "${r}" ]]
+			then
+				cd "${w}/" || return 205
+			else
+				echo 'Not a detached worktree'
+				return 0
+			fi
 		else
 			return ${rval}
 		fi

@@ -240,6 +240,7 @@ fi
 complete -W '
 	flatpak
 	freeciv
+	git
 	ssh
 ' cd-config
 
