@@ -7,3 +7,5 @@
 
 --type-add=autotools:include:autoconf,automake,m4
 --type-add=cxx:include:c,cpp
+
+--hidden
