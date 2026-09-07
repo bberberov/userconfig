@@ -8,19 +8,11 @@
 
 _git_gc()
 {
-	__gitcomp '
-		--aggressive
-		--auto
-		--cruft
-		--detach
-		--expire-to=
-		--force
-		--keep-largest-pack
-		--max-cruft-size=
-		--no-cruft
-		--no-detach
-		--no-prune
-		--prune=
-		--quiet
-	'
+	# shellcheck disable=SC2154
+	case "${cur}" in
+		--*)
+			__gitcomp_builtin gc
+			return
+		;;
+	esac
 }

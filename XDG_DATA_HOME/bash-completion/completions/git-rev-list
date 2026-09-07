@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# Copyright © 2024 Boian Berberov
+# Copyright © 2024, 2026 Boian Berberov
 #
 # Licensed under the EUPL-1.2 only.
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
@@ -11,16 +11,7 @@ _git_rev_list()
 	# shellcheck disable=SC2154
 	case "${cur}" in
 		--*)
-			__gitcomp '
-				--after=
-				--all
-				--author=
-				--before=
-				--committer=
-				--count
-				--since=
-				--until=
-			'
+			__gitcomp_builtin rev-list
 			return
 		;;
 	esac
