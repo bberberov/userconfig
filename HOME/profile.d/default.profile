@@ -33,3 +33,10 @@ unset XDG_DATA_HOME_local
 unset XDG_STATE_HOME_local
 
 ### END   XDG
+
+if   [ -z "${BASH_VERSION:-}" ] && [ -z "${ZSH_VERSION:-}" ]
+then
+	case "${-:-}" in *i* )  # BEGIN Interactive only
+		[ -f "${HOME}/.shrc" ] && export ENV="${HOME}/.shrc"
+	;; esac                 # END   Interactive only
+fi

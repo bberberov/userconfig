@@ -362,15 +362,16 @@ fi
 # Update .profile if needed
 if   [[ -d "${repo_tree_e}/HOME/profile.d" ]]
 then
-	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile' "${HOME}/.profile" > /dev/null 2>&1
+	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile' "${HOME}/.profile" > '/dev/null' 2>&1
 	then
 		echo 'Adding .profile configuration'
 		# shellcheck disable=2016
 		echo '
-	for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile
-	do
-		source "${f}"
-	done' >> "${HOME}/.profile"
+for f in "'"${repo_tree_f}"'/HOME/profile.d/"*.profile
+do
+	. "${f}"
+done' \
+		>> "${HOME}/.profile"
 	else
 		echo 'Skipping .profile configuration'
 	fi
@@ -381,20 +382,41 @@ fi
 # Update .bashrc if needed
 if   [[ -d "${repo_tree_e}/HOME/bashrc.d" ]]
 then
-	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash' "${HOME}/.bashrc" > /dev/null 2>&1
+	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash' "${HOME}/.bashrc" > '/dev/null' 2>&1
 	then
 		echo 'Adding .bashrc configuration'
 		# shellcheck disable=2016
 		echo '
-	for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash
-	do
-		source "${f}"
-	done' >> "${HOME}/.bashrc"
+for f in "'"${repo_tree_f}"'/HOME/bashrc.d/"*.bash
+do
+	source "${f}"
+done' \
+		>> "${HOME}/.bashrc"
 	else
 		echo 'Skipping .bashrc configuration'
 	fi
 else
 	echo 'Skipping .bashrc configuration, no HOME/bashrc.d/'
+fi
+
+# Add/Update custom .shrc if needed
+if   [[ -d "${repo_tree_e}/HOME/shrc.d" ]]
+then
+	if   ! grep -F 'for f in "'"${repo_tree_f}"'/HOME/shrc.d/"*.sh' "${HOME}/.shrc" > '/dev/null' 2>&1
+	then
+		echo 'Adding .shrc configuration'
+		# shellcheck disable=2016
+		echo '
+for f in "'"${repo_tree_f}"'/HOME/shrc.d/"*.sh
+do
+	. "${f}"
+done' \
+		>> "${HOME}/.shrc"
+	else
+		echo 'Skipping .shrc configuration'
+	fi
+else
+	echo 'Skipping .shrc configuration, no HOME/shrc.d/'
 fi
 
 # BEGIN HOME
