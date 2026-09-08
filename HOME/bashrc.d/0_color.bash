@@ -1,16 +1,18 @@
 # Based on (2025-10-15):
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/app-shells/bash/files/bashrc.d/10-gentoo-color-r2.bash
 
-if   [[ -n "${USER_COLORTERM}" ]]
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
+if   [[ -n "${USER_COLORTERM:-}" ]]
 then
 	# Respect existing setting
 	true
-elif [[ -n "${NO_COLOR}" ]]
+elif [[ -n "${NO_COLOR:-}" ]]
 then
 	# Respect the user's wish not to use color. See https://no-color.org/.
 	# 1 = wanted no color
 	USER_COLORTERM=1
-elif [[ '24bit' == "${COLORTERM}" || 'truecolor' == "${COLORTERM}" ]]
+elif [[ '24bit' == "${COLORTERM:-}" || 'truecolor' == "${COLORTERM:-}" ]]
 then
 	# The COLORTERM environment variable can reasonably be trusted here.
 	# See https://github.com/termstandard/colors for further information.
@@ -20,7 +22,7 @@ else
 	# terminal emulators and virtual console implementations known to
 	# support color. If no matching entry is found, try to use tput(1) to
 	# determine whether color is supported.
-	case "${TERM}" in
+	case "${TERM:-}" in
 		*direct*    )
 			USER_COLORTERM=24
 		;;
@@ -80,3 +82,5 @@ else
 fi
 
 export USER_COLORTERM
+
+;; esac                 # END   Interactive only

@@ -1,3 +1,5 @@
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 if   [ -n "${NO_PII:-}" ]
 then
 	hn='test.test'
@@ -48,3 +50,5 @@ PS2="${pc}>${ep}"
 nlps2="$(echo "${nl}${PS2}")"
 PS1="${yel}"'- $(date +%H:%M:%S) <'"${rc}${conn}${un}${tyl}${hn}${wd}${nlps2}"
 PS4="${pc}+${ep}"
+
+;; esac                 # END   Interactive only

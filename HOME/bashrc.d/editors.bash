@@ -1,3 +1,5 @@
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 if   [[ -z "${VISUAL}" ]]
 then
 	userconfig_os="$(uname -s)"
@@ -44,3 +46,5 @@ then
 		export EDITOR='nano'
 	fi
 fi
+
+;; esac                 # END   Interactive only

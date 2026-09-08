@@ -1,3 +1,5 @@
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 export MANOPT='--no-justification --no-hyphenation'
 
 case "${TERM}" in
@@ -9,3 +11,5 @@ case "${TERM}" in
 esac
 
 alias man='MANWIDTH="$(( COLUMNS <= 120 ? COLUMNS : 120 ))" man'
+
+;; esac                 # END   Interactive only

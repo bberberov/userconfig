@@ -1,5 +1,7 @@
 # shellcheck disable=SC2139
 
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 # BEGIN BTRFS
 
 # mkfs.btrfs
@@ -176,3 +178,5 @@ then
 	alias mount-examine='mount -o ro,noatime,nodev,nosuid,noexec'
 	alias mount-storage='mount -o noatime,nodev,nosuid,noexec'
 fi
+
+;; esac                 # END   Interactive only

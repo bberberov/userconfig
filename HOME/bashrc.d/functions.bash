@@ -6,6 +6,8 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 fn_cd_if_exists()
 {
 	if   [[ -d "${1}" ]]
@@ -295,3 +297,5 @@ else
 		return $?
 	}
 fi
+
+;; esac                 # END   Interactive only

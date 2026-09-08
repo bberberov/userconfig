@@ -1,3 +1,5 @@
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 # NOTE: makes use of the USER_COLORTERM environment variable
 
 # NOTE: must wrap non-printable in '\[' and '\]', see https://mywiki.wooledge.org/BashFAQ/053
@@ -91,3 +93,5 @@ else
 	PS1="${yel}"'- \t <'"${rc}${conn}${un}${tyl}${hn}${wd}${nl}${PS2}"
 	PS4="${pc}+${ep}"
 fi
+
+;; esac                 # END   Interactive only

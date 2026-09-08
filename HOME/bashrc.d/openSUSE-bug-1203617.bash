@@ -1,3 +1,5 @@
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 if
 	[[ -f '/etc/os-release' ]] \
 	&& grep 'https://www.opensuse.org' '/etc/os-release' > '/dev/null' 2>&1
@@ -22,3 +24,5 @@ then
 		source '/etc/profile.d/fzf-bash.sh'
 	fi
 fi
+
+;; esac                 # END   Interactive only

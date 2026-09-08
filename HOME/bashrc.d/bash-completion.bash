@@ -4,6 +4,8 @@
 # License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 # SPDX-License-Identifier: EUPL-1.2
 
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 if   ! type -fP 'realpath' > '/dev/null' 2>&1 || ! type -fP 'dirname' > '/dev/null' 2>&1
 then
 	exit 0
@@ -42,3 +44,5 @@ then
 		export BASH_COMPLETION_USER_DIR="${bash_completion_dir}"
 	fi
 fi
+
+;; esac                 # END   Interactive only

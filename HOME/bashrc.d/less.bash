@@ -1,3 +1,5 @@
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 # NOTE: makes use of the USER_COLORTERM environment variable
 
 if   type -fP 'less' > '/dev/null' 2>&1
@@ -63,3 +65,5 @@ then
 
 	export LESS
 fi
+
+;; esac                 # END   Interactive only

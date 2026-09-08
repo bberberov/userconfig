@@ -1,5 +1,7 @@
 # shellcheck disable=SC2139
 
+case "${-:-}" in *i* )  # BEGIN Interactive only
+
 # bat
 if   type -fP 'bat' > '/dev/null' 2>&1
 then
@@ -674,3 +676,5 @@ then
 	[[ -x '/c/Windows/System32/OpenSSH/ssh-keygen'  ]] && alias  ssh-keygen-win='/c/Windows/System32/OpenSSH/ssh-keygen'
 	[[ -x '/c/Windows/System32/OpenSSH/ssh-keyscan' ]] && alias ssh-keyscan-win='/c/Windows/System32/OpenSSH/ssh-keyscan'
 fi
+
+;; esac                 # END   Interactive only
