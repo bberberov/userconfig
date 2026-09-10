@@ -550,7 +550,7 @@ done
 
 echo
 
-XDG_DATA_HOME_local="${XDG_DATA_HOME:-${HOME}.local/share}"
+XDG_DATA_HOME_local="${XDG_DATA_HOME:-${HOME}/.local/share}"
 
 if   [[ ! -d "${XDG_DATA_HOME_local}" ]]
 then
