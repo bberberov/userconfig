@@ -55,6 +55,9 @@ fn_cd_user()
 			desk)
 				fn_cd_if_exists "${HOME}/user/desk"
 			;;
+			download)
+				fn_cd_if_exists "/srv/user/${USER}/inbox/download"
+			;;
 			exec)
 				fn_cd_if_exists "${HOME}/user/exec"
 			;;
@@ -239,6 +242,9 @@ then
 				;;
 				pictures)
 					fn_cd_if_exists "$(xdg-user-dir PICTURES)"
+				;;
+				projects)
+					fn_cd_if_exists "$(xdg-user-dir PROJECTS)"
 				;;
 				publicshare)
 					fn_cd_if_exists "$(xdg-user-dir PUBLICSHARE)"
