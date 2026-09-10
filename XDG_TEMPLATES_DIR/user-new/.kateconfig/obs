@@ -1,0 +1,5 @@
+kate-wildcard(*.dsc): syntax Debian Control;
+kate-wildcard(debian.changelog): syntax Debian Changelog;
+kate-wildcard(debian.control): syntax Debian Control;
+kate-wildcard(debian.copyright): syntax Debian Control;
+kate-wildcard(debian.rules): syntax Makefile;

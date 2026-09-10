@@ -1,0 +1,32 @@
+{
+	"name": "Project Name",
+	"files": [
+		{
+			"directory": ".",
+			"recursive": 1,
+			"filters": [
+				"*.changes",
+				"*.desktop",
+				"*.docs",
+				"*.dsc",
+				"*.install",
+				"*.patch",
+				"*.rpmlintrc",
+				"*.service",
+				"*.spec",
+				"*.sysconfig",
+				"*.sysusers",
+				"*.txt",
+				".kateproject",
+				"PKGBUILD",
+				"_constraints",
+				"_service",
+				"debian.changelog",
+				"debian.compat",
+				"debian.control",
+				"debian.copyright",
+				"debian.rules"
+			]
+		}
+	]
+}

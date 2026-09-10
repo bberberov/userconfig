@@ -603,6 +603,43 @@ done
 
 # END   XDG_DATA_HOME
 
+# BEGIN XDG_TEMPLATES_DIR
+
+echo
+
+XDG_TEMPLATES_DIR_local="$(xdg-user-dir TEMPLATES)"
+
+if   [[ ! -d "${XDG_TEMPLATES_DIR_local}" ]]
+then
+	echo "Created missing ${XDG_TEMPLATES_DIR_local}"
+	mkdir -p "${XDG_TEMPLATES_DIR_local}"
+	chmod 700 "${XDG_TEMPLATES_DIR_local}"
+fi
+
+for f in "${repo_tree_e}/XDG_TEMPLATES_DIR/"*
+do
+	bn="$(basename "${f}")"
+
+	if   [[ -d "${f}" ]]
+	then
+		if   [[ -x "${f}/.setup.bash" ]]
+		then
+			echo "Delegating to ${f}/.setup.bash"
+			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_TEMPLATES_DIR_local}/${bn}"
+			echo "Finished with ${f}/.setup.bash"
+		else
+			# NOTE: Special cases
+			case "${bn}" in
+				*)
+					userlink_on_exec "${bn}" "${f}" "${XDG_TEMPLATES_DIR_local}/${bn}"
+				;;
+			esac
+		fi
+	fi
+done
+
+# END   XDG_TEMPLATES_DIR
+
 # BEGIN Generated content
 
 if [[ -d "${repo_tree_e}/XDG_CONFIG_HOME/bat/syntaxes" || -d "${repo_tree_e}/XDG_CONFIG_HOME/bat/themes" ]]

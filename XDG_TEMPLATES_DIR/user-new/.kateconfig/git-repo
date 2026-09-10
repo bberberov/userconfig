@@ -1,0 +1,4 @@
+kate-wildcard(config): syntax INI Files;
+kate-wildcard(config.worktree): syntax INI Files;
+kate-wildcard(exclude): syntax Git Ignore;
+kate-wildcard(sparse-checkout): syntax Git Ignore;
