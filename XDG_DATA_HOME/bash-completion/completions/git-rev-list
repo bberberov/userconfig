@@ -8,6 +8,8 @@
 
 _git_rev_list()
 {
+	__git_has_doubledash && return
+
 	# shellcheck disable=SC2154
 	case "${cur}" in
 		--*)
@@ -16,5 +18,5 @@ _git_rev_list()
 		;;
 	esac
 
-	__git_complete_refs
+	__git_complete_revlist
 }

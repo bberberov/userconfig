@@ -10,24 +10,53 @@
 
 _git_symbolic_ref()
 {
-	# shellcheck disable=SC2154
-	case "${prev}" in
+	case "${words[__git_cmd_idx+1]}" in
 		-m)
-			:
+			# shellcheck disable=SC2154
+			case "${prev}" in
+				-m)
+					:
+				;;
+				HEAD | refs/* )
+					__gitcomp "$(__git for-each-ref --format='%(refname)')"
+				;;
+				*)
+					__gitcomp "$(__git for-each-ref --include-root-refs --format='%(if)%(symref)%(then)%(refname)%(end)' --exclude=refs/tags)"
+				;;
+			esac
 		;;
-		-* | symbolic-ref)
+		-d | --delete )
 			# shellcheck disable=SC2154
 			case "${cur}" in
-			-*)
-				__gitcomp_builtin symbolic-ref
-			;;
-			*)
-				__gitcomp "$(__git for-each-ref --include-root-refs --format='%(if)%(symref)%(then)%(refname)%(end)' --exclude=refs/tags)"
-			;;
+				--*)
+					__gitcomp '--quiet'
+				;;
+				*)
+					__gitcomp "$(__git for-each-ref --include-root-refs --format='%(if)%(symref)%(then)%(refname)%(end)' --exclude=refs/tags)"
+				;;
 			esac
 		;;
 		*)
-			__gitcomp "$(__git for-each-ref --format='%(refname)')"
+			# shellcheck disable=SC2154
+			case "${prev}" in
+				--* | symbolic-ref)
+					# shellcheck disable=SC2154
+					case "${cur}" in
+					--*)
+						__gitcomp_builtin symbolic-ref
+					;;
+					*)
+						__gitcomp "$(__git for-each-ref --include-root-refs --format='%(if)%(symref)%(then)%(refname)%(end)' --exclude=refs/tags)"
+					;;
+					esac
+				;;
+				HEAD | refs/* )
+					:
+				;;
+				*)
+					__gitcomp "$(__git for-each-ref --include-root-refs --format='%(if)%(symref)%(then)%(refname)%(end)' --exclude=refs/tags)"
+				;;
+			esac
 		;;
 	esac
 }
