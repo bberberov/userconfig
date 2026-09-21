@@ -2,7 +2,9 @@
 custom-font='monospace 8'
 highlight-syntax=true
 indent-width=4
-text-filters=[('CVS/SVN Keywords', false, '\\$\\w+(:[^\\n$]+)?\\$'), ('Leading Whitespace', false, '^[ \\t\\r\\f\\v]*'), ('Trailing Whitespace', false, '[ \\t\\r\\f\\v]*$'), ('All Whitespace', false, '[ \\t\\r\\f\\v]*'), ('C Comment', false, '/\\*.*?\\*/'), ('C++ Comment', false, '//.*'), ('Script Comment', false, '#.*'), ('Comparable comments', false, '(^\\s*(<!--|#)\\s*)|(\\s*-->\\s*$)'), ('Single/Double Quotes', false, "[\"']"), ('RPM dependencies', false, '^(# )?(Build)?(Requires:\\s+)')]
+show-line-numbers=true
+style-scheme='oblivion'
+text-filters=[('CVS/SVN Keywords', false, '\\$\\w+(:[^\\n$]+)?\\$'), ('Leading Whitespace', false, '^[ \\t\\r\\f\\v]*'), ('Trailing Whitespace', false, '[ \\t\\r\\f\\v]*$'), ('All Whitespace', false, '[ \\t\\r\\f\\v]*'), ('C Comment', false, '/\\*.*?\\*/'), ('C++ Comment', false, '//.*'), ('Script Comment', false, '#.*'), ('Comparable comments', false, '(^\\s*(<!--|#)\\s*)|(\\s*-->\\s*$)'), ('Single/Double Quotes', false, "[\"']"), ('RPM dependencies', false, '^(# )?(Build)?(Requires:\\s+)'), ('Mozilla configurations', false, '^(user_)?pref'), ('Mozilla config comments', false, '^// (user_)?pref')]
 use-system-font=false
 vc-left-is-local=true
 vc-merge-file-order='local-merge-remote'
