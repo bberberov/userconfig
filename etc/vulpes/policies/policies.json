@@ -1,0 +1,178 @@
+{
+	"policies": {
+
+		"Cookies": {
+			"Behavior": "partition-foreign",
+			"BehaviorPrivateBrowsing": "partition-foreign",
+			"Block": [
+				"http://bit.ly/",
+				"https://bit.ly/",
+				"http://t.co/",
+				"https://t.co/",
+				"http://youtu.be/",
+				"https://youtu.be/",
+				"http://youtube-nocookie.com/",
+				"https://youtube-nocookie.com/"
+			],
+			"Locked": false
+		},
+
+		"ExtensionSettings": {
+			"*": {
+				"temporarily_allow_weak_signatures": false
+			},
+
+			"uBlock0@raymondhill.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/uBlock0@raymondhill.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"{b86e4813-687a-43e6-ab65-0bde4ab75758}": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/localcdn-fork-of-decentraleyes/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"{aecec67f-0d10-4fa7-b7c7-609a2db280cf}": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+
+			"plasma-browser-integration@kde.org": {
+				"default_area": "menupanel",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+
+
+			"HEAD_Examiner@firefox.clu-os.net": {
+				"default_area": "menupanel",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/HEAD_Examiner@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Bookmark_Menu@firefox.clu-os.net": {
+				"default_area": "menupanel",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Bookmark_Menu@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Related_Bookmarks@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Related_Bookmarks@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+
+			"Top_Page_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Top_Page_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Up_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Up_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"ToC_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/ToC_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"First_Page_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/First_Page_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Prev_Page_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Prev_Page_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Next_Page_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Next_Page_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Last_Page_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Last_Page_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			},
+			"Index_Button@firefox.clu-os.net": {
+				"default_area": "navbar",
+				"install_url": "https://addons.mozilla.org/firefox/downloads/latest/Index_Button@firefox.clu-os.net/latest.xpi",
+				"installation_mode": "normal_installed",
+				"private_browsing": true
+			}
+		},
+
+		"FirefoxHome": {
+			"Weather":           false,
+			"SponsoredTopSites": false,
+			"SponsoredPocket":   false,
+			"SponsoredStories":  false,
+			"Locked": false
+		},
+
+		"FirefoxSuggest": {
+			"ImproveSuggest":       false,
+			"OnlineEnabled":        false,
+			"SponsoredSuggestions": false,
+			"WebSuggestions":       false
+		},
+
+		"Handlers": {
+			"extensions": {
+				"pdf": {
+					"ask": true
+				}
+			},
+			"schemes": {
+				"mailto": {
+					"ask": true
+				}
+			},
+			"mimeTypes": {
+				"application/pdf": {
+					"ask": true
+				}
+			}
+		},
+
+		"SearchEngines": {
+			"Default":         "DuckDuckGo‎",
+			"DefaultPrivate":  "DuckDuckGo‎",
+			"PreventInstalls": false,
+			"Remove": [
+				"Amazon.com",
+				"eBay"
+			]
+		},
+
+		"DisableFeedbackCommands": true,
+		"DisableRemoteImprovements": true,
+		"DisableRemoteSettingsAndAcceptSecurityConsequences": true,
+		"DisableSetDesktopBackground": true,
+		"DisableTelemetry": true,
+		"SkipTermsOfUse": true
+
+	}
+}

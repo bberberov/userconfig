@@ -1,5 +1,4 @@
 kate-wildcard(*.atom): syntax XML;
-kate-wildcard(*.json): replace-tabs on; indent-width 2; tab-width 2;
 kate-wildcard(*.jsonc): syntax JSON; replace-tabs on; indent-width 2; tab-width 2;
 kate-wildcard(*.sublime-color-scheme): syntax YAML; replace-tabs on; indent-width 2; tab-width 2;
 kate-wildcard(*.sublime-syntax): syntax YAML; replace-tabs on; indent-width 2; tab-width 2;
