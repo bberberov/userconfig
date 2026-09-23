@@ -180,6 +180,26 @@ git_include_skip()
 	fi
 }
 
+git_include_update()
+{
+	if   (( 0 == ${1} ))
+	then
+		if   ! git_include_exists "${2}" "${3}"
+		then
+			git_include_append "${2}" "${3}"
+		else
+			git_include_skip "${2}" "${3}"
+		fi
+	else
+		if   git_include_exists "${2}" "${3}"
+		then
+			git_include_remove "${2}" "${3}"
+		else
+			git_include_skip "${2}" "${3}" "${4} not found"
+		fi
+	fi
+}
+
 if   ! type -fP git > /dev/null 2>&1
 then
 	if   (( 4 <= USER_COLORTERM ))
@@ -204,73 +224,37 @@ userlink ignore "${src}/ignore" "${dst}/ignore"
 userlink config.d "${src}/config.d" "${dst}/config.${dmn}.d"
 
 # Add default config, which includes user.config and host/
-if   ! git_include_exists "${dst}/config" "config.${dmn}.d/default.config"
-then
-	git_include_append "${dst}/config" "config.${dmn}.d/default.config"
-else
-	git_include_skip "${dst}/config" "config.${dmn}.d/default.config"
-fi
+git_include_update 0 "${dst}/config" "config.${dmn}.d/default.config"
 
-# Add "simple" app/ configs
-for app in \
-	bat \
-	bzip2 \
-	delta \
-	difft \
-	eza \
-	meld \
-	mergiraf \
-	xz \
-	zstd \
-;
+for filename in $(command ls -1 "${src}/config.d/app/")
 do
-	if   type -fP "${app}" > /dev/null 2>&1
-	then
-		if   ! git_include_exists "${dst}/config" "config.${dmn}.d/app/${app}.config"
-		then
-			git_include_append "${dst}/config" "config.${dmn}.d/app/${app}.config"
-		else
-			git_include_skip "${dst}/config" "config.${dmn}.d/app/${app}.config"
-		fi
-	else
-		if   git_include_exists "${dst}/config" "config.${dmn}.d/app/${app}.config"
-		then
-			git_include_remove "${dst}/config" "config.${dmn}.d/app/${app}.config"
-		else
-			git_include_skip "${dst}/config" "config.${dmn}.d/app/${app}.config" "${app} not found"
-		fi
-	fi
+	app="${filename%.config}"
+
+	# Special cases
+	case "${app}" in
+		less-621+ )
+			less_version='0'
+			if   type -fP less > /dev/null 2>&1
+			then
+				if   type -fP sed > /dev/null 2>&1
+				then
+					less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
+				elif type -fP grep > /dev/null 2>&1
+				then
+					less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
+				fi
+			fi
+
+			(( 621 <= less_version ))
+			condition=$?
+			prog='less >= 621'
+		;;
+		* )
+			type -fP "${app}" > /dev/null 2>&1
+			condition=$?
+			prog="${app}"
+		;;
+	esac
+
+	git_include_update "${condition}" "${dst}/config" "config.${dmn}.d/app/${filename}" "${prog}"
 done
-
-# Add less-621+ config
-if   type -fP less > /dev/null 2>&1
-then
-	if   type -fP sed > /dev/null 2>&1
-	then
-		less_version="$(less --version | sed -nE -e '1{ s/^less ([0-9]+).*/\1/; p; }')"
-	elif type -fP grep > /dev/null 2>&1
-	then
-		less_version="$(less --version | grep -Eo '^less [0-9]+' | grep -Eo '[0-9]+')"
-	else
-		less_version='340'
-	fi
-else
-	less_version='0'
-fi
-
-if   (( 621 <= less_version ))
-then
-	if   ! git_include_exists "${dst}/config" "config.${dmn}.d/app/less-621+.config"
-	then
-		git_include_append "${dst}/config" "config.${dmn}.d/app/less-621+.config"
-	else
-		git_include_skip "${dst}/config" "config.${dmn}.d/app/less-621+.config"
-	fi
-else
-	if   git_include_exists "${dst}/config" "config.${dmn}.d/app/less-621+.config"
-	then
-		git_include_remove "${dst}/config" "config.${dmn}.d/app/less-621+.config"
-	else
-		git_include_skip "${dst}/config" "config.${dmn}.d/app/less-621+.config" 'less-621+ not found'
-	fi
-fi
