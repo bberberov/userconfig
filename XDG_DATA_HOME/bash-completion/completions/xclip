@@ -1,0 +1,56 @@
+#! /usr/bin/env bash
+
+# Copyright © 2024, 2026 Boian Berberov
+#
+# Licensed under the EUPL-1.2 only.
+# License text: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+# SPDX-License-Identifier: EUPL-1.2
+
+_comp_cmd_xclip()
+{
+
+	# shellcheck disable=SC2034
+	local cur prev words cword comp_args
+	_comp_initialize -- "$@" || return
+
+	local long_opts='
+		-in
+		-out
+		-filter
+		-rmlastnl
+		-loops
+		-target
+		-display
+		-help
+		-selection
+		-version
+		-silent
+		-quiet
+		-verbose
+		-noutf8
+		-sensitive
+		-wait
+		-debug
+	'
+
+	case "${prev}" in
+		-h | --help | --version )
+			return
+		;;
+		-selection )
+			_comp_compgen -- -W 'primary secondary clipboard'
+			return
+		;;
+	esac
+
+	case "${cur}" in
+		-*)
+			_comp_compgen -- -W "${long_opts}"
+			return
+		;;
+		*)
+			_comp_compgen_filedir
+			return
+		;;
+	esac
+} && complete -F _comp_cmd_xclip xclip
