@@ -75,10 +75,9 @@ fi
 # diff
 if   type -fP 'diff' > '/dev/null' 2>&1
 then
+	# NOTE: --color does not work with -y  :(
 	alias         diff='diff --color=auto'
-	alias       diff-y='diff --color=auto -y'
 	alias   diff-color='diff --color=always'
-	alias diff-y-color='diff --color=always -y'
 fi
 
 # difft
