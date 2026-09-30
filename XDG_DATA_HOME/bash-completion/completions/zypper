@@ -24,7 +24,7 @@ _strip() {
 }
 
 _installed_packages() {
-	! [[ $cur =~ / ]] || return
+	[[ $cur =~ '/' ]] && return
 	# NOTE: solv.idx is already sorted and unique
 	command grep --no-messages --no-filename "^$cur"  \
 		'/var/cache/zypp/solv/@System/solv.idx' \
@@ -33,7 +33,7 @@ _installed_packages() {
 
 _available_solvables2() {
 	local lcur=$1
-	! [[ $cur =~ / ]] || return # for installing local packages
+	[[ $cur =~ '/' ]] && return # for installing local packages
 	set +o noglob
 	command grep --no-messages --no-filename "^$lcur" \
 		/var/cache/zypp/solv/*/solv.idx \
