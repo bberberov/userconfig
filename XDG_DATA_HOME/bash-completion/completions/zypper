@@ -4,7 +4,7 @@
 # Major rewrite by Josef Reidinger <jreidinger@suse.cz>
 # 2009-02-19 Allow empty spaces in repos names, Werner Fink <werner@suse.de>
 # 2015-04-26 add completion for install+remove+update commands, Bernhard M. Wiedemann <bwiedemann@suse.de>
-# 2026-01-30 speed up invocation with hard-coded lists, Boian Berberov
+# 2026-09-30 speed up invocation with herestrings, Boian Berberov
 
 _strip() {
 	local s c o
@@ -69,206 +69,27 @@ _zypper() {
 	local comp cur prev command
 	local -a opts=()
 	local -i ITER=0
-	local IFS=$'\n'
+	local IFS=$'\t\n'
 
 	# Do not expand `?' for help
 	set -o noglob
 
-	local -a ZYPPER_SUBCOMM=(
-		subcommand
-		$($ZYPPER -q subcommand | sed -e 's/, */\n/g')
-	)
-# 	Complete
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([a-z-]+, [a-z?-]+|[a-z-]+).*/\1/p' | tr -d ',' |  sort --unique
-# 	Complete, one per line
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/{ /^ {6}/{ s/^ {6}//; s/ {2}.*$//; s/, /\n/g; p } }' | sort --unique
-# 	Long only
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Commands:$/,/^  Subcommands:/s/^ {6}([^, ]+).*/\1/p' | sort --unique
+	local ZYPPER_HELP="$(LC_ALL=POSIX $ZYPPER -q -h)"
+
 	local -a ZYPPER_CMDLIST=(
-		addlocale aloc
-		addlock al
-		addrepo ar
-		addservice as
-		clean cc
-		cleanlocks cl
-		dist-upgrade dup
-		download
-		help ?
-		info if
-		install in
-		install-new-recommends inr
-		licenses
-		list-patches lp
-		list-updates lu
-		locales lloc
-		locks ll
-		modifyrepo mr
-		modifyservice ms
-		needs-rebooting
-		packages pa
-		patch
-		patch-check pchk
-		patches pch
-		patch-info
-		pattern-info
-		patterns pt
-		product-info
-		products pd
-		ps
-		purge-kernels
-		refresh ref
-		refresh-services refs
-		removelocale rloc
-		removelock rl
-		removeptf rmptf
-		removerepo rr
-		remove rm
-		removeservice rs
-		renamerepo nr
-		repos lr
-		search se
-		services ls
-		shell sh
-		source-download
-		source-install si
-		system-architecture
-		targetos tos
-		update up
-		verify ve
-		versioncmp vcmp
-		what-provides wp
-		${ZYPPER_SUBCOMM[@]}
+		$(sed -n -E -e '/^Commands:$/,${ /^ {6}/{ s/^ {6}//; s/ {2}.*$//; s/, /\t/g; p } }' <<<"${ZYPPER_HELP}" | sort --unique)
 	)
+
 	local -a ZYPPER_CMDLONG=(
-		addlocale
-		addlock
-		addrepo
-		addservice
-		clean
-		cleanlocks
-		dist-upgrade
-		download
-		help
-		info
-		install
-		install-new-recommends
-		licenses
-		list-patches
-		list-updates
-		locales
-		locks
-		modifyrepo
-		modifyservice
-		needs-rebooting
-		packages
-		patch
-		patch-check
-		patches
-		patch-info
-		pattern-info
-		patterns
-		product-info
-		products
-		ps
-		purge-kernels
-		refresh
-		refresh-services
-		remove
-		removelocale
-		removelock
-		removeptf
-		removerepo
-		removeservice
-		renamerepo
-		repos
-		search
-		services
-		shell
-		source-download
-		source-install
-		system-architecture
-		targetos
-		update
-		verify
-		versioncmp
-		what-provides
-		${ZYPPER_SUBCOMM[@]}
+		$(sed -n -E -e '/^Commands:$/,$s/^ {6}([^, ]+).*/\1/p' <<<"${ZYPPER_HELP}" | sort --unique)
 	)
-# 	Complete
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^<,]+, -.|--[^<, ]+).*/\1/p' | tr -d ',' |  sort --unique
-# 	Complete, one per line
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/{ /^ {4}/{ s/^ {4}//; s/ {2}.*$//; s/, /\n/g; s/ .*$//; p; } }' |  sort --unique
-# 	Long only
-# 	LC_ALL=POSIX zypper -q -h | sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^ ,]*).*/\1/p' | sort --unique
+
 	local -a ZYPPER_OPTLIST=(
-		--cache-dir -C
-		--color
-		--config -c
-		--disable-repositories
-		--disable-system-resolvables
-		--gpg-auto-import-keys
-		--help -h
-		--ignore-unknown -i
-		--installroot
-		--no-abbrev -A
-		--no-cd
-		--no-color
-		--no-gpg-checks
-		--non-interactive-include-reboot-patches
-		--non-interactive -n
-		--no-refresh
-		--no-remote
-		--pkg-cache-dir
-		--plus-content
-		--plus-repo -p
-		--promptids
-		--quiet -q
-		--raw-cache-dir
-		--releasever
-		--reposd-dir -D
-		--root -R
-		--solv-cache-dir
-		--table-style -s
-		--terse -t
-		--userdata
-		--verbose -v
-		--version -V
-		--xmlout -x
+		$(sed -n -E -e '/^Global Options:$/,/^Commands:$/{ /^ {4}/{ s/^ {4}//; s/ {2}.*$//; s/, /\t/g; s/ .*$//; p; } }' <<<"${ZYPPER_HELP}" | sort --unique)
 	)
+
 	local -a ZYPPER_OPTLONG=(
-		--cache-dir
-		--color
-		--config
-		--disable-repositories
-		--disable-system-resolvables
-		--gpg-auto-import-keys
-		--help
-		--ignore-unknown
-		--installroot
-		--no-abbrev
-		--no-cd
-		--no-color
-		--no-gpg-checks
-		--non-interactive
-		--non-interactive-include-reboot-patches
-		--no-refresh
-		--no-remote
-		--pkg-cache-dir
-		--plus-content
-		--plus-repo
-		--promptids
-		--quiet
-		--raw-cache-dir
-		--releasever
-		--reposd-dir
-		--root
-		--solv-cache-dir
-		--table-style
-		--terse
-		--userdata
-		--verbose
-		--version
-		--xmlout
+		$(sed -n -E -e '/^Global Options:$/,/^Commands:$/s/^ {4}(--[^ ,]*).*/\1/p' <<<"${ZYPPER_HELP}" | sort --unique)
 	)
 
 	if   (( COMP_CWORD < 1 ))
