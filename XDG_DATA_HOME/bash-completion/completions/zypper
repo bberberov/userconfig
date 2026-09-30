@@ -295,14 +295,14 @@ _zypper() {
 	done
 
 	case "$prev" in
-		--type | -t)
+		--type | -t )
 			opts=(package patch pattern product srcpackage)
 			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
 			_strip
 			eval $noglob
 			return 0;
 		;;
-		--repo | -r | --from)
+		--repo | -r | --from )
 			opts=($(_repositories))
 			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
 			_strip
@@ -324,8 +324,7 @@ _zypper() {
 		--suggests          |\
 		--suggests-pkg      |\
 		--supplements       |\
-		--supplements-pkg   \
-		)
+		--supplements-pkg   )
 			opts=($(_available_packages))
 			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
 			_strip
@@ -362,34 +361,34 @@ _zypper() {
 		if   [[ -z $cur || $cur =~ ^[^-] ]]
 		then
 			case "$command" in
-				help | '?')
+				help | '?' )
 					opts=(${ZYPPER_CMDLIST[@]})
 				;;
-				clean | cc | modifyrepo | mr | refresh | ref | removerepo | rr | renamerepo | nr | repos | lr)
+				clean | cc | modifyrepo | mr | refresh | ref | removerepo | rr | renamerepo | nr | repos | lr )
 					opts=(
 						${opts[@]}
 						$(_repositories)
 					)
 				;;
-				addservice | as | modifyservice | ms | removeservice | rs | refresh-services | refs)
+				addservice | as | modifyservice | ms | removeservice | rs | refresh-services | refs )
 					opts=(
 						${opts[@]}
 						$(LC_ALL=POSIX $ZYPPER -q ls --sort-by-name | sed -rn -e "${_zypper_sed_table_filter}")
 					)
 				;;
-				removelock | rl)
+				removelock | rl )
 					opts=(
 						${opts[@]}
 						$(LC_ALL=POSIX $ZYPPER -q ll | sed -rn -e "${_zypper_sed_table_filter}")
 					)
 				;;
-				product-info)
+				product-info )
 					opts=(
 						${opts[@]}
 						$(_available_solvables product)
 					)
 				;;
-				pattern-info)
+				pattern-info )
 					opts=(
 						${opts[@]}
 						$(_available_solvables pattern)
@@ -401,19 +400,19 @@ _zypper() {
 						$(_available_solvables patch)
 					)
 				;;
-				remove | rm | update | up)
+				remove | rm | update | up )
 					opts=(
 						${opts[@]}
 						$(_installed_packages)
 					)
 				;;
-				install | in | source-install | si | download | info | if | addlock | al)
+				install | in | source-install | si | download | info | if | addlock | al )
 					opts=(
 						${opts[@]}
 						$(_available_packages)
 					)
 				;;
-				info-color)
+				info-color )
 					opts=(
 						${opts[@]}
 						$(_available_packages)
