@@ -25,10 +25,10 @@ _strip() {
 
 _installed_packages() {
 	! [[ $cur =~ / ]] || return
+	# NOTE: solv.idx is already sorted and unique
 	command grep --no-messages --no-filename "^$cur"  \
 		'/var/cache/zypp/solv/@System/solv.idx' \
-		| cut -f1 \
-		| sort --unique
+		| cut -f1
 }
 
 _available_solvables2() {
