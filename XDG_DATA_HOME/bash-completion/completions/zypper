@@ -48,16 +48,18 @@ _available_packages() {
 	[[ $cur ]] || return # this case is too slow with many thousands of completions
 	_available_solvables2 $cur
 }
+_zypper_sed_table_filter='
+	/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
+		s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
+		s/[[:blank:]]*$//
+		/^$/d
+		p
+	}
+'
+
 _repositories() {
 	LC_ALL=POSIX "$(type -P zypper)" -q repos --alias --sort-by-alias \
-	| sed -rn '
-		/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
-			s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
-			s/[[:blank:]]*$//
-			/^$/d
-			p
-		}
-	'
+	| sed -r -n -e "${_zypper_sed_table_filter}"
 }
 
 _zypper() {
@@ -372,25 +374,13 @@ _zypper() {
 				addservice | as | modifyservice | ms | removeservice | rs | refresh-services | refs)
 					opts=(
 						${opts[@]}
-						$(LC_ALL=POSIX $ZYPPER -q ls --sort-by-name | \
-						sed -rn '/^[[:blank:]]*[0-9]/{
-							s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
-							s/[[:blank:]]*$//
-							/^$/d
-							p
-						}')
+						$(LC_ALL=POSIX $ZYPPER -q ls --sort-by-name | sed -rn -e "${_zypper_sed_table_filter}")
 					)
 				;;
 				removelock | rl)
 					opts=(
 						${opts[@]}
-						$(LC_ALL=POSIX $ZYPPER -q ll | \
-						sed -rn '/^[[:blank:]]*[0-9]/{
-							s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/p
-							s/[[:blank:]]*$//
-							/^$/d
-							p
-						}')
+						$(LC_ALL=POSIX $ZYPPER -q ll | sed -rn -e "${_zypper_sed_table_filter}")
 					)
 				;;
 				product-info)
