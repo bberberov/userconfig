@@ -48,6 +48,21 @@ _available_packages() {
 	[[ $cur ]] || return # this case is too slow with many thousands of completions
 	_available_solvables2 $cur
 }
+
+_autoinstalled_packages() {
+	# NOTE: AutoInstalled is already sorted and unique
+	LC_ALL=POSIX command grep --no-messages --no-filename "^${cur:-[^#]}"  \
+		'/var/lib/zypp/AutoInstalled'
+}
+
+_userinstalled_packages() {
+	# NOTE: solv.idx and AutoInstalled are already sorted and unique
+	LC_ALL=POSIX command grep --no-messages --no-filename "^$cur"  \
+		'/var/cache/zypp/solv/@System/solv.idx' \
+		| cut -f1 \
+		| comm --nocheck-order -2 -3 '-' '/var/lib/zypp/AutoInstalled'
+}
+
 _zypper_sed_table_filter='
 	/^[[:blank:]]*[0-9]+[[:blank:]]*\|/{
 		s/^[[:blank:]]*[0-9]+[[:blank:]]*\|[[:blank:]]*([^|]+).*/\1/
@@ -240,10 +255,21 @@ _zypper() {
 						$(_available_packages)
 					)
 				;;
+				# Custom subcommands
 				info-color )
 					opts=(
 						${opts[@]}
 						$(_available_packages)
+					)
+				;;
+				make-automatic )
+					opts=(
+						$(_userinstalled_packages)
+					)
+				;;
+				make-manual )
+					opts=(
+						$(_autoinstalled_packages)
 					)
 				;;
 			esac
