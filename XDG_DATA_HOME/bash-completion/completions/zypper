@@ -152,6 +152,13 @@ _zypper() {
 			eval $noglob
 			return 0;
 		;;
+		--filter-version-change )
+			opts=(package rebuild none)
+			COMPREPLY=($(compgen -W "${opts[*]}" -- ${cur}))
+			_strip
+			eval $noglob
+			return 0;
+		;;
 	esac
 
 	if   [[ 'zypper' == "${command}" ]]
