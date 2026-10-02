@@ -459,7 +459,7 @@ do
 		else
 			# NOTE: Special cases
 			case "${bn}" in
-				.config | bashrc.d | profile.d)
+				bashrc.d | profile.d | shrc.d )
 					userskip "${bn}" "${f}"
 				;;
 				*)
@@ -533,6 +533,9 @@ do
 		else
 			# NOTE: Special cases
 			case "${bn}" in
+				containers )
+					userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" podman
+				;;
 				kate)
 					userskip "${bn}" "${f}" 'second level only'
 				;;
