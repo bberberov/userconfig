@@ -428,24 +428,24 @@ do
 
 	if   [[ -f "${f}" ]]
 	then
-		# NOTE: Special cases
+		# NOTE: Special cases for files
 		case "${bn}" in
-			.clang-format)
+			.clang-format )
 				userlink_on_exec "${bn}" "${f}" "${HOME}/${bn}" clang-format
 			;;
-			.npmrc)
+			.npmrc )
 				userlink_on_exec "${bn}" "${f}" "${HOME}/${bn}" npm npm22 npm24
 			;;
-			.prettierrc.yaml)
+			.prettierrc.yaml )
 				userlink_on_exec "${bn}" "${f}" "${HOME}/${bn}" prettier
 			;;
-			.uncrustify.cfg)
+			.uncrustify.cfg )
 				userlink_on_exec "${bn}" "${f}" "${HOME}/${bn}" uncrustify
 			;;
-			.zypper.conf)
+			.zypper.conf )
 				userlink_on_exec "${bn}" "${f}" "${HOME}/${bn}" zypper
 			;;
-			*)
+			* )
 				userskip "${bn}" "${f}" 'because there is no specific definition'
 			;;
 		esac
@@ -457,12 +457,12 @@ do
 			"${f}/.setup.bash"
 			echo "Finished with ${f}/.setup.bash"
 		else
-			# NOTE: Special cases
+			# NOTE: Special cases for directories
 			case "${bn}" in
 				bashrc.d | profile.d | shrc.d )
 					userskip "${bn}" "${f}"
 				;;
-				*)
+				* )
 					userskip "${bn}" "${f}" 'because there is no specific definition'
 				;;
 			esac
@@ -493,7 +493,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			dconf | dolphinrc | kate | katerc | klipperrc | knighttimerc | konsolerc | ksmserverrc | kwriterc | osc | plasma*)
+			dconf | dolphinrc | kate | katerc | klipperrc | knighttimerc | konsolerc | ksmserverrc | kwriterc | osc | plasma* )
 				userskip "${bn}" "${f}" "for EUID ${EUID}"
 				continue
 			;;
@@ -502,24 +502,24 @@ do
 
 	if   [[ -f "${f}" ]]
 	then
-		# NOTE: Special cases
+		# NOTE: Special cases for files
 		case "${bn}" in
-			dolphinrc)
+			dolphinrc )
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" dolphin
 			;;
-			bash_completion)
+			bash_completion )
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" bash
 			;;
-			klipperrc | knighttimerc | plasma-nm)
+			klipperrc | knighttimerc | plasma-nm )
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" plasmashell
 			;;
-			konsolerc)
+			konsolerc )
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" konsole
 			;;
-			ksmserverrc)
+			ksmserverrc )
 				userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" ksmserver
 			;;
-			*)
+			* )
 				userlink "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
 			;;
 		esac
@@ -531,15 +531,15 @@ do
 			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
 			echo "Finished with ${f}/.setup.bash"
 		else
-			# NOTE: Special cases
+			# NOTE: Special cases for directories
 			case "${bn}" in
 				containers )
 					userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}" podman
 				;;
-				kate)
+				kate )
 					userskip "${bn}" "${f}" 'second level only'
 				;;
-				*)
+				* )
 					userlink_on_exec "${bn}" "${f}" "${XDG_CONFIG_HOME_local}/${bn}"
 				;;
 			esac
@@ -570,7 +570,7 @@ do
 	if   (( EUID < 1000 ))
 	then
 		case "${bn}" in
-			konsole | kxmlgui5 | org.kde.syntax-highlighting)
+			konsole | kxmlgui5 | org.kde.syntax-highlighting )
 				userskip "${bn}" "${f}" "for EUID ${EUID}"
 				continue
 			;;
@@ -585,18 +585,18 @@ do
 			"${f}/.setup.bash" "${domain}" "${f}" "${XDG_DATA_HOME_local}/${bn}"
 			echo "Finished with ${f}/.setup.bash"
 		else
-			# NOTE: Special cases
+			# NOTE: Special cases for directories
 			case "${bn}" in
-				applications)
+				applications )
 					userskip "${bn}" "${f}" 'configure manually'
 				;;
-				bash-completion)
+				bash-completion )
 					userskip "${bn}" "${f}" 'use BASH_COMPLETION_USER_DIR'
 				;;
-				org.kde.syntax-highlighting)
+				org.kde.syntax-highlighting )
 					userskip "${bn}" "${f}" 'configure manually'
 				;;
-				*)
+				* )
 					userlink_on_exec "${bn}" "${f}" "${XDG_DATA_HOME_local}/${bn}"
 				;;
 			esac
@@ -633,9 +633,9 @@ then
 				"${f}/.setup.bash" "${domain}" "${f}" "${XDG_TEMPLATES_DIR_local}/${bn}"
 				echo "Finished with ${f}/.setup.bash"
 			else
-				# NOTE: Special cases
+				# NOTE: Special cases for directories
 				case "${bn}" in
-					*)
+					* )
 						userlink_on_exec "${bn}" "${f}" "${XDG_TEMPLATES_DIR_local}/${bn}"
 					;;
 				esac
