@@ -8,12 +8,17 @@
 
 function dry_mv()
 {
-	if   (( 0 < opt_dry ))
+	if   [[ "${HOME}" == "${cur_full_dir}" ]]
 	then
-		parent="$(realpath --canonicalize-missing "${tgt_full_dir}/..")"
-		[[ ! -d "${parent}" ]] && mkdir -p "${parent}"
+		echo -e "\e[36m${cur_name}\e[0m is \e[36mHOME\e[0m, \e[31mskipping\e[0m"
+	else
+		if   (( 0 < opt_dry ))
+		then
+			parent="$(realpath --canonicalize-missing "${tgt_full_dir}/..")"
+			[[ ! -d "${parent}" ]] && mkdir -p "${parent}"
 
-		mv "${cur_full_dir}" "${tgt_full_dir}"
+			mv "${cur_full_dir}" "${tgt_full_dir}"
+		fi
 	fi
 }
 
@@ -70,6 +75,6 @@ do
 
 		(( 0 < opt_dry )) && xdg-user-dirs-update --set "${cur_name}" "${tgt_full_dir}"
 	else
-		echo -e "\e[34m${cur_name}\e[0m is already \e[34m${tgt_full_dir}\e[0m"
+		echo -e "\e[36m${cur_name}\e[0m is already \e[34m${tgt_full_dir}\e[0m"
 	fi
 done
