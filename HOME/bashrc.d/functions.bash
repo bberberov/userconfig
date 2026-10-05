@@ -10,10 +10,20 @@ case "${-:-}" in *i* )  # BEGIN Interactive only
 
 fn_cd_if_exists()
 {
+	local rval
+
 	if   [[ -d "${1}" ]]
 	then
-		cd "${1}" || return 1
+		cd "${1}"
+		rval=$?
+
+		if   (( 0 < rval ))
+		then
+			echo "error: failed to cd into ${1}" > '/dev/stderr'
+			return ${rval}
+		fi
 	else
+		echo "error: ${1} does not exist" > '/dev/stderr'
 		return 1
 	fi
 }
