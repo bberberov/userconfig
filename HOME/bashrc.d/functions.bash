@@ -102,7 +102,7 @@ then
 	fn_cd_git_repo()
 	{
 		local r rval
-		r="$(git rev-parse --git-common-dir 2> /dev/null)"
+		r="$(git rev-parse --git-common-dir 2> '/dev/null')"
 		rval=$?
 
 		if   [[ -n "${r}" ]]
@@ -153,34 +153,34 @@ then
 				cd "${t}" || return 205
 			else
 				local r
-				r="$(git rev-parse --git-common-dir 2> /dev/null)"
+				r="$(git rev-parse --git-common-dir 2> '/dev/null')"
 				rval=$?
 
 				if   (( 0 == rval ))
 				then
 					local w
-					w="$(ls -1 "${r}/worktrees/" 2> /dev/null)"
+					w="$(ls -1 "${r}/worktrees/" 2> '/dev/null')"
 					rval=$?
 
 					if   (( 0 == rval ))
 					then
 						local wn
-						wn="$(echo "${w}" | wc -l 2> /dev/null)"
+						wn="$(echo "${w}" | wc -l 2> '/dev/null')"
 						rval=$?
 
 						if   (( 1 == wn )) && [[ -f "${r}/worktrees/${w}/gitdir" ]]
 						then
 							fn_cd_file_gitdir "${r}/worktrees/${w}/gitdir"
 						else
-							echo 'fatal: no single worktree configuration directory found' > /dev/stderr
+							echo 'fatal: no single worktree configuration directory found' > '/dev/stderr'
 							return 1
 						fi
 					else
-						echo 'fatal: failed to find worktree configuration directories' > /dev/stderr
+						echo 'fatal: failed to find worktree configuration directories' > '/dev/stderr'
 						return ${rval}
 					fi
 				else
-					echo 'fatal: this operation must be run in a worktree or a repo' > /dev/stderr
+					echo 'fatal: this operation must be run in a worktree or a repo' > '/dev/stderr'
 					return ${rval}
 				fi
 			fi
