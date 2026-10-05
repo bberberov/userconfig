@@ -22,6 +22,7 @@
 				"PKGBUILD",
 				"_constraints",
 				"_service",
+				"baselibs.conf",
 				"config.sh",
 				"debian.changelog",
 				"debian.compat",
